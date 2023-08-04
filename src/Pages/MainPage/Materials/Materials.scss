@@ -1,0 +1,22 @@
+@use "../../../UI/colors.scss" as *;
+@import "../../../UI/Text.scss";
+
+.materials {
+  background-color: $gray;
+
+  &__title { 
+    text-align: center;
+    @include headerText;
+  }
+
+  &__text { 
+    color: white;
+    padding: 50px 300px;
+    @include regularText;
+  }
+
+  &__btn { 
+    display: flex;
+    justify-content: center;
+  }
+}

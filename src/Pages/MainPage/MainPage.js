@@ -6,6 +6,7 @@ import TTG from "./TTG/TTG.js";
 import Start from "./Start/Start.js";
 import Shop from "./ShopBlock/ShopBlock.js";
 import ForWho from "./ForWho/ForWho.js";
+import Materials from "./Materials/Materials.js";
 
 export default function MainPage(){
 
@@ -21,6 +22,7 @@ export default function MainPage(){
         Для кого існує цей портал
       </div>
       <ForWho/>
+      <Materials/>
     </>
   )
 }
