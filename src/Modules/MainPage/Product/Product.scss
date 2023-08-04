@@ -1,0 +1,48 @@
+@import "../../../UI/Text.scss";
+
+.mpProduct {
+
+  &__image {
+    height: 320px;
+    width: 320px;
+    border-radius: 12px;
+
+    background-size: cover;
+    background-position: center center;
+
+    margin-bottom: 40px;
+    position: relative;
+  }
+
+  &__text {
+    @include regularText;
+  }
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgb(7,12,15);
+    background: linear-gradient(0deg, rgba(7,12,15,1) 0%, rgba(7,12,15,0) 100%);
+
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    padding-bottom: 30px;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:hover .mpProduct__btn{
+      opacity: 1;
+    }
+  }
+
+  &__btn{
+    opacity: 0;
+    transition: 0.5s;
+  }
+}

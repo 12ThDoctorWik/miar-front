@@ -1,0 +1,42 @@
+@import "../../../UI/Text.scss";
+
+.forWho {
+  background-image: url("../../../Assets/Images/MainPage/forWho_background.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  min-height: 100vh;
+
+  position: relative;
+  overflow-x: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__img{
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+
+    background-size: cover;
+    background-position: center;
+
+    margin-bottom: 30px;
+  }
+
+  &__text {
+    @include regularText;
+    width: 40%;
+
+    min-height: 50vh;
+    text-align: center;
+  }
+}

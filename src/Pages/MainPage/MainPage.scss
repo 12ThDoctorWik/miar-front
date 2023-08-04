@@ -1,7 +1,19 @@
+@use "../../UI/colors.scss" as *;
+@import "../../UI/Text.scss";
+
 .mainPage {
 
   &__block {
     padding-top: 100px;
     padding-bottom: 100px;
   }
+
+  &__title {
+    @include headerText;
+    text-align: center;
+    background-color: $gray;
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
 }
+
