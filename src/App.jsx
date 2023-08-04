@@ -6,6 +6,8 @@ import Auth from "./auth/Auth";
 import Header from "./Modules/Header/Header.js"
 import MainPage from "./Pages/MainPage/MainPage.js";
 
+import PopupAuth from "./Modules/PopupAuth/PopupAuth.js";
+
 function App() {
   return (
     <div className="App">
@@ -16,6 +18,7 @@ function App() {
           <Route path="*" element={<Navigate to={'/auth'} replace/>}/>
         </Routes>
       </Router>
+      <PopupAuth/>
     </div>
   );
 }
