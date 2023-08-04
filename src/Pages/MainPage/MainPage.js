@@ -3,6 +3,7 @@ import "./MainPage.scss";
 
 import Opening from "./Opening/Opening.js";
 import TTG from "./TTG/TTG.js";
+import Start from "./Start/Start.js";
 
 export default function MainPage(){
 
@@ -12,6 +13,7 @@ export default function MainPage(){
     <>
       <Opening/>
       <TTG/>
+      <Start/>
     </>
   )
 }

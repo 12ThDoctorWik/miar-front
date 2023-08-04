@@ -31,7 +31,7 @@ export default function TTG() {
   }
 
   return (
-    <div className="ttg container">
+    <div className="ttg container mainPage__block">
       <div className="ttg__title">Настільно Рольові Ігри </div>
       <div className="ttg__text">
         НРІ - це жанр ігор, в яких гравці приймають на себе ролі фантастичних

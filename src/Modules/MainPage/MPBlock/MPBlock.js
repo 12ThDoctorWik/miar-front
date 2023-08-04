@@ -1,6 +1,6 @@
 import React from "react";
 import "./MPBlock.scss";
-import Button from "../../Components/Button/Button.js";
+import Button from "../../../Components/Button/Button.js";
 
 export default function MPBlock() {
   return (

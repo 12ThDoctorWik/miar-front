@@ -1,0 +1,29 @@
+@import "../../../UI/Text.scss";
+
+.start {
+  background-image: url(../../../Assets/Images/MainPage/start_background.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+
+  min-height: 100vh;
+
+  color: white;
+
+  &__title {
+    @include headerText;
+    text-align: center;
+    margin-bottom: 160px;
+  }
+
+  &__text {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  &__btn {
+    display: flex;
+    justify-content: center;
+  }
+}

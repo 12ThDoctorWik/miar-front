@@ -1,6 +1,6 @@
 import React from 'react';
 import "./Opening.scss";
-import MPBlock from "../../../Modules/MPBlock/MPBlock.js";
+import MPBlock from "../../../Modules/MainPage//MPBlock/MPBlock.js";
 
 export default function Opening() {
 
