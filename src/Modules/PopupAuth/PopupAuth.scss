@@ -6,9 +6,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
   z-index: 10;
-
   background-color: $lightPurple;
   color: white;
   border-radius: 18px;
@@ -19,10 +17,22 @@
   min-width: 70vw;
   min-height: 75vh;
 
+  display: none;
+
+  &_open {
+    display: grid;
+    animation: showPopup .2s;
+  }
+
   &__image {
     background-image: url(../../Assets/Images/popupAuth_background.png);
-    background-size: contain;
+    background-repeat: no-repeat;
+    background-size: cover;
     background-position: center;
+
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 18px;
+
   }
 
   &__info {
@@ -114,5 +124,27 @@
       display: block;
       text-align: center;
     }
+  }
+}
+
+
+@keyframes showPopup {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes hidePopup {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    display: none;
   }
 }

@@ -2,7 +2,7 @@ import './App.css';
 import { BrowserRouter as Router } from "react-router-dom";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Auth from "./auth/Auth";
-
+import Overlay from "./Components/Overlay/Overlay.js";
 import Header from "./Modules/Header/Header.js"
 import MainPage from "./Pages/MainPage/MainPage.js";
 
@@ -17,6 +17,7 @@ function App() {
           <Route path="*" element={<Navigate to={'/auth'} replace/>}/>
         </Routes>
       </Router>
+      <Overlay/>
     </div>
   );
 }

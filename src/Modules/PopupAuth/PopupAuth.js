@@ -4,10 +4,17 @@ import "./PopupAuth.scss";
 import {telegram, cross_white} from "../../Assets/Icons/icons.js";
 
 export default function PopupAuth() {
+
+
+  function closePopup() {
+    document.getElementById("popupAuth").classList.remove("popupAuth_open")
+    document.getElementById("overlay").style.display = "none"
+  }
+
   return (
-    <div className="popupAuth">
+    <div className="popupAuth popup" id="popupAuth">
       <div className="popupAuth__info container">
-        <img src={cross_white} alt="exit" className="popupAuth__cross"/>
+        <img src={cross_white} alt="exit" onClick={closePopup} className="popupAuth__cross"/>
         <div className="popupAuth__header">
           <div className="popupAuth__logo">MIAR</div>
           <div className="popupAuth__title">Вітаємо на порталі НРІ*</div>
