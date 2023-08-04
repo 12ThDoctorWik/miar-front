@@ -1,0 +1,65 @@
+@use "../../UI/colors.scss" as *;
+@import "../../UI/Text.scss";
+
+.header {
+  background-color: $blue;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: auto;
+
+  z-index: 10;
+
+  display: flex;
+  justify-content: space-between;
+
+  &__logo {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    @include decorativeText;
+    color: $gold;
+  }
+
+  &__nav {
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+
+    @include regularText;
+
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  &__user {
+
+    padding-top: 20px;
+    padding-bottom: 20px;
+    @include regularText;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  &__link {
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &_active {
+      position: relative;
+      color: $gold;
+      &::before {
+        content: '';
+        position: absolute;
+
+        bottom: 0;
+        right: 0;
+        left: 0;
+        height: 4px;
+
+        background-color: $gold;
+      }
+    }
+  }
+}
