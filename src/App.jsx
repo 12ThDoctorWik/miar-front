@@ -18,7 +18,7 @@ function App() {
           <Route path="*" element={<Navigate to={'/auth'} replace/>}/>
         </Routes>
       </Router>
-      <PopupAuth/>
+      {/* <PopupAuth/> */}
     </div>
   );
 }

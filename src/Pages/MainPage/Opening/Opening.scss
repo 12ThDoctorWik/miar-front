@@ -9,4 +9,65 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+
+  position: relative; 
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+
+.smoke,
+.smoke-bg {
+  position: absolute;
+  width: 90vw;
+  height: 100vh;
+  left: 0;
+  bottom: 0;
+  z-index: 0;
+  background-size: cover;
+  overflow-y: hidden;
+
+  
+}
+
+.smoke-bg {
+  background-image: url('https://www.picng.com/upload/smoke/png_smoke_7337.png');
+  z-index: 0;
+}
+
+.smoke {
+  animation: float2 15s infinite ease-in-out;
+}
+
+.smoke-bg {
+  animation: float alternate 30s infinite ease-in-out;
+}
+
+@keyframes float {
+  0% {
+    opacity: 0.8;
+    transform: translateX(3%) scale(1.2);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateX(0) scale(1.4);
+  }
+  100% {
+    opacity: 0.8;
+    transform: translateX(-3%) scale(1.2);
+  }
+}
+@keyframes float2 {
+  0% {
+    opacity: 0;
+    transform: translateX(-10%) scale(1.5);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(0) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(10%) scale(1.5);
+  }
 }
