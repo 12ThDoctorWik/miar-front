@@ -1,0 +1,28 @@
+@use "../../UI/colors.scss" as *;
+@import "../../UI/Text.scss";
+
+.bubble {
+  position: absolute;
+
+  &__circle {
+    display: block;
+    background-color: $darkPurple;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+  }
+
+  &__text {
+    @include regularText;
+    text-align: center;
+  }
+
+  box-sizing: border-box;
+
+  z-index: 0;
+
+	animation-duration: 30s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	animation-timing-function: ease;
+}

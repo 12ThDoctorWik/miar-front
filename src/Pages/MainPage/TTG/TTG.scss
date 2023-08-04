@@ -1,0 +1,34 @@
+@use "../../../UI/colors.scss" as *;
+@import "../../../UI/Text.scss";
+
+.ttg {
+  position: relative;
+
+  background-color: $darkBlue;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 50px;
+  align-items: center;
+  justify-content: center;
+
+  padding-top: 100px;
+  padding-bottom: 100px;
+
+  &__title {
+    z-index: 1;
+    @include headerText;
+    text-align: center;
+  }
+
+  &__text {
+    z-index: 1;
+    @include regularText;
+    max-width: 55%;
+    justify-self: center;
+  }
+
+  &__btn {
+    display: flex;
+    justify-content: center;
+  }
+}

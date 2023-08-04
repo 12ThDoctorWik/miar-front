@@ -1,0 +1,27 @@
+@import "../../UI/Text.scss";
+
+.mpBlock {
+  
+  max-width: 40vw;
+
+  &__title {
+    font-size: 96px;
+    font-weight: 500;
+    line-height: 116px;
+    letter-spacing: -0.019em;
+    text-align: left;
+    color: white;
+
+    margin-bottom: 20px;
+  }
+
+  &__text{
+    @include regularText;
+    margin-bottom: 20px;
+  }
+
+  &__btns {
+    display: flex;
+    gap: 30px;
+  }
+}
