@@ -7,6 +7,7 @@ import Start from "./Start/Start.js";
 import Shop from "./ShopBlock/ShopBlock.js";
 import ForWho from "./ForWho/ForWho.js";
 import Materials from "./Materials/Materials.js";
+import Questions from "./Questions/Questions.js";
 
 export default function MainPage(){
 
@@ -23,6 +24,7 @@ export default function MainPage(){
       </div>
       <ForWho/>
       <Materials/>
+      <Questions/>
     </>
   )
 }
