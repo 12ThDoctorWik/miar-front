@@ -11,8 +11,8 @@ import Calendar from "./Pages/Calendar/Calendar.js";
 function App() {
   return (
     <div className="App">
-      <Header/>
       <Router>
+        <Header/>
         <Routes>
           <Route exact path="/auth" element={<Auth/>}/>
           <Route exact path="/" element={<MainPage/>}/>

@@ -12,7 +12,7 @@ export default function MPBlock() {
         почнуть свою епічну подорож.”
       </div>
       <div className="mpBlock__btns">
-        <Button text="Знайти гру"/>
+        <Button text="Календар ігор"/>
         <Button text="Замовити гру" type="goldTransparent"/>
       </div>
     </div>

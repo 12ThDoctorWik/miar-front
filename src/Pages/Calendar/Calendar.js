@@ -73,17 +73,9 @@ export default function Calendar() {
   }
 
   const moment = require('moment');
-
-  // Припустимо, що сьогоднішня дата - 5 серпня 2023 року
   const today = moment();
-  
-  // Визначаємо день тижня у форматі числа (0 для неділі, 1 для понеділка, ..., 6 для суботи)
   const dayOfWeek = today.day();
-  
-  // Встановлюємо дату на понеділок цього тижня
   const mondayDate = today.clone().subtract(dayOfWeek - 1, 'days').format('DD.MM');
-  
-  // Зберігаємо дати усіх днів цього тижня у масиві
   const daysInWeek = [];
   for (let i = 0; i < 7; i++) {
     const currentDate = today.clone().subtract(dayOfWeek - 1 - i, 'days').format('DD.MM');

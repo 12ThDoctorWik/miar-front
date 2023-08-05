@@ -45,6 +45,7 @@
   }
 
   &__link {
+    all: unset;
 
     &:hover {
       cursor: pointer;
@@ -65,5 +66,5 @@
         background-color: $gold;
       }
     }
-  }
+  } 
 }
