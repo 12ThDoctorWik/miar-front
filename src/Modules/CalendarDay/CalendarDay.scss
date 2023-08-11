@@ -1,0 +1,37 @@
+@use "../../UI/colors.scss" as *;
+@import "../../UI/Text.scss";
+
+.calendarDay {
+
+  padding: 10px 40px;
+  gap: 20px;
+
+  &__title {
+    background-color: white;
+    @include regularText;
+    color: black;
+    display: inline-block;
+    padding: 5px 5px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+
+  &__games {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 20px;
+  }
+
+  &_today {
+    background-color: rgba(239, 223, 150, 0.6);
+  }
+
+  &__warning {
+    @include regularText;
+    color: gray;
+    display: flex;
+    align-items: center;
+    
+  }
+  // margin-bottom: 50px;
+}

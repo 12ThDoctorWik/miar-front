@@ -1,0 +1,134 @@
+@import "../../UI/Text.scss";
+
+.front,
+.back {
+  display: flex;
+  border-radius: 6px;
+  background-position: center;
+  background-size: cover;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+
+  width: auto;
+  height: 100%;
+
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transition: ease-in-out 600ms;
+}
+
+.front {
+  background-size: cover;
+  background-position: center;
+
+  width: 100%;
+  height: 100%;
+
+  transform-style: preserve-3d;
+  transition: ease-in-out 600ms;
+  
+  overflow: hidden;
+
+  &:before {
+    position: absolute;
+    display: block;
+    content: '';
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: .25;
+    z-index: -1;
+  }
+
+  .gameCard:hover & {
+    transform: rotateY(180deg);
+  }
+}
+
+.back {
+  background: #fff;
+  transform: rotateY(-180deg);
+  padding: 0 2em;
+  
+  .button {
+    background: linear-gradient(135deg, adjust-hue(blue, -20deg), blue);
+    
+    &:before {
+      box-shadow: 0 0 10px 10px rgba(blue, 0.25);
+    background-color: rgba(blue, 0.25);
+    }
+  }
+  
+  .gameCard:hover & {
+    transform: rotateY(0deg);
+  }
+  
+  .gameCard:nth-child(even) & {
+    transform: rotateY(180deg);
+    
+    .button {
+    background: linear-gradient(135deg, adjust-hue(red, -20deg), red);
+    
+    &:before {
+      box-shadow: 0 0 10px 10px rgba(red, 0.25);
+    background-color: rgba(red, 0.25);
+    }
+  }
+  }
+  
+  .gameCard:nth-child(even):hover & {
+    transform: rotateY(0deg);
+  }
+}
+
+
+.gameCard {
+  background-size: cover;
+  background-position: center;
+  position: relative;
+
+  border-radius: 8px;
+  perspective: 1000px;
+  height: 40vh;
+
+  &__overlay {
+    position: absolute;
+    display: flex;
+    align-items: flex-end;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    padding: 5px 10px;
+    border-radius: 8px;
+    background: linear-gradient(359.5deg, #000001 35.46%, rgba(5, 6, 7, 0.979167) 36.85%, rgba(0, 0, 0, 0) 93.51%);
+  }
+
+  &__title {
+    @include regularText;
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 25px;
+    letter-spacing: -0.019em;
+    text-align: left;
+
+    margin-bottom: 35px;
+  }
+
+  &__marks {
+    position: absolute;
+    right: 0px;
+    top: 5px;
+    display: flex;
+    gap: 5px;
+  }
+
+  &__mark {
+    width: 40%;
+  }
+}

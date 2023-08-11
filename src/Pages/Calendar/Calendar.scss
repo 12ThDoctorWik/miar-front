@@ -1,0 +1,14 @@
+.calendar {
+  background-color: rgba(32, 28, 32, 1);
+  min-height: 100vh;
+
+  display: grid;
+  grid-template-columns: 15vw auto;
+  padding-top: 72px;
+
+  &__week {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+  }
+}
