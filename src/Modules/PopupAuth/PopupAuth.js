@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./PopupAuth.scss";
 
 import {telegram, cross_white} from "../../Assets/Icons/icons.js";
+import { login } from "../../Store";
+import { useThunk } from "../../Hooks/useThunk";
+import TelegramLoginButton from "../../Auth/CustomTelegramLogin";
 
-export default function PopupAuth() {
-
+function PopupAuth() {
+  const [useLogin, loginError] = useThunk(login);
 
   function closePopup() {
     document.getElementById("popupAuth").classList.remove("popupAuth_open")
     document.getElementById("overlay").style.display = "none"
   }
+  // const handleTelegramResponse = (response) => {
+  //   console.log(response);
+  //   useLogin(response);
+  // }
 
   return (
     <div className="popupAuth popup" id="popupAuth">
@@ -22,12 +29,13 @@ export default function PopupAuth() {
         </div>
 
         <div className="popupAuth__body">
-          <div className="popupAuth__tg">
-            <div className="popupAuth__tg_container">
-              <img src={telegram} alt="icon"/>
-              <span>Увійти за допомогою Telegram</span>
-            </div>
-          </div>
+          {/*<div className="popupAuth__tg" onClick={useLogin}>*/}
+          {/*  <div className="popupAuth__tg_container">*/}
+          {/*    <img src={telegram} alt="icon"/>*/}
+          {/*    <span>Увійти за допомогою Telegram</span>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
+          <TelegramLoginButton dataOnauth={useLogin} botName="dndLvivBot" className="popupAuth__tg" />
           <div className="popupAuth__text">
             Авторизуючись на порталі ви погоджуєтесь з &nbsp;
             <a href="#" className="popupAuth__link">
@@ -55,3 +63,4 @@ export default function PopupAuth() {
     </div>
   );
 }
+export default PopupAuth;
