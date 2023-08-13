@@ -13,42 +13,210 @@ let info = [
     title: "Старе (не) добре підземелля",
     isPrivate: true,
     date: '',
-    day: 'Saturday'
+    day: 'Saturday',
+    details: {
+      club: "Майстерня Рольовика",
+      master: "NikkiN",
+      what: "DND",
+      where: "онлайн",
+      when: "7 серпня 18:00",
+      levels: "5 - 10",
+      places: "2 з 5",
+      price: "150",
+      type: "Приватна"
+    },
+    players: [
+      {
+        name: "John",
+        photo: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80",
+        username: "@john123"
+      },
+      {
+        name: "Kate",
+        photo: "",
+        username: "noth_str_"
+      },
+      {
+        name: "Bob",
+        photo: "",
+        usename: "bobo2bo3"
+      }
+    ]
+  },
+  {
+    photo: testGame,
+    title: "Старе (не) добре підземелля",
+    isPrivate: false,
+    date: '',
+    day: 'Monday',
+    details: {
+      club: "Майстерня Рольовика",
+      master: "NikkiN",
+      what: "DND",
+      where: "онлайн",
+      when: "7 серпня 18:00",
+      levels: "5 - 10",
+      places: "2 з 5",
+      price: "150",
+      type: "Приватна"
+    },
+    players: [
+      {
+        name: "John",
+        photo: "",
+        username: "@john123"
+      },
+      {
+        name: "Kate",
+        photo: "",
+        username: "noth_str_"
+      },
+      {
+        name: "Bob",
+        photo: "",
+        usename: "bobo2bo3"
+      }
+    ]
   },
   {
     photo: testGame,
     title: "Старе (не) добре підземелля",
     isPrivate: true,
     date: '',
-    day: 'Monday'
+    day: 'Sunday',
+    details: {
+      club: "Майстерня Рольовика",
+      master: "NikkiN",
+      what: "DND",
+      where: "онлайн",
+      when: "7 серпня 18:00",
+      levels: "5 - 10",
+      places: "2 з 5",
+      price: "150",
+      type: "Приватна"
+    },
+    players: [
+      {
+        name: "John",
+        photo: "",
+        username: "@john123"
+      },
+      {
+        name: "Kate",
+        photo: "",
+        username: "noth_str_"
+      },
+      {
+        name: "Bob",
+        photo: "",
+        usename: "bobo2bo3"
+      }
+    ]
   },
   {
     photo: testGame,
     title: "Старе (не) добре підземелля",
     isPrivate: true,
     date: '',
-    day: 'Sunday'
+    day: 'Monday',
+    details: {
+      club: "Майстерня Рольовика",
+      master: "NikkiN",
+      what: "DND",
+      where: "онлайн",
+      when: "7 серпня 18:00",
+      levels: "5 - 10",
+      places: "2 з 5",
+      price: "150",
+      type: "Приватна"
+    },
+    players: [
+      {
+        name: "John",
+        photo: "",
+        username: "@john123"
+      },
+      {
+        name: "Kate",
+        photo: "",
+        username: "noth_str_"
+      },
+      {
+        name: "Bob",
+        photo: "",
+        usename: "bobo2bo3"
+      }
+    ]
   },
   {
     photo: testGame,
     title: "Старе (не) добре підземелля",
     isPrivate: true,
     date: '',
-    day: 'Monday'
+    day: 'Monday',
+    details: {
+      club: "Майстерня Рольовика",
+      master: "NikkiN",
+      what: "DND",
+      where: "онлайн",
+      when: "7 серпня 18:00",
+      levels: "5 - 10",
+      places: "2 з 5",
+      price: "150",
+      type: "Приватна"
+    },
+    players: [
+      {
+        name: "John",
+        photo: "",
+        username: "@john123"
+      },
+      {
+        name: "Kate",
+        photo: "",
+        username: "noth_str_"
+      },
+      {
+        name: "Bob",
+        photo: "",
+        usename: "bobo2bo3"
+      }
+    ]
   },
   {
     photo: testGame,
     title: "Старе (не) добре підземелля",
     isPrivate: true,
     date: '',
-    day: 'Monday'
-  },
-  {
-    photo: testGame,
-    title: "Старе (не) добре підземелля",
-    isPrivate: true,
-    date: '',
-    day: 'Friday'
+    day: 'Friday',
+    details: {
+      club: "Майстерня Рольовика",
+      master: "NikkiN",
+      what: "DND",
+      where: "онлайн",
+      when: "7 серпня 18:00",
+      levels: "5 - 10",
+      places: "2 з 5",
+      price: "150",
+      type: "Приватна"
+    },
+    players: [
+      {
+        name: "John",
+        photo: "",
+        username: "@john123"
+      },
+      {
+        name: "Kate",
+        photo: "",
+        username: "noth_str_"
+      },
+      {
+        name: "Bob",
+        photo: "",
+        usename: "bobo2bo3"
+      }
+    ]
   }
 ]
 
@@ -92,6 +260,7 @@ export default function Calendar() {
     <div className="calendar">
       <Filters/>
       <div className="calendar__week">
+        <div className="calendar__navigation"></div>
         <CalendarDay day="Monday" date={daysInWeek[0]} games={week.Monday}/>
         <CalendarDay day="Tuesday" date={daysInWeek[1]} games={week.Tuesday}/>
         <CalendarDay day="Wednesday" date={daysInWeek[2]} games={week.Wednesday}/>

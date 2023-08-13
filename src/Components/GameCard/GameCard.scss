@@ -1,18 +1,17 @@
+@use "../../UI/colors.scss" as *;
 @import "../../UI/Text.scss";
 
 .front,
 .back {
-  display: flex;
   border-radius: 6px;
   background-position: center;
   background-size: cover;
-  text-align: center;
   justify-content: center;
   align-items: center;
   position: absolute;
 
   width: auto;
-  height: 100%;
+  height: 360px;
 
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -24,8 +23,8 @@
   background-size: cover;
   background-position: center;
 
-  width: 100%;
-  height: 100%;
+  width: 261px;
+  height: 360px;
 
   transform-style: preserve-3d;
   transition: ease-in-out 600ms;
@@ -50,18 +49,26 @@
 }
 
 .back {
-  background: #fff;
+  background: rgba(30,31,34,255);
+
+  width: 261px;
   transform: rotateY(-180deg);
-  padding: 0 2em;
-  
-  .button {
-    background: linear-gradient(135deg, adjust-hue(blue, -20deg), blue);
-    
-    &:before {
-      box-shadow: 0 0 10px 10px rgba(blue, 0.25);
-    background-color: rgba(blue, 0.25);
-    }
-  }
+  padding: 16px;
+  padding-top: 25px;
+  box-sizing: border-box;
+  color: white;
+
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 25px;
+  letter-spacing: -0.019em;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  // align-items: flex-start;
+
   
   .gameCard:hover & {
     transform: rotateY(0deg);
@@ -83,6 +90,29 @@
   .gameCard:nth-child(even):hover & {
     transform: rotateY(0deg);
   }
+
+  &__info {
+    // background-color: red;
+    align-self: flex-start;
+  }
+
+  &__text {
+    margin-bottom: 5px;
+  }
+
+  &__data {
+    color: rgba(255, 255, 255, 0.6);
+    margin-left: 5px;
+  }
+
+  &__btn {
+    text-align: center;
+    background-color: $gold;
+    color: black;
+    width: 93%;
+    padding: 8px;
+    border-radius: 4px;
+  }
 }
 
 
@@ -98,14 +128,16 @@
   &__overlay {
     position: absolute;
     display: flex;
-    align-items: flex-end;
+    flex-direction: column;
+    justify-content: flex-end;
+
     top: 0;
     bottom: 0;
     right: 0;
     left: 0;
-    padding: 5px 10px;
+    padding: 10px 10px;
     border-radius: 8px;
-    background: linear-gradient(359.5deg, #000001 35.46%, rgba(5, 6, 7, 0.979167) 36.85%, rgba(0, 0, 0, 0) 93.51%);
+    background: linear-gradient(0deg, #232426 0%, rgba(35, 36, 38, 0) 100%);
   }
 
   &__title {
@@ -117,18 +149,30 @@
     letter-spacing: -0.019em;
     text-align: left;
 
-    margin-bottom: 35px;
+    margin-bottom: 10px;
+  }
+
+  &__data {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  &__line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 25px;
+    letter-spacing: -0.019em;
   }
 
   &__marks {
     position: absolute;
-    right: 0px;
+    right: 10px;
     top: 5px;
-    display: flex;
-    gap: 5px;
   }
 
   &__mark {
-    width: 40%;
+    width: 100%;
   }
 }

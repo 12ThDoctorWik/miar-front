@@ -1,6 +1,5 @@
 .calendar {
-  background-color: rgba(32, 28, 32, 1);
-  min-height: 100vh;
+  background: rgba(18,19,22,255);
 
   display: grid;
   grid-template-columns: 15vw auto;
@@ -9,6 +8,6 @@
   &__week {
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    gap: 90px;
   }
 }

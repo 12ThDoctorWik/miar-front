@@ -18,3 +18,4 @@ export default function MPBlock() {
     </div>
   );
 }
+

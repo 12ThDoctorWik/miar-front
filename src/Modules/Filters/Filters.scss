@@ -1,8 +1,41 @@
-.filters {
-  // position: fixed;
-  // top: 0;
-  // bottom: 0;
+@import "../../UI/Text.scss";
 
-  background-color: black;
+.filters {
+  background: rgba(18,19,22,255);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-left: none;
   width: 15vw;
+
+  user-select: none;
+}
+
+
+.accordion {
+  &__title {
+    @include regularText;
+    font-weight: 500;
+  }
+
+  &__btnGroup {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  &__day {
+    text-align: center;
+    padding: 8px;
+    border-radius: 4px;
+    background-color: #2c2d30;
+    color: #FFFFFF99;
+
+    &_active {
+      background-color: #B1C5FF;
+      color: black;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
