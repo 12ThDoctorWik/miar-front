@@ -1,17 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { session } from "../Thunks/Session/getSession";
+import { session } from "../Thunks/Session/fetchSessions";
 
 const sessionSlice = createSlice({
-  name: 'session',
+  name: 'sessions',
   initialState: {
-    session: null,
+    sessions: null,
     error: null,
   },
   extraReducers(builder) {
     builder.addCase(session.fulfilled, (state, action) => {
       console.log('action', action);
-      state.session = action.payload;
-
+      state.sessions = action.payload;
     });
     builder.addCase(session.rejected, (state, action) => {
       console.log('login.rejected', action)
@@ -21,4 +20,5 @@ const sessionSlice = createSlice({
   },
 });
 
+export const selectSessions = (state) => state.session;
 export { sessionSlice };

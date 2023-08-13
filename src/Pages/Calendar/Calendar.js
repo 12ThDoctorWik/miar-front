@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "./Calendar.scss";
-import Moment from 'react-moment';
-import moment from 'moment';
+// import Moment from 'react-moment';
+// import moment from 'moment';
 
 import Filters from "../../Modules/Filters/Filters.js";
 import CalendarDay from "../../Modules/CalendarDay/CalendarDay.js";
 import testGame from "../../Assets/Images/testGame.png";
 import { useThunk } from "../../Hooks/useThunk";
-import { session, store } from "../../Store";
+import { session } from "../../Store";
+import { useSelector } from "react-redux";
 
 let info = [
   {
@@ -223,16 +224,17 @@ let info = [
 ]
 
 export default function Calendar() {
-  const [getSession, getSessionError] = useThunk(session);
+  const [fetchSessions, fetchSessionsError] = useThunk(session);
+  const { sessions } = useSelector((state) => state.sessions);
 
-  getSession({
-    "daysBefore": 1,
-    "daysAfter": 1
-  });
+  useEffect(() => {
+    fetchSessions({
+      "daysBefore": 1, // todo move to const current week -> nextWeek() || prevWeek()
+      "daysAfter": 7
+    });
+  }, [fetchSessions]);
 
-  const state = store.getState();
-
-  console.log('state from component', state);
+  console.log('sessions in calendar', sessions);
 
   let week = {
     Monday: [],
@@ -246,7 +248,7 @@ export default function Calendar() {
 
 
   function sortByDay() {
-    info.map((el)=>{
+    info.map((el) => {
       week[el.day].push(el);
     })
     console.log(week)
@@ -261,26 +263,26 @@ export default function Calendar() {
     const currentDate = today.clone().subtract(dayOfWeek - 1 - i, 'days').format('DD.MM');
     daysInWeek.push(currentDate);
   }
-  
+
 
   sortByDay();
 
   const currentDate = moment();
   const daysInCurrentMonth = currentDate.daysInMonth();
 
-  return(
-    <div className="calendar">
-      <Filters/>
-      <div className="calendar__week">
-        <div className="calendar__navigation"></div>
-        <CalendarDay day="Monday" date={daysInWeek[0]} games={week.Monday}/>
-        <CalendarDay day="Tuesday" date={daysInWeek[1]} games={week.Tuesday}/>
-        <CalendarDay day="Wednesday" date={daysInWeek[2]} games={week.Wednesday}/>
-        <CalendarDay day="Thursday" date={daysInWeek[3]} games={week.Thursday}/>
-        <CalendarDay day="Friday" date={daysInWeek[4]} games={week.Friday}/>
-        <CalendarDay day="Saturday" date={daysInWeek[5]} games={week.Saturday}/>
-        <CalendarDay day="Sunday" date={daysInWeek[6]} games={week.Sunday}/>
+  return (
+      <div className="calendar">
+        <Filters/>
+        <div className="calendar__week">
+          <div className="calendar__navigation"></div>
+          <CalendarDay day="Monday" date={daysInWeek[0]} games={week.Monday}/>
+          <CalendarDay day="Tuesday" date={daysInWeek[1]} games={week.Tuesday}/>
+          <CalendarDay day="Wednesday" date={daysInWeek[2]} games={week.Wednesday}/>
+          <CalendarDay day="Thursday" date={daysInWeek[3]} games={week.Thursday}/>
+          <CalendarDay day="Friday" date={daysInWeek[4]} games={week.Friday}/>
+          <CalendarDay day="Saturday" date={daysInWeek[5]} games={week.Saturday}/>
+          <CalendarDay day="Sunday" date={daysInWeek[6]} games={week.Sunday}/>
+        </div>
       </div>
-    </div>
   )
 }
