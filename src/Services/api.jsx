@@ -4,22 +4,16 @@ const client = axios.create({
   baseURL: process.env.REACT_APP_API_URI,
   headers: { 'Accept': 'application/json', 'Content-Type': 'application/json;charset=utf-8' }
 });
-const refreshToken = () => {
-  const refresh = localStorage.getItem('refreshToken');
-  //todo apiCall refreshToken;
-}
+
 const apiCall = async ({ method, url, body = null, tokenized = false }) => {
   if (tokenized) {
     //get from local storage
-    const authKey = JSON.parse(localStorage.getItem('accessToken'));
+    const authKey = localStorage.getItem('accessToken');
     if (!authKey) {
-      //todo -> show modal Зареєструйся, курво.
       throw new Error('No token provided');
     }
-    client.defaults.headers.common['authentication'] = authKey;
+    client.defaults.headers.common['Authorization'] = 'Bearer ' + authKey;
   }
-
-  console.log(process.env.REACT_APP_API_URI + url);
 
   try {
     const res = await client({
@@ -28,13 +22,41 @@ const apiCall = async ({ method, url, body = null, tokenized = false }) => {
       data: body,
     });
 
-    // todo if (res.code = 401)
-    // use refresh token to refresh the access token
     return res.data;
   } catch (error) {
-    console.error(error);
-    return Promise.reject(error.response || error.message);
+    if (!!error.response && error.response.status === 401) {
+      const refresh = localStorage.getItem('refreshToken');
+
+      if (refresh === null || refresh === undefined || refresh === 'undefined') {
+        console.warn('login first. no refresh token provided');
+        return null;
+      }
+      const refResponse = await client({
+        method: "POST",
+        url: process.env.REACT_APP_API_URI + '/auth/refresh-token',
+        data: {
+          token: refresh,
+        },
+      });
+
+      const parsed = JSON.parse(refResponse.data);
+      localStorage.setItem('accessToken', parsed.Token);
+      localStorage.setItem('refreshToken', parsed.RefreshToken);
+
+      client.defaults.headers.common['Authorization'] = 'Bearer ' + parsed.Token;
+      const res = await client({
+        method,
+        url: process.env.REACT_APP_API_URI + url,
+        data: body,
+      });
+
+      return res.data;
+    } else {
+
+      console.warn(error);
+      return Promise.reject(error.response || error.message);
+    }
   }
-};
+}
 
 export { apiCall };

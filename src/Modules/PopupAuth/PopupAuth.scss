@@ -82,29 +82,9 @@
   }
 
   &__tg {
-    background-color: $telegram;
-    border-radius: 20px;
-    // padding: 10px 10px;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
-    margin-bottom: 30px;
-
-    &_container {
-      display: flex;
-      gap: 20px;
-    }
-
-    &:hover {
-      cursor: pointer;
-    }
-
-    iframe {
-      width: 100%;
-      border-radius: 20px;
-    }
   }
 
   &__text {

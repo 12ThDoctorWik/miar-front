@@ -13,3 +13,4 @@ export { store };
 
 // export * from './Hooks/useThunk';
 export * from './Thunks/Auth/login';
+export * from './Thunks/Auth/fakelogin';

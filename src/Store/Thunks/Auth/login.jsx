@@ -2,24 +2,22 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { apiCall } from '../../../Services/api';
 
 const login = createAsyncThunk('auth/login', async (payload) => {
-  console.log('payload', payload);
-//  // "id": "1464575948",
-//       // "first_name": "Denys",
-//       // "last_name": "Serhieiev ✙",
-//       // "username": "@tropen09",
-//       // "photo_url": "string",
-//       // "auth_date": "string",
-//       // "hash": "string"
-//
   const response = await apiCall({
     method: 'POST',
     url: '/auth/login',
-    body:
-      payload
+    body: payload
   });
 
-  console.log('response', response);
-  return response.data;
+  const responseParsed = JSON.parse(response);
+
+  if (!response || !responseParsed || !responseParsed.Token) {
+    console.warn('Error on login', response); //todo make error better
+  }
+
+  responseParsed.user = payload;
+  // responseParsed.user = user;
+
+  return responseParsed;
 });
 
 export { login };

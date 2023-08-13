@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import PopupAuth from "../PopupAuth/PopupAuth.js";
 
 export default function Header() {
+  // const [myState, setMyState] = useState('initialState')
 
   function showAuth() {
     document.getElementById("popupAuth").classList.add("popupAuth_open")
