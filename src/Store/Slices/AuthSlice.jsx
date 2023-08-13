@@ -23,7 +23,7 @@ const authSlice = createSlice({
         localStorage.setItem('refreshToken', action.payload.RefreshToken);
       }
       state.user = action.payload.user;
-      console.log()
+      console.log(state.user);
     });
     builder.addCase(fakelogin.rejected, (state, action) => {
       console.warn('fakelogin.rejected', action)

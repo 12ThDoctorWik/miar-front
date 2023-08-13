@@ -6,6 +6,8 @@ import moment from 'moment';
 import Filters from "../../Modules/Filters/Filters.js";
 import CalendarDay from "../../Modules/CalendarDay/CalendarDay.js";
 import testGame from "../../Assets/Images/testGame.png";
+import { useThunk } from "../../Hooks/useThunk";
+import { session, store } from "../../Store";
 
 let info = [
   {
@@ -221,6 +223,16 @@ let info = [
 ]
 
 export default function Calendar() {
+  const [getSession, getSessionError] = useThunk(session);
+
+  getSession({
+    "daysBefore": 1,
+    "daysAfter": 1
+  });
+
+  const state = store.getState();
+
+  console.log('state from component', state);
 
   let week = {
     Monday: [],
