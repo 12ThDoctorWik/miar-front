@@ -84,7 +84,7 @@
   &__tg {
     background-color: $telegram;
     border-radius: 20px;
-    padding: 10px 10px;
+    // padding: 10px 10px;
 
     display: flex;
     justify-content: center;
@@ -99,6 +99,11 @@
 
     &:hover {
       cursor: pointer;
+    }
+
+    iframe {
+      width: 100%;
+      border-radius: 20px;
     }
   }
 

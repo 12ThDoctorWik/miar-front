@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import "../Modules/PopupAuth/PopupAuth.scss";
 
 class TelegramLoginButton extends React.Component {
   constructor(props) {
