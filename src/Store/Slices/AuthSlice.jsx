@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { login } from "../Thunks/Auth/login";
 import { fakelogin } from "../Thunks/Auth/fakelogin";
+import { checkUserLoggedIn } from "../Thunks/Auth/checkUserLoggedIn";
 
 const authSlice = createSlice({
   name: 'auth',
@@ -12,7 +13,7 @@ const authSlice = createSlice({
     builder.addCase(login.fulfilled, (state, action) => {
     });
     builder.addCase(login.rejected, (state, action) => {
-      console.log('login.rejected', action)
+      console.warn('login.rejected', action)
       state.error = action.error;
     });
     builder.addCase(fakelogin.fulfilled, (state, action) => {
@@ -23,11 +24,19 @@ const authSlice = createSlice({
         localStorage.setItem('refreshToken', action.payload.RefreshToken);
       }
       state.user = action.payload.user;
-      console.log(state.user);
     });
-    builder.addCase(fakelogin.rejected, (state, action) => {
-      console.warn('fakelogin.rejected', action)
-      state.error = action.error;
+    builder.addCase(checkUserLoggedIn.fulfilled, (state, action) => {
+      if (action.payload.accessToken) {
+        localStorage.setItem('accessToken', action.payload.accessToken);
+      }
+      if (action.payload.refreshToken) {
+        localStorage.setItem('refreshToken', action.payload.refreshToken);
+      }
+      state.user = action.payload.user;
+    });
+
+    builder.addCase(checkUserLoggedIn.rejected, (state, action) => {
+      state.user = null;
     });
   },
 });

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "./PopupAuth.scss";
 
 import {telegram, cross_white} from "../../Assets/Icons/icons.js";
-import { login, fakelogin } from "../../Store";
+import { login, fakelogin, checkUser } from "../../Store";
 import { useThunk } from "../../Hooks/useThunk";
 import TelegramLoginButton from "../../Auth/CustomTelegramLogin";
 
@@ -14,10 +14,6 @@ function PopupAuth() {
     document.getElementById("popupAuth").classList.remove("popupAuth_open")
     document.getElementById("overlay").style.display = "none"
   }
-  // const handleTelegramResponse = (response) => {
-  //   console.log(response);
-  //   useLogin(response);
-  // }
 
   return (
     <div className="popupAuth popup" id="popupAuth">

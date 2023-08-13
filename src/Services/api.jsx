@@ -42,6 +42,11 @@ const apiCall = async ({ method, url, body = null, tokenized = false }) => {
       const parsed = JSON.parse(refResponse.data);
       localStorage.setItem('accessToken', parsed.Token);
       localStorage.setItem('refreshToken', parsed.RefreshToken);
+      // localStorage.setItem('role', parsed.Role);
+      // localStorage.setItem('user', JSON.stringify({
+      //   name:parsed.Name,
+      //   avatar:parsed.Avatar,
+      // }));
 
       client.defaults.headers.common['Authorization'] = 'Bearer ' + parsed.Token;
       const res = await client({

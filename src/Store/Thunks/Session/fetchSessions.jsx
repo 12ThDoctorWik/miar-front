@@ -8,7 +8,7 @@ const session = createAsyncThunk('session/fetch', async (payload) => {
     body: payload
   });
 
-  console.log('response', response);
+  console.log('sessions.response', response);
 
   return JSON.parse(response);
 });
