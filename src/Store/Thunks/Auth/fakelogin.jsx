@@ -34,8 +34,11 @@ const fakelogin = createAsyncThunk('auth/login2', async (payload) => {
     console.warn('Error on login', response); //todo make error better
   }
 
-  // responseParsed.user = payload;
-  responseParsed.user = user;
+  responseParsed.user = {
+    name: responseParsed.Name,
+    avatar: responseParsed.Avatar,
+    role: responseParsed.Role,
+  };
 
   return responseParsed;
 });
