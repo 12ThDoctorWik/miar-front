@@ -5,8 +5,9 @@ import Overlay from "./Components/Overlay/Overlay.js";
 import Header from "./Modules/Header/Header.js"
 import MainPage from "./Pages/MainPage/MainPage.js";
 import GamePage from "./Pages/GamePage/GamePage.js";
-
 import Calendar from "./Pages/Calendar/Calendar.js";
+
+import CreateGame from "./Pages/CreateGame/CreateGame.js";
 
 function App() {
   document.title = "MIAR";
@@ -18,6 +19,7 @@ function App() {
           <Route exact path="/" element={<MainPage/>}/>
           <Route exact path="/calendar" element={<Calendar/>}/>
           <Route exact path="/game" element={<GamePage/>}/>
+          <Route exact path="/game_creator" element={<CreateGame/>}/>
           <Route path="*" element={<Navigate to={'/auth'} replace/>}/>
         </Routes>
       </Router>

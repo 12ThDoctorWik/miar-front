@@ -1,0 +1,19 @@
+@use "../../UI/colors.scss" as *;
+
+.createGame {
+  min-height: 100vh;
+  background-color: $background;
+  padding: 100px 150px;
+
+  &__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+
+  &__container {
+    background-color: white;
+    border-radius: 16px;
+    padding: 40px;
+  }
+}
