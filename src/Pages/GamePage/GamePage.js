@@ -38,13 +38,13 @@ const myGame = {
     },
     {
       name: "Kate",
-      photo: "",
-      username: "noth_str_",
+      photo: "https://i.pinimg.com/280x280_RS/53/0f/35/530f35bd8edb56eaefb9031694bb0c68.jpg",
+      username: "@noth_str_",
     },
     {
       name: "Bob",
-      photo: "",
-      usename: "bobo2bo3",
+      photo: "https://images.squarespace-cdn.com/content/v1/5bfc8dbab40b9d7dd9054f41/1543424201416-S6Q5OPV25MXETU154ZLQ/Randy+Krum+Profile+Photo+square.jpg",
+      username: "",
     },
   ],
 };
@@ -154,10 +154,40 @@ export default function GamePage({game}) {
 
           <div className="gpInfo__text">{game.details.description}</div>
           <div className="gpInfo__tags">
+            {game.details.tags.map((el)=>{
+              return(
+                <div className="gpInfo__tag" key={el}>
+                  {el}
+                </div>
+              )
+            })}
           </div>
           <div className="gpInfo__btn">Зареєструватись</div>
         </div>
       </div>
+
+      {game.players.length > 0 ?   
+        <div className="gamePage__players">
+          <div className="gamePage__players_title">Зареєстровані гравці</div>
+          <div className="gamePage__players_container">
+            {
+              game.players.map((el)=>{
+                return(
+                  <div className="gamePage__player player">
+                    <img src={el.photo} className='player__photo' alt="player"/>
+                    <div className="player__info">
+                      <div className="player__name">{el.name}</div>
+                      {el.username == "" ? null : 
+                        <div className="player__username">{el.username}</div>
+                      }
+                    </div>
+                  </div>
+                )
+              })
+            }
+          </div>
+        </div> : null
+      }
     </div>
   );
 }
