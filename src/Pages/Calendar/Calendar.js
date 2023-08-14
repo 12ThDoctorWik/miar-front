@@ -134,45 +134,46 @@ export default function Calendar() {
     },
   ]
   function getData() {
-    const format = 'DD-MM HH:mm';
-    sessions.map((el)=>{
-      const dateMoment = moment(el.StartTime, format);
-      switch(dateMoment.day()){
-        case 0:
-          el.day = "Sunday";
-          break;
-        case 1:
-          el.day = "Monday";
-          break;
-        case 2:
-          el.day = "Tuesday";
-          break;
-        case 3:
-          el.day = "Wednesday";
-          break;
-        case 4:
-          el.day = "Thursday";
-          break;
-        case 5:
-          el.day = "Friday";
-          break;
-        case 6:
-          el.day = "Saturday";
-          break;
-        default:
-          el.day = "Invalid day";
-          break;
-      }
-    })
-    sortByDay()
-  }
-  function sortByDay() {
-    sessions.map((el) => {
-      week[el.day].push(el);
-    })
+    // if (sessions) {
+      const format = 'DD-MM HH:mm';
+      sessions.map((el) => {
+        const dateMoment = moment(el.StartTime, format);
+        switch (dateMoment.day()) {
+          case 0:
+            el.day = "Sunday";
+            break;
+          case 1:
+            el.day = "Monday";
+            break;
+          case 2:
+            el.day = "Tuesday";
+            break;
+          case 3:
+            el.day = "Wednesday";
+            break;
+          case 4:
+            el.day = "Thursday";
+            break;
+          case 5:
+            el.day = "Friday";
+            break;
+          case 6:
+            el.day = "Saturday";
+            break;
+          default:
+            el.day = "Invalid day";
+            break;
+        }
+      })
+      sessions.map((el) => {
+        week[el.day].push(el);
+      })
+    // }
   }
 
-  getData()
+  if (sessions) {
+    getData()
+  }
 
   return (
       <div className="calendar">
