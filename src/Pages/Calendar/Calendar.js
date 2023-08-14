@@ -165,12 +165,15 @@ export default function Calendar() {
     })
     sortByDay()
   }
+  
   function sortByDay(element, day) {
     if (element == undefined || day == undefined) return
     week[day].push(element);
   }
 
-  getData()
+  if (sessions) {
+    getData()
+  }
 
   return (
       <div className="calendar">
