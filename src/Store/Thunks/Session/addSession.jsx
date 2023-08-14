@@ -8,8 +8,6 @@ const addSession = createAsyncThunk('session/add', async (payload) => {
     body: payload
   });
 
-  console.log('sessions.response', response);
-
   return response;
 });
 
