@@ -24,7 +24,6 @@ export default function Navigate({changeInfo}) {
     if(!elem.classList.contains("navigate__block")) elem = elem.parentNode;
 
     let parent = elem.parentNode;
-    console.log(parent.children);
     [...parent.children].map((el)=>{
       if(el.classList.contains("navigate__block_active")){
         el.classList.remove("navigate__block_active");

@@ -17,7 +17,6 @@ import { useThunk } from "../../Hooks/useThunk";
 
 const fields = []
 const validate = (values) => {
-  console.log('validate', values);
   const errors = {};
   const checks = [
     'name',

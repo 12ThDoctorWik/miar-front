@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import "./Calendar.scss";
 // import Moment from 'react-moment';
-// import moment from 'moment';
+import moment from 'moment';
 
 import Filters from "../../Modules/Filters/Filters.js";
 import CalendarDay from "../../Modules/CalendarDay/CalendarDay.js";
@@ -229,6 +229,41 @@ export default function Calendar() {
   const { sessions } = useSelector((state) => state.sessions);
   const { user } = useSelector((state) => state.auth);
 
+  // get days dates
+  const myMoment = require('moment');
+  const today = myMoment();
+  const daysInWeek = [];
+  daysInWeek.push(today.format('DD.MM'));
+  for (let i = 1; i <= 6; i++) {
+    const nextDay = today.clone().add(i, 'days');
+    daysInWeek.push(nextDay.format('DD.MM'));
+  }
+
+  // get days names
+  const moment = require('moment');
+  const daysOfWeekNames = moment.weekdays(); // Масив назв англійських днів тижня
+
+  let weekDays = [];
+  const todayIndex = today.day(); 
+  for (let i = todayIndex; i <= 6; i++) {
+    weekDays.push(daysOfWeekNames[i]);
+  }
+  for (let i = 0; i < todayIndex; i++) {
+    weekDays.push(daysOfWeekNames[i]);
+  }
+  const translationMap = {
+    'понеділок': 'Monday',
+    'вівторок': 'Tuesday',
+    'середа': 'Wednesday',
+    'четвер': 'Thursday',
+    'п’ятниця': 'Friday',
+    'субота': 'Saturday',
+    'неділя': 'Sunday'
+  };
+  weekDays = weekDays.map(dayUkr => translationMap[dayUkr]);
+  console.log(weekDays)
+
+
   useEffect(() => {
     doFetchSessions({
       "daysBefore": 1, // todo move to const current week -> nextWeek() || prevWeek()
@@ -236,7 +271,7 @@ export default function Calendar() {
     });
   }, [doFetchSessions]);
 
-  console.log('sessions in calendar', sessions);
+  // console.log('sessions in calendar', sessions);
 
   let week = {
     Monday: [],
@@ -247,43 +282,127 @@ export default function Calendar() {
     Saturday: [],
     Sunday: []
   }
-
-
+  let test = [
+    {
+      "Id": 3,
+      "Name": "Test Session",
+      "Description": "Dalekwik`s Test session",
+      "ImageURL": "string",
+      "StartTime": "16-08 07:42",
+      "MaxPlayer": 5,
+      "MinLevel": 1,
+      "MaxLevel": 5,
+      "Visible": 1,
+      "PricePerPlayer": 150,
+      "LocationType": 1,
+      "Location": "Re:Bro",
+      "Tags": [
+          "DnD",
+          "NewBie"
+      ],
+      "Day": 5,
+      "MasterName": "",
+      "Difficult": 0,
+      "CurrentPlayers": 0
+    },
+    {
+      "Id": 3,
+      "Name": "Test Session",
+      "Description": "Dalekwik`s Test session",
+      "ImageURL": "string",
+      "StartTime": "15-08 07:42",
+      "MaxPlayer": 5,
+      "MinLevel": 1,
+      "MaxLevel": 5,
+      "Visible": 1,
+      "PricePerPlayer": 150,
+      "LocationType": 1,
+      "Location": "Re:Bro",
+      "Tags": [
+          "DnD",
+          "NewBie"
+      ],
+      "Day": 5,
+      "MasterName": "",
+      "Difficult": 0,
+      "CurrentPlayers": 0
+    },
+    {
+      "Id": 3,
+      "Name": "Test Session",
+      "Description": "Dalekwik`s Test session",
+      "ImageURL": "string",
+      "StartTime": "18-08 07:42",
+      "MaxPlayer": 5,
+      "MinLevel": 1,
+      "MaxLevel": 5,
+      "Visible": 1,
+      "PricePerPlayer": 150,
+      "LocationType": 1,
+      "Location": "Re:Bro",
+      "Tags": [
+          "DnD",
+          "NewBie"
+      ],
+      "Day": 5,
+      "MasterName": "",
+      "Difficult": 0,
+      "CurrentPlayers": 0
+    },
+  ]
+  function getData() {
+    const format = 'DD-MM HH:mm';
+    test.map((el)=>{
+      const dateMoment = moment(el.StartTime, format);
+      switch(dateMoment.day()){
+        case 0:
+          el.day = "Sunday";
+          break;
+        case 1:
+          el.day = "Monday";
+          break;
+        case 2:
+          el.day = "Tuesday";
+          break;
+        case 3:
+          el.day = "Wednesday";
+          break;
+        case 4:
+          el.day = "Thursday";
+          break;
+        case 5:
+          el.day = "Friday";
+          break;
+        case 6:
+          el.day = "Saturday";
+          break;
+        default:
+          el.day = "Invalid day";
+          break;
+      }
+    })
+    sortByDay()
+  }
   function sortByDay() {
-    info.map((el) => {
+    test.map((el) => {
       week[el.day].push(el);
     })
-    console.log(week)
   }
 
-  const moment = require('moment');
-  const today = moment();
-  const dayOfWeek = today.day();
-  const mondayDate = today.clone().subtract(dayOfWeek - 1, 'days').format('DD.MM');
-  const daysInWeek = [];
-  for (let i = 0; i < 7; i++) {
-    const currentDate = today.clone().subtract(dayOfWeek - 1 - i, 'days').format('DD.MM');
-    daysInWeek.push(currentDate);
-  }
-
-
-  sortByDay();
-
-  const currentDate = moment();
-  const daysInCurrentMonth = currentDate.daysInMonth();
+  getData()
 
   return (
       <div className="calendar">
         <Filters/>
         <div className="calendar__week">
           <div className="calendar__navigation"></div>
-          <CalendarDay day="Monday" date={daysInWeek[0]} games={week.Monday}/>
-          <CalendarDay day="Tuesday" date={daysInWeek[1]} games={week.Tuesday}/>
-          <CalendarDay day="Wednesday" date={daysInWeek[2]} games={week.Wednesday}/>
-          <CalendarDay day="Thursday" date={daysInWeek[3]} games={week.Thursday}/>
-          <CalendarDay day="Friday" date={daysInWeek[4]} games={week.Friday}/>
-          <CalendarDay day="Saturday" date={daysInWeek[5]} games={week.Saturday}/>
-          <CalendarDay day="Sunday" date={daysInWeek[6]} games={week.Sunday}/>
+          <CalendarDay day={weekDays[0]} date={daysInWeek[0]} games={week.Monday}/>
+          <CalendarDay day={weekDays[1]} date={daysInWeek[1]} games={week.Tuesday}/>
+          <CalendarDay day={weekDays[2]} date={daysInWeek[2]} games={week.Wednesday}/>
+          <CalendarDay day={weekDays[3]} date={daysInWeek[3]} games={week.Thursday}/>
+          <CalendarDay day={weekDays[4]} date={daysInWeek[4]} games={week.Friday}/>
+          <CalendarDay day={weekDays[5]} date={daysInWeek[5]} games={week.Saturday}/>
+          <CalendarDay day={weekDays[6]} date={daysInWeek[6]} games={week.Sunday}/>
         </div>
         {
           (user && (user.role === "Admin" || user.role === "DM")) ? <CustomButton type={'_gold_rightCorner'} to={'/game_creator'}/> : null
