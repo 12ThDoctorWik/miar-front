@@ -18,7 +18,7 @@ function PopupAuth() {
 
   useEffect(() => {
     if (loginStatus === SLICE_STATUSES.SUCCESS) {
-      dispatch(toastSlice.actions.showMessage('Віхд виконано. Вдалого пошуку скарбів', TOAST_LEVEL.RED));
+      dispatch(toastSlice.actions.showMessage('Вхід виконано. Вдалого пошуку скарбів', TOAST_LEVEL.RED));
     }
   },[loginStatus]);
 

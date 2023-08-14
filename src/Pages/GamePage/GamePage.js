@@ -2,6 +2,8 @@ import React from 'react';
 import "./GamePage.scss";
 import {player, player_active, fire, fire_active} from "../../Assets/Icons/icons.js";
 import {useParams} from 'react-router-dom';
+import { TOAST_LEVEL, toastSlice } from "../../Store/Slices/ToastSlice";
+import { useDispatch } from "react-redux";
 
 const myGame =  {
   "Id": 3,
@@ -27,6 +29,7 @@ const myGame =  {
 };
 
 export default function GamePage({game}) {
+  const dispatch = useDispatch();
 
   game = myGame;
   const params = useParams();
@@ -38,6 +41,10 @@ export default function GamePage({game}) {
   }
 
   // console.log(gameId)
+
+  function handleClick() {
+    dispatch(toastSlice.actions.showMessage('Реєстрація на ігри тимчасово недоступна', TOAST_LEVEL.YELLOW));
+  }
 
   return (
     <div className="gamePage">
@@ -148,7 +155,7 @@ export default function GamePage({game}) {
               )
             })}
           </div>
-          <div className="gpInfo__btn">Зареєструватись</div>
+          <div className="gpInfo__btn" onClick={handleClick}>Зареєструватись</div>
         </div>
       </div>
 
