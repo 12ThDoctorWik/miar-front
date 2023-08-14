@@ -14,13 +14,15 @@ const login = createAsyncThunk('auth/login', async (payload) => {
     console.warn('Error on login', response); //todo make error better
   }
 
-  responseParsed.user = {
-    name: responseParsed.Name,
-    avatar: responseParsed.Avatar,
-    role: responseParsed.Role,
+  return {
+    accessToken: responseParsed.Token,
+    refreshToken: responseParsed.RefreshToken,
+    user: {
+      name: responseParsed.Name,
+      avatar: responseParsed.Avatar,
+      role: responseParsed.Role,
+    }
   };
-
-  return responseParsed;
 });
 
 export { login };

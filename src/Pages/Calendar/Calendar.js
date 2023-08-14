@@ -226,6 +226,7 @@ let info = [
 export default function Calendar() {
   const [fetchSessions, fetchSessionsError] = useThunk(session);
   const { sessions } = useSelector((state) => state.sessions);
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     fetchSessions({

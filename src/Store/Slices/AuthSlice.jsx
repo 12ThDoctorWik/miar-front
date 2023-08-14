@@ -11,6 +11,13 @@ const authSlice = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(login.fulfilled, (state, action) => {
+      if (action.payload.accessToken) {
+        localStorage.setItem('accessToken', action.payload.accessToken);
+      }
+      if (action.payload.refreshToken) {
+        localStorage.setItem('refreshToken', action.payload.refreshToken);
+      }
+      state.user = action.payload.user;
     });
     builder.addCase(login.rejected, (state, action) => {
       console.warn('login.rejected', action)
