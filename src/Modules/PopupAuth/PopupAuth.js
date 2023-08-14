@@ -30,12 +30,12 @@ function PopupAuth() {
             <TelegramLoginButton dataOnauth={useLogin} botName="dndLvivBot" />
           </div>
 
-          <div className="popupAuth__tg" style={{backgroundColor: 'RED'}} onClick={useFakeLogin}>
-               <div className="popupAuth__tg_container">
-                 <img src={telegram} alt="icon"/>
-                 <span>TEST LOGIN</span>
-               </div>
-          </div>
+          {/*<div className="popupAuth__tg" style={{backgroundColor: 'RED'}} onClick={useFakeLogin}>*/}
+          {/*     <div className="popupAuth__tg_container">*/}
+          {/*       <img src={telegram} alt="icon"/>*/}
+          {/*       <span>TEST LOGIN</span>*/}
+          {/*     </div>*/}
+          {/*</div>*/}
 
           <div className="popupAuth__text">
             Авторизуючись на порталі ви погоджуєтесь з &nbsp;

@@ -32,7 +32,7 @@ const validate = (values) => {
   checks.forEach((field) => {
     if (!values[field]) {
       errors[field] = 'Required';
-      console.warn('Required', field);
+      // console.warn('Required', field);
     }
   });
 
@@ -59,6 +59,7 @@ export default function CreateGame() {
       locationType: 0,
       visible: +values.visible,
       tags,
+      // image
     }
 
     console.log('newGameObject', newGame);
@@ -161,9 +162,13 @@ export default function CreateGame() {
                     </Field>
                     <TextField id="tags" name="tags" label="Теги (через кому з пробілом)" variant="outlined"
                                sx={{ color: "white" }}/>
-                    {/*<div>*/}
-                    {/*  <input type="file" id="image" name="image"/>*/}
-                    {/*</div>*/}
+
+                    <TextField name="image" label="Фон (URL)" variant="outlined"
+                               sx={{ color: "white" }}/>
+                    {/*<Field id="image" name="image" component={'textarea'} placeholder="Опис">*/}
+                    {/*  { props => (<input type="file"/>*/}
+                    {/*  )}*/}
+                    {/*</Field>*/}
 
                     {/*<FilePicker></FilePicker>*/}
 
