@@ -34,6 +34,7 @@ export default function CreateGame() {
         
 
         <Button variant="contained">Створити гру</Button>
+        <Button variant="filled">Q</Button>
         
       </div>
     </div>
