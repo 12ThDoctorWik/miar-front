@@ -19,7 +19,7 @@ const sessionSlice = createSlice({
     });
 
     builder.addCase(addSession.fulfilled, (state, action) => {
-      console.log('session.fulfilled', action);
+      console.log('session.fulfilled', action.payload);
       // state.sessions = action.payload;
     });
     builder.addCase(addSession.rejected, (state, action) => {

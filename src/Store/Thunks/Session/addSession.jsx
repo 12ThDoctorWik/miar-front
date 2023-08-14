@@ -4,13 +4,13 @@ import { apiCall } from '../../../Services/api';
 const addSession = createAsyncThunk('session/add', async (payload) => {
   const response = await apiCall({
     method: 'POST',
-    url: '/session/сreate-session',
+    url: '/session/create-session',
     body: payload
   });
 
   console.log('sessions.response', response);
 
-  return JSON.parse(response);
+  return response;
 });
 
 export { addSession };
