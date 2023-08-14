@@ -1,5 +1,6 @@
 import React from "react";
 import "./GameCard.scss";
+import { Link } from "react-router-dom";
 
 import { lock, star, date, master, location } from "../../Assets/Icons/icons.js";
 
@@ -12,7 +13,7 @@ export default function GameCard({ info }) {
 
   return (
     <>
-      <a className="gameCard" href="#!">
+      <Link className="gameCard" to={"/game/"+info.Id}>
         <div
           className="front"
           style={{ backgroundImage: "url(" + image + ")" }}
@@ -66,7 +67,7 @@ export default function GameCard({ info }) {
           </div>
           <div className="back__btn">Зареєструватись</div>
         </div>
-      </a>
+      </Link>
     </>
   );
 }

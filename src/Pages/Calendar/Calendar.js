@@ -5,224 +5,10 @@ import moment from 'moment';
 
 import Filters from "../../Modules/Filters/Filters.js";
 import CalendarDay from "../../Modules/CalendarDay/CalendarDay.js";
-import testGame from "../../Assets/Images/testGame.png";
 import { useThunk } from "../../Hooks/useThunk";
 import { fetchSessions } from "../../Store";
 import { useSelector } from "react-redux";
 import CustomButton from "../../Components/CustomButton/CustomButton";
-
-let info = [
-  {
-    photo: testGame,
-    title: "Старе (не) добре підземелля",
-    isPrivate: true,
-    date: '',
-    day: 'Saturday',
-    details: {
-      club: "Майстерня Рольовика",
-      master: "NikkiN",
-      what: "DND",
-      where: "онлайн",
-      when: "7 серпня 18:00",
-      levels: "5 - 10",
-      places: "2 з 5",
-      price: "150",
-      type: "Приватна"
-    },
-    players: [
-      {
-        name: "John",
-        photo: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80",
-        username: "@john123"
-      },
-      {
-        name: "Kate",
-        photo: "",
-        username: "noth_str_"
-      },
-      {
-        name: "Bob",
-        photo: "",
-        usename: "bobo2bo3"
-      }
-    ]
-  },
-  {
-    photo: testGame,
-    title: "Старе (не) добре підземелля",
-    isPrivate: false,
-    date: '',
-    day: 'Monday',
-    details: {
-      club: "Майстерня Рольовика",
-      master: "NikkiN",
-      what: "DND",
-      where: "онлайн",
-      when: "7 серпня 18:00",
-      levels: "5 - 10",
-      places: "2 з 5",
-      price: "150",
-      type: "Приватна"
-    },
-    players: [
-      {
-        name: "John",
-        photo: "",
-        username: "@john123"
-      },
-      {
-        name: "Kate",
-        photo: "",
-        username: "noth_str_"
-      },
-      {
-        name: "Bob",
-        photo: "",
-        usename: "bobo2bo3"
-      }
-    ]
-  },
-  {
-    photo: testGame,
-    title: "Старе (не) добре підземелля",
-    isPrivate: true,
-    date: '',
-    day: 'Sunday',
-    details: {
-      club: "Майстерня Рольовика",
-      master: "NikkiN",
-      what: "DND",
-      where: "онлайн",
-      when: "7 серпня 18:00",
-      levels: "5 - 10",
-      places: "2 з 5",
-      price: "150",
-      type: "Приватна"
-    },
-    players: [
-      {
-        name: "John",
-        photo: "",
-        username: "@john123"
-      },
-      {
-        name: "Kate",
-        photo: "",
-        username: "noth_str_"
-      },
-      {
-        name: "Bob",
-        photo: "",
-        usename: "bobo2bo3"
-      }
-    ]
-  },
-  {
-    photo: testGame,
-    title: "Старе (не) добре підземелля",
-    isPrivate: true,
-    date: '',
-    day: 'Monday',
-    details: {
-      club: "Майстерня Рольовика",
-      master: "NikkiN",
-      what: "DND",
-      where: "онлайн",
-      when: "7 серпня 18:00",
-      levels: "5 - 10",
-      places: "2 з 5",
-      price: "150",
-      type: "Приватна"
-    },
-    players: [
-      {
-        name: "John",
-        photo: "",
-        username: "@john123"
-      },
-      {
-        name: "Kate",
-        photo: "",
-        username: "noth_str_"
-      },
-      {
-        name: "Bob",
-        photo: "",
-        usename: "bobo2bo3"
-      }
-    ]
-  },
-  {
-    photo: testGame,
-    title: "Старе (не) добре підземелля",
-    isPrivate: true,
-    date: '',
-    day: 'Monday',
-    details: {
-      club: "Майстерня Рольовика",
-      master: "NikkiN",
-      what: "DND",
-      where: "онлайн",
-      when: "7 серпня 18:00",
-      levels: "5 - 10",
-      places: "2 з 5",
-      price: "150",
-      type: "Приватна"
-    },
-    players: [
-      {
-        name: "John",
-        photo: "",
-        username: "@john123"
-      },
-      {
-        name: "Kate",
-        photo: "",
-        username: "noth_str_"
-      },
-      {
-        name: "Bob",
-        photo: "",
-        usename: "bobo2bo3"
-      }
-    ]
-  },
-  {
-    photo: testGame,
-    title: "Старе (не) добре підземелля",
-    isPrivate: true,
-    date: '',
-    day: 'Friday',
-    details: {
-      club: "Майстерня Рольовика",
-      master: "NikkiN",
-      what: "DND",
-      where: "онлайн",
-      when: "7 серпня 18:00",
-      levels: "5 - 10",
-      places: "2 з 5",
-      price: "150",
-      type: "Приватна"
-    },
-    players: [
-      {
-        name: "John",
-        photo: "",
-        username: "@john123"
-      },
-      {
-        name: "Kate",
-        photo: "",
-        username: "noth_str_"
-      },
-      {
-        name: "Bob",
-        photo: "",
-        usename: "bobo2bo3"
-      }
-    ]
-  }
-]
 
 export default function Calendar() {
   const [doFetchSessions, fetchSessionsError] = useThunk(fetchSessions);
@@ -261,7 +47,6 @@ export default function Calendar() {
     'неділя': 'Sunday'
   };
   weekDays = weekDays.map(dayUkr => translationMap[dayUkr]);
-  console.log(weekDays)
 
 
   useEffect(() => {
@@ -270,8 +55,6 @@ export default function Calendar() {
       "daysAfter": 7
     });
   }, [doFetchSessions]);
-
-  // console.log('sessions in calendar', sessions);
 
   let week = {
     Monday: [],
@@ -352,7 +135,7 @@ export default function Calendar() {
   ]
   function getData() {
     const format = 'DD-MM HH:mm';
-    test.map((el)=>{
+    sessions.map((el)=>{
       const dateMoment = moment(el.StartTime, format);
       switch(dateMoment.day()){
         case 0:
@@ -384,7 +167,7 @@ export default function Calendar() {
     sortByDay()
   }
   function sortByDay() {
-    test.map((el) => {
+    sessions.map((el) => {
       week[el.day].push(el);
     })
   }

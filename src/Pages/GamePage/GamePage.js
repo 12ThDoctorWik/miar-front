@@ -1,6 +1,7 @@
 import React from 'react';
 import "./GamePage.scss";
 import {player, player_active, fire, fire_active} from "../../Assets/Icons/icons.js";
+import {useParams} from 'react-router-dom';
 
 const myGame = {
   photo: "https://i.redd.it/bp3jnfn8hc941.jpg",
@@ -52,6 +53,8 @@ const myGame = {
 export default function GamePage({game}) {
 
   game = myGame;
+  const params = useParams();
+  const gameId = params.userId
 
   return (
     <div className="gamePage">
