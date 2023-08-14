@@ -9,6 +9,7 @@ import testGame from "../../Assets/Images/testGame.png";
 import { useThunk } from "../../Hooks/useThunk";
 import { session } from "../../Store";
 import { useSelector } from "react-redux";
+import CreateGameButton from "../../Components/CreateGameButton/CreateGameButton";
 
 let info = [
   {
@@ -284,6 +285,9 @@ export default function Calendar() {
           <CalendarDay day="Saturday" date={daysInWeek[5]} games={week.Saturday}/>
           <CalendarDay day="Sunday" date={daysInWeek[6]} games={week.Sunday}/>
         </div>
+        {
+          (user && (user.role === "Admin" || user.role === "DM")) ? <CreateGameButton text="+" type="gold_rightCorner" to="/game_creator"/> : null
+        }
       </div>
   )
 }
