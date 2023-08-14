@@ -8,6 +8,7 @@ import GamePage from "./Pages/GamePage/GamePage.js";
 import Calendar from "./Pages/Calendar/Calendar.js";
 
 import CreateGame from "./Pages/CreateGame/CreateGame.js";
+import { Toast } from "./Modules/Toast/Toast";
 
 function App() {
   document.title = "MIAR";
@@ -22,6 +23,7 @@ function App() {
           <Route exact path="/game_creator" element={<CreateGame/>}/>
           <Route path="*" element={<Navigate to={'/auth'} replace/>}/>
         </Routes>
+        <Toast />
       </Router>
       <Overlay/>
     </div>

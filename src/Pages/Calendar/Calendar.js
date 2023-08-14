@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import "./Calendar.scss";
 // import Moment from 'react-moment';
-import moment from 'moment';
+// import moment from 'moment';
 
 import Filters from "../../Modules/Filters/Filters.js";
 import CalendarDay from "../../Modules/CalendarDay/CalendarDay.js";
 import { useThunk } from "../../Hooks/useThunk";
 import { fetchSessions } from "../../Store";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import CustomButton from "../../Components/CustomButton/CustomButton";
 
 export default function Calendar() {

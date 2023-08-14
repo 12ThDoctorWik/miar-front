@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./CreateGame.scss";
 
 import Button from '@mui/material/Button';
@@ -13,7 +13,10 @@ import { Field, Form } from 'react-final-form';
 
 import { Checkboxes, Select, TextField } from 'mui-rff';
 import { addSession } from "../../Store";
+import { SLICE_STATUSES } from "../../Store/Slices/sliceStatus.const";
 import { useThunk } from "../../Hooks/useThunk";
+import { useDispatch, useSelector } from "react-redux";
+import { toastSlice, TOAST_LEVEL } from "../../Store/Slices/ToastSlice";
 
 const fields = []
 const validate = (values) => {
@@ -42,6 +45,14 @@ const validate = (values) => {
 export default function CreateGame() {
   const [gameDatetime, setGameDatetime] = useState(moment());
   const [doAddSession, addSessionError] = useThunk(addSession);
+  const { sessionStatus } = useSelector((state) => state.sessions);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (sessionStatus === SLICE_STATUSES.SUCCESS) {
+      dispatch(toastSlice.actions.showMessage('Додано нову гру', TOAST_LEVEL.RED));
+    }
+  },[sessionStatus]);
 
   const onSubmit = async (values) => {
     if (values.visible === undefined) {

@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchSessions } from "../Thunks/Session/fetchSessions";
 import { addSession } from "../Thunks/Session/addSession";
+import {SLICE_STATUSES} from "./sliceStatus.const"
 
 const sessionSlice = createSlice({
   name: 'sessions',
   initialState: {
     sessions: null,
+    sessionStatus: null,
     error: null,
   },
   extraReducers(builder) {
@@ -18,17 +20,17 @@ const sessionSlice = createSlice({
       state.error = action.error;
     });
 
+    builder.addCase(addSession.pending, (state, action) => {
+      state.sessionStatus = SLICE_STATUSES.LOADING;
+    });
     builder.addCase(addSession.fulfilled, (state, action) => {
-      console.log('session.fulfilled', action.payload);
-      // state.sessions = action.payload;
+      state.sessionStatus = SLICE_STATUSES.SUCCESS;
     });
     builder.addCase(addSession.rejected, (state, action) => {
-      console.log('session.rejected', action)
-      // state.error = action.error;
+      state.sessionStatus = SLICE_STATUSES.ERROR;
     });
 
   },
 });
 
-// export const selectSessions = (state) => state.session;
 export { sessionSlice };

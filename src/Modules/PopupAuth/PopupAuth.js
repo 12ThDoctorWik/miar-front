@@ -5,10 +5,22 @@ import {telegram, cross_white} from "../../Assets/Icons/icons.js";
 import { login, fakelogin, checkUser } from "../../Store";
 import { useThunk } from "../../Hooks/useThunk";
 import TelegramLoginButton from "../../Auth/CustomTelegramLogin";
+import { useDispatch, useSelector } from "react-redux";
+import { SLICE_STATUSES } from "../../Store/Slices/sliceStatus.const";
+import { TOAST_LEVEL, toastSlice } from "../../Store/Slices/ToastSlice";
 
 function PopupAuth() {
   const [useLogin, loginError] = useThunk(login);
   const [useFakeLogin, fakeLoginError] = useThunk(fakelogin);
+  const { loginStatus } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (loginStatus === SLICE_STATUSES.SUCCESS) {
+      dispatch(toastSlice.actions.showMessage('Віхд виконано. Вдалого пошуку скарбів', TOAST_LEVEL.RED));
+    }
+  },[loginStatus]);
 
   function closePopup() {
     document.getElementById("popupAuth").classList.remove("popupAuth_open")

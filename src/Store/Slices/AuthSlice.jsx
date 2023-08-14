@@ -2,11 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 import { login } from "../Thunks/Auth/login";
 import { fakelogin } from "../Thunks/Auth/fakelogin";
 import { checkUserLoggedIn } from "../Thunks/Auth/checkUserLoggedIn";
+import { SLICE_STATUSES } from "./sliceStatus.const";
 
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
     user: null,
+    loginStatus: null,
     error: null,
   },
   extraReducers(builder) {
@@ -22,6 +24,10 @@ const authSlice = createSlice({
     builder.addCase(login.rejected, (state, action) => {
       console.warn('login.rejected', action)
       state.error = action.error;
+      state.loginStatus = SLICE_STATUSES.ERROR;
+    });
+    builder.addCase(login.pending, (state, action) => {
+      state.loginStatus = SLICE_STATUSES.LOADING;
     });
     builder.addCase(fakelogin.fulfilled, (state, action) => {
       if (action.payload.Token) {
@@ -31,6 +37,7 @@ const authSlice = createSlice({
         localStorage.setItem('refreshToken', action.payload.RefreshToken);
       }
       state.user = action.payload.user;
+      state.loginStatus = SLICE_STATUSES.SUCCESS;
     });
     builder.addCase(checkUserLoggedIn.fulfilled, (state, action) => {
       if (action.payload.accessToken) {
