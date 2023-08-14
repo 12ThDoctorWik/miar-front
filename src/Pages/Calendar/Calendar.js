@@ -7,7 +7,7 @@ import Filters from "../../Modules/Filters/Filters.js";
 import CalendarDay from "../../Modules/CalendarDay/CalendarDay.js";
 import testGame from "../../Assets/Images/testGame.png";
 import { useThunk } from "../../Hooks/useThunk";
-import { session } from "../../Store";
+import { fetchSessions } from "../../Store";
 import { useSelector } from "react-redux";
 import CustomButton from "../../Components/CustomButton/CustomButton";
 
@@ -225,16 +225,16 @@ let info = [
 ]
 
 export default function Calendar() {
-  const [fetchSessions, fetchSessionsError] = useThunk(session);
+  const [doFetchSessions, fetchSessionsError] = useThunk(fetchSessions);
   const { sessions } = useSelector((state) => state.sessions);
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    fetchSessions({
+    doFetchSessions({
       "daysBefore": 1, // todo move to const current week -> nextWeek() || prevWeek()
       "daysAfter": 7
     });
-  }, [fetchSessions]);
+  }, [doFetchSessions]);
 
   console.log('sessions in calendar', sessions);
 
