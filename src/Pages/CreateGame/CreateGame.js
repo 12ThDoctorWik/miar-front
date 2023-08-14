@@ -62,7 +62,7 @@ export default function CreateGame() {
       // image
     }
 
-    console.log('newGameObject', newGame);
+    // console.log('newGameObject', newGame);
     doAddSession(newGame);
   };
   // const required = value => (value ? undefined : 'Required')

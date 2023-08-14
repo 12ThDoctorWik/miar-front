@@ -139,37 +139,35 @@ export default function Calendar() {
       const dateMoment = moment(el.StartTime, format);
       switch(dateMoment.day()){
         case 0:
-          el.day = "Sunday";
+          sortByDay(el, "Sunday")
           break;
         case 1:
-          el.day = "Monday";
+          sortByDay(el, "Monday")
           break;
         case 2:
-          el.day = "Tuesday";
+          sortByDay(el, "Tuesday")
           break;
         case 3:
-          el.day = "Wednesday";
+          sortByDay(el, "Wednesday")
           break;
         case 4:
-          el.day = "Thursday";
+          sortByDay(el, "Thursday")
           break;
         case 5:
-          el.day = "Friday";
+          sortByDay(el, "Friday")
           break;
         case 6:
-          el.day = "Saturday";
+          sortByDay(el, "Saturday")
           break;
         default:
-          el.day = "Invalid day";
           break;
       }
     })
     sortByDay()
   }
-  function sortByDay() {
-    sessions.map((el) => {
-      week[el.day].push(el);
-    })
+  function sortByDay(element, day) {
+    if (element == undefined || day == undefined) return
+    week[day].push(element);
   }
 
   getData()
