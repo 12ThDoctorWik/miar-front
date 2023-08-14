@@ -286,7 +286,7 @@ export default function Calendar() {
           <CalendarDay day="Sunday" date={daysInWeek[6]} games={week.Sunday}/>
         </div>
         {
-          (user && (user.role === "Admin" || user.role === "DM")) ? <CreateGameButton text="+" type="gold_rightCorner" to="/game_creator"/> : null
+          (user && (user.role === "Admin" || user.role === "DM")) ? <CreateGameButton/> : null
         }
       </div>
   )
