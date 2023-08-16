@@ -1,6 +1,12 @@
 import './App.css';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from 'react-router-dom';
+import setDefaultOptions from 'date-fns/setDefaultOptions';
+import { uk } from 'date-fns/locale';
 import Overlay from './Components/Overlay/Overlay.js';
 import Header from './Modules/Header/Header.js';
 import MainPage from './Pages/MainPage/MainPage.js';
@@ -12,6 +18,8 @@ import { Toast } from './Modules/Toast/Toast';
 
 function App() {
   document.title = 'MIAR';
+
+  setDefaultOptions({ locale: uk });
   return (
     <div className="App">
       <Router>
