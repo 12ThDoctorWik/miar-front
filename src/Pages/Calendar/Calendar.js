@@ -1,196 +1,84 @@
-import React, { useEffect } from 'react';
-import "./Calendar.scss";
-// import Moment from 'react-moment';
-// import moment from 'moment';
+import { useEffect, useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { differenceInDays, parse, add } from 'date-fns';
+import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+import Filters from '../../Modules/Filters/Filters.js';
+import { CalendarDay } from '../../Modules/CalendarDay/CalendarDay.js';
+import { useThunk } from '../../Hooks/useThunk';
+import { fetchSessions } from '../../Store';
+import CustomButton from '../../Components/CustomButton/CustomButton';
 
-import Filters from "../../Modules/Filters/Filters.js";
-import CalendarDay from "../../Modules/CalendarDay/CalendarDay.js";
-import { useThunk } from "../../Hooks/useThunk";
-import { fetchSessions } from "../../Store";
-import { useSelector, useDispatch } from "react-redux";
-import CustomButton from "../../Components/CustomButton/CustomButton";
+import './Calendar.scss';
 
-export default function Calendar() {
-  const [doFetchSessions, fetchSessionsError] = useThunk(fetchSessions);
-  const { sessions } = useSelector((state) => state.sessions);
-  const { user } = useSelector((state) => state.auth);
+const Calendar = () => {
+  const [doFetchSessions, _, isLoading] = useThunk(fetchSessions);
+  const { sessions } = useSelector(state => state.sessions);
+  const { user } = useSelector(state => state.auth);
 
-  // get days dates
-  const myMoment = require('moment');
-  const today = myMoment();
-  const daysInWeek = [];
-  daysInWeek.push(today.format('DD.MM'));
-  for (let i = 1; i <= 6; i++) {
-    const nextDay = today.clone().add(i, 'days');
-    daysInWeek.push(nextDay.format('DD.MM'));
-  }
-
-  // get days names
-  const moment = require('moment');
-  const daysOfWeekNames = moment.weekdays(); // Масив назв англійських днів тижня
-
-  let weekDays = [];
-  const todayIndex = today.day(); 
-  for (let i = todayIndex; i <= 6; i++) {
-    weekDays.push(daysOfWeekNames[i]);
-  }
-  for (let i = 0; i < todayIndex; i++) {
-    weekDays.push(daysOfWeekNames[i]);
-  }
-  const translationMap = {
-    'понеділок': 'Monday',
-    'вівторок': 'Tuesday',
-    'середа': 'Wednesday',
-    'четвер': 'Thursday',
-    'п’ятниця': 'Friday',
-    'субота': 'Saturday',
-    'неділя': 'Sunday'
-  };
-  weekDays = weekDays.map(dayUkr => translationMap[dayUkr]);
-
+  const groupedSessions = useMemo(
+    () =>
+      (sessions || []).reduce(
+        (groups, session) => {
+          const sessionDate = parse(
+            session.StartTime,
+            'dd-MM HH:mm',
+            new Date()
+          );
+          const offset = differenceInDays(sessionDate, new Date());
+          groups[offset].sessions.push({
+            ...session,
+            StartTime: sessionDate,
+          });
+          return groups;
+        },
+        new Array(7).fill({}).map((_, index) => ({
+          date: add(new Date(), { days: index }),
+          sessions: [],
+        }))
+      ),
+    [sessions]
+  );
 
   useEffect(() => {
     doFetchSessions({
-      "daysBefore": 1, // todo move to const current week -> nextWeek() || prevWeek()
-      "daysAfter": 7
+      daysBefore: 1, // todo move to const current week -> nextWeek() || prevWeek()
+      daysAfter: 7,
     });
   }, [doFetchSessions]);
 
-  let week = {
-    Monday: [],
-    Tuesday: [],
-    Wednesday: [],
-    Thursday: [],
-    Friday: [],
-    Saturday: [],
-    Sunday: []
-  }
-  let test = [
-    {
-      "Id": 3,
-      "Name": "Test Session",
-      "Description": "Dalekwik`s Test session",
-      "ImageURL": "string",
-      "StartTime": "16-08 07:42",
-      "MaxPlayer": 5,
-      "MinLevel": 1,
-      "MaxLevel": 5,
-      "Visible": 1,
-      "PricePerPlayer": 150,
-      "LocationType": 1,
-      "Location": "Re:Bro",
-      "Tags": [
-          "DnD",
-          "NewBie"
-      ],
-      "Day": 5,
-      "MasterName": "",
-      "Difficult": 0,
-      "CurrentPlayers": 0
-    },
-    {
-      "Id": 3,
-      "Name": "Test Session",
-      "Description": "Dalekwik`s Test session",
-      "ImageURL": "string",
-      "StartTime": "15-08 07:42",
-      "MaxPlayer": 5,
-      "MinLevel": 1,
-      "MaxLevel": 5,
-      "Visible": 1,
-      "PricePerPlayer": 150,
-      "LocationType": 1,
-      "Location": "Re:Bro",
-      "Tags": [
-          "DnD",
-          "NewBie"
-      ],
-      "Day": 5,
-      "MasterName": "",
-      "Difficult": 0,
-      "CurrentPlayers": 0
-    },
-    {
-      "Id": 3,
-      "Name": "Test Session",
-      "Description": "Dalekwik`s Test session",
-      "ImageURL": "string",
-      "StartTime": "18-08 07:42",
-      "MaxPlayer": 5,
-      "MinLevel": 1,
-      "MaxLevel": 5,
-      "Visible": 1,
-      "PricePerPlayer": 150,
-      "LocationType": 1,
-      "Location": "Re:Bro",
-      "Tags": [
-          "DnD",
-          "NewBie"
-      ],
-      "Day": 5,
-      "MasterName": "",
-      "Difficult": 0,
-      "CurrentPlayers": 0
-    },
-  ]
-  function getData() {
-    const format = 'DD-MM HH:mm';
-    sessions.map((el)=>{
-      const dateMoment = moment(el.StartTime, format);
-      switch(dateMoment.day()){
-        case 0:
-          sortByDay(el, "Sunday")
-          break;
-        case 1:
-          sortByDay(el, "Monday")
-          break;
-        case 2:
-          sortByDay(el, "Tuesday")
-          break;
-        case 3:
-          sortByDay(el, "Wednesday")
-          break;
-        case 4:
-          sortByDay(el, "Thursday")
-          break;
-        case 5:
-          sortByDay(el, "Friday")
-          break;
-        case 6:
-          sortByDay(el, "Saturday")
-          break;
-        default:
-          break;
-      }
-    })
-    sortByDay()
-  }
-  
-  function sortByDay(element, day) {
-    if (element == undefined || day == undefined) return
-    week[day].push(element);
-  }
-
-  if (sessions) {
-    getData()
-  }
-
   return (
-      <div className="calendar">
-        <Filters/>
-        <div className="calendar__week">
-          <div className="calendar__navigation"></div>
-          <CalendarDay day={weekDays[0]} date={daysInWeek[0]} games={week.Monday}/>
-          <CalendarDay day={weekDays[1]} date={daysInWeek[1]} games={week.Tuesday}/>
-          <CalendarDay day={weekDays[2]} date={daysInWeek[2]} games={week.Wednesday}/>
-          <CalendarDay day={weekDays[3]} date={daysInWeek[3]} games={week.Thursday}/>
-          <CalendarDay day={weekDays[4]} date={daysInWeek[4]} games={week.Friday}/>
-          <CalendarDay day={weekDays[5]} date={daysInWeek[5]} games={week.Saturday}/>
-          <CalendarDay day={weekDays[6]} date={daysInWeek[6]} games={week.Sunday}/>
-        </div>
-        {
-          (user && (user.role === "Admin" || user.role === "DM")) ? <CustomButton type={'_gold_rightCorner'} to={'/game_creator'}/> : null
-        }
+    <div className="calendar">
+      <Filters />
+      <div className="calendar__week">
+        <div className="calendar__navigation"></div>
+        <Container px={5} py={1} maxWidth="xl">
+          <Grid container spacing={2}>
+            {isLoading ? (
+              <Box py={5} width="100%" display="flex" justifyContent="center">
+                <CircularProgress size={36} />
+              </Box>
+            ) : (
+              groupedSessions.map((group, index) => (
+                <Grid item xs={12} key={group.date}>
+                  <CalendarDay
+                    date={group.date}
+                    sessions={group.sessions}
+                    isToday={index === 0}
+                  />
+                </Grid>
+              ))
+            )}
+          </Grid>
+        </Container>
       </div>
-  )
-}
+      {user && (user.role === 'Admin' || user.role === 'DM') ? (
+        <CustomButton type={'_gold_rightCorner'} to={'/game_creator'} />
+      ) : null}
+    </div>
+  );
+};
+
+export default Calendar;

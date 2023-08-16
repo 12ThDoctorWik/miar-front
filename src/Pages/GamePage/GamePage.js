@@ -1,49 +1,56 @@
 import React from 'react';
-import "./GamePage.scss";
-import {player, player_active, fire, fire_active} from "../../Assets/Icons/icons.js";
-import {useParams} from 'react-router-dom';
-import { TOAST_LEVEL, toastSlice } from "../../Store/Slices/ToastSlice";
-import { useDispatch } from "react-redux";
+import './GamePage.scss';
+import {
+  player,
+  player_active,
+  fire,
+  fire_active,
+} from '../../Assets/Icons/icons.js';
+import { useParams } from 'react-router-dom';
+import { TOAST_LEVEL, toastSlice } from '../../Store/Slices/ToastSlice';
+import { useDispatch } from 'react-redux';
 
-const myGame =  {
-  "Id": 3,
-  "Name": "Test Session",
-  "Description": "Dalekwik`s Test session",
-  "ImageURL": "string",
-  "StartTime": "12-08 07:42",
-  "MaxPlayer": 5,
-  "MinLevel": 1,
-  "MaxLevel": 5,
-  "Visible": 1,
-  "PricePerPlayer": 150,
-  "LocationType": 1,
-  "Location": "Re:Bro",
-  "Tags": [
-      "DnD",
-      "NewBie"
-  ],
-  "Day": 5,
-  "MasterName": "",
-  "Difficult": 0,
-  "CurrentPlayers": 0
+const myGame = {
+  Id: 3,
+  Name: 'Test Session',
+  Description: 'Dalekwik`s Test session',
+  ImageURL: 'string',
+  StartTime: '12-08 07:42',
+  MaxPlayer: 5,
+  MinLevel: 1,
+  MaxLevel: 5,
+  Visible: 1,
+  PricePerPlayer: 150,
+  LocationType: 1,
+  Location: 'Re:Bro',
+  Tags: ['DnD', 'NewBie'],
+  Day: 5,
+  MasterName: '',
+  Difficult: 0,
+  CurrentPlayers: 0,
 };
 
-export default function GamePage({game}) {
+export default function GamePage({ game }) {
   const dispatch = useDispatch();
 
   game = myGame;
   const params = useParams();
-  const gameId = params.gameId
+  const gameId = params.gameId;
 
   let image = game.ImageURL;
-  if(image == "" || image == "string"){
-    image = "https://i.redd.it/nwpa93o6r8k31.jpg"
+  if (image == '' || image == 'string') {
+    image = 'https://i.redd.it/nwpa93o6r8k31.jpg';
   }
 
   // console.log(gameId)
 
   function handleClick() {
-    dispatch(toastSlice.actions.showMessage('Реєстрація на ігри тимчасово недоступна', TOAST_LEVEL.YELLOW));
+    dispatch(
+      toastSlice.actions.showMessage(
+        'Реєстрація на ігри тимчасово недоступна',
+        TOAST_LEVEL.YELLOW
+      )
+    );
   }
 
   return (
@@ -58,35 +65,34 @@ export default function GamePage({game}) {
           <div className="gpInfo__data">
             <div className="gpInfo__data_who gpInfo__data_block">
               <div className="gpInfo__line">
-                Майстер:{" "}
+                Майстер:{' '}
                 <span className="gpInfo__line_data">{game.MasterName}</span>
               </div>
               <div className="gpInfo__line">
-                Клуб:{" "}
-                <span className="gpInfo__line_data">Club</span>
+                Клуб: <span className="gpInfo__line_data">Club</span>
               </div>
               <div className="gpInfo__line">
-                Система:{" "}
-                <span className="gpInfo__line_data">DND</span>
+                Система: <span className="gpInfo__line_data">DND</span>
               </div>
             </div>
             <div className="gpInfo__data_where gpInfo__data_block">
               <div className="gpInfo__line">
-                Де:{" "}
-                <span className="gpInfo__line_data">{game.Location}</span>
+                Де: <span className="gpInfo__line_data">{game.Location}</span>
               </div>
               <div className="gpInfo__line">
-                Коли:{" "}
+                Коли:{' '}
                 <span className="gpInfo__line_data">{game.StartTime}</span>
               </div>
               <div className="gpInfo__line">
-                Ціна:{" "}
-                <span className="gpInfo__line_data">{game.PricePerPlayer} грн</span>
+                Ціна:{' '}
+                <span className="gpInfo__line_data">
+                  {game.PricePerPlayer} грн
+                </span>
               </div>
             </div>
             <div className="gpInfo__data_places gpInfo__data_block">
               <div className="gpInfo__line">
-                Доступні місця:{" "}
+                Доступні місця:{' '}
                 <span className="gpInfo__line_data">
                   {game.MaxPlayer - game.CurrentPlayers}
                 </span>
@@ -114,10 +120,8 @@ export default function GamePage({game}) {
 
             <div className="gpInfo__data_difficulty gpInfo__data_block">
               <div className="gpInfo__line">
-                Складність пригоди:{" "}
-                <span className="gpInfo__line_data">
-                  {game.Difficult}
-                </span>
+                Складність пригоди:{' '}
+                <span className="gpInfo__line_data">{game.Difficult}</span>
               </div>
 
               <div className="gpInfo__iconGroup">
@@ -138,24 +142,26 @@ export default function GamePage({game}) {
               </div>
             </div>
             <div className="gpInfo__data_level gpInfo__data_block">
-              <div className="gpInfo__line">
-                Рівні персонажів:{" "}
+              <div className="gpInfo__line">Рівні персонажів: </div>
+              <div className="gpInfo__line_data" style={{ margin: '0' }}>
+                {game.MinLevel + ' - ' + game.MaxLevel} рівні
               </div>
-              <div className="gpInfo__line_data" style={{margin: "0"}}>{game.MinLevel + " - " + game.MaxLevel} рівні</div>
             </div>
           </div>
 
           <div className="gpInfo__text">{game.Description}</div>
           <div className="gpInfo__tags">
-            {game.Tags.map((el)=>{
-              return(
+            {game.Tags.map(el => {
+              return (
                 <div className="gpInfo__tag" key={el}>
                   {el}
                 </div>
-              )
+              );
             })}
           </div>
-          <div className="gpInfo__btn" onClick={handleClick}>Зареєструватись</div>
+          <div className="gpInfo__btn" onClick={handleClick}>
+            Зареєструватись
+          </div>
         </div>
       </div>
 

@@ -1,4 +1,4 @@
-const authMiddleware = (store) => (next) => (action) => {
+const authMiddleware = store => next => action => {
   // if (authActions.login.match(action)) {
   //   // const serializedAuth = localStorage.getItem('refreshToken');
   //   // const serializedAuth = localStorage.getItem('accessToken');
