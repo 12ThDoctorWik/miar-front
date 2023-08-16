@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import "../Modules/PopupAuth/PopupAuth.scss";
+import React from 'react';
+import PropTypes from 'prop-types';
+import '../Modules/PopupAuth/PopupAuth.scss';
 
 class TelegramLoginButton extends React.Component {
   constructor(props) {
@@ -18,25 +18,25 @@ class TelegramLoginButton extends React.Component {
       lang,
     } = this.props;
     window.TelegramLoginWidget = {
-      dataOnauth: (user) => dataOnauth(user),
+      dataOnauth: user => dataOnauth(user),
     };
 
-    const script = document.createElement("script");
-    script.src = "https://telegram.org/js/telegram-widget.js?22";
-    script.setAttribute("data-telegram-login", botName);
-    script.setAttribute("data-size", buttonSize);
+    const script = document.createElement('script');
+    script.src = 'https://telegram.org/js/telegram-widget.js?22';
+    script.setAttribute('data-telegram-login', botName);
+    script.setAttribute('data-size', buttonSize);
     if (cornerRadius !== undefined) {
-      script.setAttribute("data-radius", cornerRadius);
+      script.setAttribute('data-radius', cornerRadius);
     }
-    script.setAttribute("data-request-access", requestAccess);
-    script.setAttribute("data-userpic", usePic);
-    script.setAttribute("data-lang", lang);
+    script.setAttribute('data-request-access', requestAccess);
+    script.setAttribute('data-userpic', usePic);
+    script.setAttribute('data-lang', lang);
     if (dataAuthUrl !== undefined) {
-      script.setAttribute("data-auth-url", dataAuthUrl);
+      script.setAttribute('data-auth-url', dataAuthUrl);
     } else {
       script.setAttribute(
-        "data-onauth",
-        "TelegramLoginWidget.dataOnauth(user)"
+        'data-onauth',
+        'TelegramLoginWidget.dataOnauth(user)'
       );
     }
     script.async = true;
@@ -47,7 +47,7 @@ class TelegramLoginButton extends React.Component {
     return (
       <div
         className={this.props.className}
-        ref={(component) => {
+        ref={component => {
           this.instance = component;
         }}
       >
@@ -60,7 +60,7 @@ class TelegramLoginButton extends React.Component {
 TelegramLoginButton.propTypes = {
   botName: PropTypes.string.isRequired,
   dataOnauth: PropTypes.func,
-  buttonSize: PropTypes.oneOf(["large", "medium", "small"]),
+  buttonSize: PropTypes.oneOf(['large', 'medium', 'small']),
   cornerRadius: PropTypes.number,
   requestAccess: PropTypes.string,
   usePic: PropTypes.bool,
@@ -68,12 +68,12 @@ TelegramLoginButton.propTypes = {
 };
 
 TelegramLoginButton.defaultProps = {
-  botName: "samplebot",
+  botName: 'samplebot',
   dataOnauth: () => undefined,
-  buttonSize: "large",
-  requestAccess: "write",
+  buttonSize: 'large',
+  requestAccess: 'write',
   usePic: true,
-  lang: "en",
+  lang: 'en',
 };
 
 export default TelegramLoginButton;

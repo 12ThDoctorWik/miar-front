@@ -10,13 +10,15 @@ const BpIcon = styled('span')(({ theme }) => ({
   border: '2px solid rgba(255, 255, 255, 0.6)',
   boxSizing: 'border-box',
   'input:hover ~ &': {
-    cursor: "pointer",
+    cursor: 'pointer',
   },
 
   'input:disabled ~ &': {
     boxShadow: 'none',
     background:
-      theme.palette.mode === 'dark' ? 'rgba(57,75,89,.5)' : 'rgba(206,217,224,.5)',
+      theme.palette.mode === 'dark'
+        ? 'rgba(57,75,89,.5)'
+        : 'rgba(206,217,224,.5)',
   },
 }));
 
@@ -53,7 +55,5 @@ function BpCheckbox(props) {
 }
 
 export default function CustomizedCheckbox() {
-  return (
-    <BpCheckbox />
-  );
+  return <BpCheckbox />;
 }

@@ -1,9 +1,9 @@
-import {React, useState} from 'react';
-import "./ForWho.scss";
+import { React, useState } from 'react';
+import './ForWho.scss';
 
-import Navigate from "../../../Modules/MainPage/Navigate/Navigate.js";
+import Navigate from '../../../Modules/MainPage/Navigate/Navigate.js';
 
-import {test} from "../../../Assets/Images/MainPage/MPImages.js";
+import { test } from '../../../Assets/Images/MainPage/MPImages.js';
 
 const info = {
   players: {
@@ -17,7 +17,7 @@ const info = {
     
     Уявіть себе своїм персонажем, приймайте рішення, взаємодійте з іншими гравцями та майстером гри.
     
-    Майстер гри буде вести гру, розповідаючи сюжет, описуючи персонажів та реакції на ваші дії.`
+    Майстер гри буде вести гру, розповідаючи сюжет, описуючи персонажів та реакції на ваші дії.`,
   },
   dm: {
     img: test,
@@ -25,18 +25,17 @@ const info = {
 
     Створюйте різноманітні та живописні локації, населені інтересними персонажами з унікальними метами та характерами. Розвивайте їх відповідно до дій гравців, що збільшить втягненість у гру.
     
-    Запроваджуйте несподівані перешкоди, головоломки та конфлікти, але пам'ятайте, що дозволяти гравцям знайти нестандартні рішення.`
+    Запроваджуйте несподівані перешкоди, головоломки та конфлікти, але пам'ятайте, що дозволяти гравцям знайти нестандартні рішення.`,
   },
   clubs: {
     img: test,
     text: `Ваш клуб - це місце зустрічі для всіх прихильників Dungeons & Dragons, незалежно від досвіду у грі. Ми пропонуємо регулярні сесії, де ви зможете зануритись у фантастичний світ, створений власноруч нашими майстрами пригод. Вас чекають неймовірні пригоди, виклики та захоплюючі історії, які ви будете творити разом з іншими гравцями.
 
-    У нашому клубі ми прагнемо створити дружню та відкриту атмосферу, де можна буде поділитись своїми ідеями та творчим підходом до гри. Ми розбираємося з правилами D&D, але також привітаємо ваші власні правила та механіки, що зроблять ігри ще більш унікальними.`
-  }
-}
+    У нашому клубі ми прагнемо створити дружню та відкриту атмосферу, де можна буде поділитись своїми ідеями та творчим підходом до гри. Ми розбираємося з правилами D&D, але також привітаємо ваші власні правила та механіки, що зроблять ігри ще більш унікальними.`,
+  },
+};
 
 export default function ForWho() {
-
   const [information, setInfo] = useState(info.players);
 
   function changeInfo(key) {
@@ -45,12 +44,15 @@ export default function ForWho() {
 
   return (
     <div className="forWho container mainPage__block">
-      <Navigate changeInfo={changeInfo}/>
+      <Navigate changeInfo={changeInfo} />
 
       <div className="forWho__info">
-        <div className="forWho__img" style={{backgroundImage: `url(${information.img})`}}></div>
+        <div
+          className="forWho__img"
+          style={{ backgroundImage: `url(${information.img})` }}
+        ></div>
         <div className="forWho__text">{information.text}</div>
       </div>
     </div>
-  )
+  );
 }

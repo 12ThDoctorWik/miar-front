@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { login } from "../Thunks/Auth/login";
-import { fakelogin } from "../Thunks/Auth/fakelogin";
-import { checkUserLoggedIn } from "../Thunks/Auth/checkUserLoggedIn";
-import { SLICE_STATUSES } from "./sliceStatus.const";
+import { login } from '../Thunks/Auth/login';
+import { fakelogin } from '../Thunks/Auth/fakelogin';
+import { checkUserLoggedIn } from '../Thunks/Auth/checkUserLoggedIn';
+import { SLICE_STATUSES } from './sliceStatus.const';
 
 const authSlice = createSlice({
   name: 'auth',
@@ -22,7 +22,7 @@ const authSlice = createSlice({
       state.user = action.payload.user;
     });
     builder.addCase(login.rejected, (state, action) => {
-      console.warn('login.rejected', action)
+      console.warn('login.rejected', action);
       state.error = action.error;
       state.loginStatus = SLICE_STATUSES.ERROR;
     });

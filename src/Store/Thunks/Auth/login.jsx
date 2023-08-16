@@ -1,11 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { apiCall } from '../../../Services/api';
 
-const login = createAsyncThunk('auth/login', async (payload) => {
+const login = createAsyncThunk('auth/login', async payload => {
   const response = await apiCall({
     method: 'POST',
     url: '/auth/login',
-    body: payload
+    body: payload,
   });
 
   const responseParsed = JSON.parse(response);
@@ -21,7 +21,7 @@ const login = createAsyncThunk('auth/login', async (payload) => {
       name: responseParsed.Name,
       avatar: responseParsed.Avatar,
       role: responseParsed.Role,
-    }
+    },
   };
 });
 

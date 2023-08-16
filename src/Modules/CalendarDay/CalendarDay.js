@@ -1,51 +1,53 @@
 import React from 'react';
-import "./CalendarDay.scss";
-import GameCard from "../../Components/GameCard/GameCard.js";
+import './CalendarDay.scss';
+import GameCard from '../../Components/GameCard/GameCard.js';
 import moment from 'moment';
 
-export default function CalendarDay({day, date, games}){
+export default function CalendarDay({ day, date, games }) {
+  let ukrDay = '';
+  if (moment().format('DD.MM') == date) ukrDay = 'Сьогодні • ';
 
-  let ukrDay = "";
-  if(moment().format('DD.MM') == date) ukrDay = "Сьогодні • ";
-
-  
   switch (day) {
     case 'Monday':
-      ukrDay += "Понеділок";
+      ukrDay += 'Понеділок';
       break;
     case 'Tuesday':
-      ukrDay += "Вівторок";
+      ukrDay += 'Вівторок';
       break;
     case 'Wednesday':
-      ukrDay += "Середа";
+      ukrDay += 'Середа';
       break;
     case 'Thursday':
-      ukrDay += "Четвер";
+      ukrDay += 'Четвер';
       break;
     case 'Friday':
       ukrDay += "П'ятниця";
       break;
     case 'Saturday':
-      ukrDay += "Субота";
+      ukrDay += 'Субота';
       break;
     case 'Sunday':
-      ukrDay += "Неділя";
+      ukrDay += 'Неділя';
       break;
     default:
-      ukrDay = "Невідомий день";
+      ukrDay = 'Невідомий день';
       break;
   }
 
-  return(
+  return (
     <div className="calendarDay">
-      <div className="calendarDay__title">{ukrDay}, {date}</div>
+      <div className="calendarDay__title">
+        {ukrDay}, {date}
+      </div>
       <div className="calendarDay__games">
-        {games.length > 0 ? games.map((el)=>{
-          return(
-            <GameCard info={el}/>
-          )
-        }) : <div className="calendarDay__warning">Готуємо анонси...</div>}
+        {games.length > 0 ? (
+          games.map(el => {
+            return <GameCard info={el} />;
+          })
+        ) : (
+          <div className="calendarDay__warning">Готуємо анонси...</div>
+        )}
       </div>
     </div>
-  )
+  );
 }

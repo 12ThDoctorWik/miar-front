@@ -2,7 +2,10 @@ import axios from 'axios';
 
 const client = axios.create({
   baseURL: process.env.REACT_APP_API_URI,
-  headers: { 'Accept': 'application/json', 'Content-Type': 'application/json;charset=utf-8' }
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json;charset=utf-8',
+  },
 });
 
 const apiCall = async ({ method, url, body = null, tokenized = false }) => {
@@ -27,12 +30,16 @@ const apiCall = async ({ method, url, body = null, tokenized = false }) => {
     if (!!error.response && error.response.status === 401) {
       const refresh = localStorage.getItem('refreshToken');
 
-      if (refresh === null || refresh === undefined || refresh === 'undefined') {
+      if (
+        refresh === null ||
+        refresh === undefined ||
+        refresh === 'undefined'
+      ) {
         console.warn('login first. no refresh token provided');
         return null;
       }
       const refResponse = await client({
-        method: "POST",
+        method: 'POST',
         url: process.env.REACT_APP_API_URI + '/auth/refresh-token',
         data: {
           token: refresh,
@@ -48,7 +55,8 @@ const apiCall = async ({ method, url, body = null, tokenized = false }) => {
       //   avatar:parsed.Avatar,
       // }));
 
-      client.defaults.headers.common['Authorization'] = 'Bearer ' + parsed.Token;
+      client.defaults.headers.common['Authorization'] =
+        'Bearer ' + parsed.Token;
       const res = await client({
         method,
         url: process.env.REACT_APP_API_URI + url,
@@ -57,11 +65,10 @@ const apiCall = async ({ method, url, body = null, tokenized = false }) => {
 
       return res.data;
     } else {
-
       console.warn(error);
       return Promise.reject(error.response || error.message);
     }
   }
-}
+};
 
 export { apiCall };
