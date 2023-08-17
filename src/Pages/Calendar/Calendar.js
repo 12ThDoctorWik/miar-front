@@ -100,7 +100,7 @@ const Calendar = () => {
               <Typography color="white">Розклад</Typography>
               <Button
                 startIcon={<FilterAltOutlinedIcon />}
-                variant="contained"
+                color="secondary"
                 onClick={() => setDrawerIsOpen(true)}
               >
                 Фільтри
