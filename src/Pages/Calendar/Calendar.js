@@ -101,7 +101,6 @@ const Calendar = () => {
               <Button
                 startIcon={<FilterAltOutlinedIcon />}
                 variant="contained"
-                textTransform
                 onClick={() => setDrawerIsOpen(true)}
               >
                 Фільтри
