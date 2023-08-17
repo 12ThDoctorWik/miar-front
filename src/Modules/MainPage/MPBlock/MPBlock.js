@@ -1,6 +1,6 @@
-import React from "react";
-import "./MPBlock.scss";
-import Button from "../../../Components/Button/Button.js";
+import React from 'react';
+import './MPBlock.scss';
+import Button from '../../../Components/Button/Button.js';
 
 export default function MPBlock() {
   return (
@@ -12,10 +12,9 @@ export default function MPBlock() {
         почнуть свою епічну подорож.”
       </div>
       <div className="mpBlock__btns">
-        <Button text="Календар ігор"/>
-        <Button text="Замовити гру" type="goldTransparent"/>
+        <Button text="Календар ігор" />
+        <Button text="Замовити гру" type="goldTransparent" />
       </div>
     </div>
   );
 }
-

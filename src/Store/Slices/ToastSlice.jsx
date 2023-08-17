@@ -20,7 +20,7 @@ const toastSlice = createSlice({
         state.message = action.payload.message;
         state.severity = action.payload.severity;
       },
-      prepare: (message, severity) => ({ payload: {message, severity} }),
+      prepare: (message, severity) => ({ payload: { message, severity } }),
     },
     closeMessage: {
       reducer: (state, action) => {
@@ -28,8 +28,8 @@ const toastSlice = createSlice({
         state.message = action.payload.message;
         state.severity = action.payload.severity;
       },
-      prepare: (message, severity) => ({ payload: {message, severity} }),
-    }
+      prepare: (message, severity) => ({ payload: { message, severity } }),
+    },
   },
   // extraReducers(builder) {
   //   builder.addCase(openToast.fulfilled, (state, action) => {

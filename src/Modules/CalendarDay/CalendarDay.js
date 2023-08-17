@@ -1,51 +1,33 @@
-import React from 'react';
-import "./CalendarDay.scss";
-import GameCard from "../../Components/GameCard/GameCard.js";
-import moment from 'moment';
+import { format } from 'date-fns';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import { GameCard } from '../../Components/GameCard/GameCard.js';
+import './CalendarDay.scss';
 
-export default function CalendarDay({day, date, games}){
-
-  let ukrDay = "";
-  if(moment().format('DD.MM') == date) ukrDay = "Сьогодні • ";
-
-  
-  switch (day) {
-    case 'Monday':
-      ukrDay += "Понеділок";
-      break;
-    case 'Tuesday':
-      ukrDay += "Вівторок";
-      break;
-    case 'Wednesday':
-      ukrDay += "Середа";
-      break;
-    case 'Thursday':
-      ukrDay += "Четвер";
-      break;
-    case 'Friday':
-      ukrDay += "П'ятниця";
-      break;
-    case 'Saturday':
-      ukrDay += "Субота";
-      break;
-    case 'Sunday':
-      ukrDay += "Неділя";
-      break;
-    default:
-      ukrDay = "Невідомий день";
-      break;
-  }
-
-  return(
-    <div className="calendarDay">
-      <div className="calendarDay__title">{ukrDay}, {date}</div>
-      <div className="calendarDay__games">
-        {games.length > 0 ? games.map((el)=>{
-          return(
-            <GameCard info={el}/>
-          )
-        }) : <div className="calendarDay__warning">Готуємо анонси...</div>}
-      </div>
-    </div>
-  )
-}
+export const CalendarDay = ({ date, sessions, isToday }) => {
+  return (
+    <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <div className="calendarDay__title">
+          {isToday && 'Сьогодні • '}
+          {format(date, 'eeee, d MMMM')}
+        </div>
+      </Grid>
+      <Grid item xs={12} container spacing={2}>
+        {sessions.length > 0 ? (
+          sessions.map(session => (
+            <Grid key={session.Id} item xs={12} sm={6} md={4} lg={3} xl={2}>
+              <GameCard session={session} />
+            </Grid>
+          ))
+        ) : (
+          <Grid item xs={12}>
+            <Box py={4} px={1} className="calendarDay__warning">
+              Готуємо анонси...
+            </Box>
+          </Grid>
+        )}
+      </Grid>
+    </Grid>
+  );
+};

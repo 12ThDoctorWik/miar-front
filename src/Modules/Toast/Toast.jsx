@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 import Snackbar from '@mui/material/Snackbar';
-import Alert from "@mui/material/Alert";
-import { useDispatch, useSelector } from "react-redux";
-import { toastSlice } from "../../Store/Slices/ToastSlice";
+import Alert from '@mui/material/Alert';
+import { useDispatch, useSelector } from 'react-redux';
+import { toastSlice } from '../../Store/Slices/ToastSlice';
 import Slide from '@mui/material/Slide';
 
-const CLOSE_ON_CLICK = "clickaway";
+const CLOSE_ON_CLICK = 'clickaway';
 
 export const Toast = () => {
   const dispatch = useDispatch();
@@ -21,18 +21,15 @@ export const Toast = () => {
   return (
     <Snackbar
       anchorOrigin={{
-        vertical: "top",
-        horizontal: "left"
+        vertical: 'top',
+        horizontal: 'left',
       }}
       autoHideDuration={3000}
       open={open}
       onClose={handleClose}
       TransitionComponent={Slide}
     >
-      <Alert
-        variant="filled"
-        onClose={handleClose}
-        severity={severity}>
+      <Alert variant="filled" onClose={handleClose} severity={severity}>
         {message}
       </Alert>
     </Snackbar>

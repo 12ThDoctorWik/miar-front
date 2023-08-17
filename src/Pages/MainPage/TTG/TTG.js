@@ -1,13 +1,11 @@
-import React from "react";
-import "./TTG.scss";
+import React from 'react';
+import './TTG.scss';
 
-import Bubble from "../../../Components/Bubble/Bubble.js";
-import Button from "../../../Components/Button/Button.js";
+import Bubble from '../../../Components/Bubble/Bubble.js';
+import Button from '../../../Components/Button/Button.js';
 
 export default function TTG() {
-
   function randAnim(left, top) {
-
     let identHalfTop = Math.floor(Math.random() * (5 - 1) + 1);
     let identHalfLeft = Math.floor(Math.random() * (5 - 1) + 1);
 
@@ -15,19 +13,19 @@ export default function TTG() {
     let identEndLeft = Math.floor(Math.random() * (5 - 1) + 1);
 
     return {
-            start: {
-              top: top + "vh",
-              left: left + "vw"
-            },
-            half: {
-              top: top + identHalfTop + "vh",
-              left: left + identHalfLeft + "vw"
-            },
-            end: {
-              top: top + identEndTop + "vh",
-              left: left + identEndLeft + "vw"
-            }
-          }
+      start: {
+        top: top + 'vh',
+        left: left + 'vw',
+      },
+      half: {
+        top: top + identHalfTop + 'vh',
+        left: left + identHalfLeft + 'vw',
+      },
+      end: {
+        top: top + identEndTop + 'vh',
+        left: left + identEndLeft + 'vw',
+      },
+    };
   }
 
   return (
@@ -45,25 +43,13 @@ export default function TTG() {
       </div>
 
       <div className="ttg__btn">
-        <Button text="Дізнатись більше" type="transparent"/>
+        <Button text="Дізнатись більше" type="transparent" />
       </div>
 
-      <Bubble text="Dungeons & Dragons" 
-        myId={'dnd'}
-        anim={randAnim(0, 0)}
-      />
-      <Bubble text="Call of Cthulhu" 
-        myId={'call'}
-        anim={randAnim(4, 20)}
-      />
-      <Bubble text="Pathfinder" 
-        myId={'pathfinder'}
-        anim={randAnim(40, 5)}
-      />
-      <Bubble text="Other" 
-        myId={'other'}
-        anim={randAnim(35, 30)}
-      />
+      <Bubble text="Dungeons & Dragons" myId={'dnd'} anim={randAnim(0, 0)} />
+      <Bubble text="Call of Cthulhu" myId={'call'} anim={randAnim(4, 20)} />
+      <Bubble text="Pathfinder" myId={'pathfinder'} anim={randAnim(40, 5)} />
+      <Bubble text="Other" myId={'other'} anim={randAnim(35, 30)} />
     </div>
   );
 }

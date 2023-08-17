@@ -1,8 +1,7 @@
-import {React, useEffect} from 'react';
-import "./Bubble.scss";
+import { React, useEffect } from 'react';
+import './Bubble.scss';
 
-export default function Bubble({text, myId, anim}) {
-
+export default function Bubble({ text, myId, anim }) {
   const exampleKeyframes = `
     #${myId} {
       animation-name: float_${myId};
@@ -22,7 +21,7 @@ export default function Bubble({text, myId, anim}) {
     }
   `;
 
-  return(
+  return (
     <>
       <style>{exampleKeyframes}</style>
       <div className="bubble" id={myId}>
@@ -30,5 +29,5 @@ export default function Bubble({text, myId, anim}) {
         <div className="bubble__text">{text}</div>
       </div>
     </>
-  )
+  );
 }

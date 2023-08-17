@@ -1,8 +1,8 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
 // import { authMiddleware } from "./Middlewares/AuthMiddleware";
-import { authSlice } from "./Slices/AuthSlice";
-import { sessionSlice } from "./Slices/SessionSlice";
-import { toastSlice } from "./Slices/ToastSlice";
+import { authSlice } from './Slices/AuthSlice';
+import { sessionSlice } from './Slices/SessionSlice';
+import { toastSlice } from './Slices/ToastSlice';
 
 const store = configureStore({
   reducer: {

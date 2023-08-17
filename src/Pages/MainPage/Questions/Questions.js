@@ -1,11 +1,6 @@
 import React from 'react';
-import "./Questions.scss";
+import './Questions.scss';
 
 export default function Questions() {
-
-  return(
-    <div className="questions">
-      
-    </div>
-  )
+  return <div className="questions"></div>;
 }
