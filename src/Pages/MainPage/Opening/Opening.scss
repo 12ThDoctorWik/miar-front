@@ -8,6 +8,10 @@
   background-size: cover;
   background-attachment: fixed;
 
+  @media (hover: none) {
+    background-attachment: initial;
+  }
+
   display: flex;
   justify-content: flex-start;
   align-items: center;
