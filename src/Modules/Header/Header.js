@@ -122,12 +122,16 @@ export const Header = () => {
       )}
       {user && (
         <div className="header__user">
-          <Typography variant="body1" color="inherit">
-            Привіт, {user.name || 'unknown'}!
-          </Typography>
-          <Typography variant="caption" color="inherit">
-            {user.role}
-          </Typography>
+          {isMd && (
+            <>
+              <Typography variant="body1" color="inherit">
+                Привіт, {user.name || 'unknown'}!
+              </Typography>
+              <Typography variant="caption" color="inherit">
+                {user.role}
+              </Typography>
+            </>
+          )}
           <img src={user.avatar} className="header__user-avatar" />
         </div>
       )}
