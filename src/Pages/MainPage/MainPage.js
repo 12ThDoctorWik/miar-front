@@ -1,4 +1,4 @@
-import React from 'react';
+import { Container } from '@mui/material';
 import './MainPage.scss';
 
 import Opening from './Opening/Opening.js';
@@ -11,15 +11,15 @@ import Questions from './Questions/Questions.js';
 
 export default function MainPage() {
   return (
-    <>
+    <div className="MainPage__wrapper">
       <Opening />
       <TTG />
       <Start />
       <Shop />
-      <div className="mainPage__title container">Для кого існує цей портал</div>
+      <div className="MainPage__title container">Для кого існує цей портал</div>
       <ForWho />
       <Materials />
       <Questions />
-    </>
+    </div>
   );
 }

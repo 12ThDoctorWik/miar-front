@@ -1,7 +1,10 @@
-@use "../../UI/colors.scss" as *;
-@import "../../UI/Text.scss";
+@use '../../UI/colors.scss' as *;
+@import '../../UI/Text.scss';
 
-.mainPage {
+.MainPage {
+  &__wrapper {
+    overflow: hidden;
+  }
 
   &__block {
     padding-top: 100px;

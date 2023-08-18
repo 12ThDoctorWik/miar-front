@@ -31,7 +31,7 @@ function App() {
           <Routes>
             <Route exact path="/" element={<MainPage />} />
             <Route exact path="/calendar" element={<Calendar />} />
-            <Route exact path="/game/:gameId" element={<GamePage />} />
+            <Route exact path="/game/:id" element={<GamePage />} />
             <Route exact path="/game_creator" element={<CreateGame />} />
             <Route path="*" element={<Navigate to={'/auth'} replace />} />
           </Routes>

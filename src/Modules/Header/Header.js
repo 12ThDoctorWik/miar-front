@@ -1,7 +1,13 @@
 import { useEffect, Fragment, useState } from 'react';
 import './Header.scss';
 import { NavLink } from 'react-router-dom';
-import { SwipeableDrawer, IconButton, Stack } from '@mui/material';
+import {
+  SwipeableDrawer,
+  IconButton,
+  Stack,
+  Typography,
+  Dialog,
+} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import { useTheme } from '@mui/material/styles';
@@ -41,16 +47,15 @@ export const Header = () => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'));
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
+  const [authIsOpen, setAuthIsOpen] = useState(false);
   const [checkUser, checkUserError] = useThunk(checkUserLoggedIn);
   const { user } = useSelector(state => state.auth);
+
+  const handleAuth = () => setAuthIsOpen(true);
+
   useEffect(() => {
     checkUser();
   }, [checkUser]);
-
-  function showAuth() {
-    document.getElementById('popupAuth').classList.add('popupAuth_open');
-    document.getElementById('overlay').style.display = 'block';
-  }
 
   return (
     <nav className="header container">
@@ -111,12 +116,28 @@ export const Header = () => {
         </div>
       )}
       {!user && (
-        <div className="header__user" onClick={showAuth}>
+        <div className="header__login" onClick={handleAuth}>
           Увійти
         </div>
       )}
-      {user && <img src={user.avatar} className="header__avatar" />}
-      <PopupAuth />
+      {user && (
+        <div className="header__user">
+          <Typography variant="body1" color="inherit">
+            Привіт, {user.name || 'unknown'}!
+          </Typography>
+          <Typography variant="caption" color="inherit">
+            {user.role}
+          </Typography>
+          <img src={user.avatar} className="header__user-avatar" />
+        </div>
+      )}
+      <Dialog
+        onClose={() => setAuthIsOpen(false)}
+        open={authIsOpen}
+        maxWidth="lg"
+      >
+        <PopupAuth onClose={() => setAuthIsOpen(false)} />
+      </Dialog>
     </nav>
   );
 };
