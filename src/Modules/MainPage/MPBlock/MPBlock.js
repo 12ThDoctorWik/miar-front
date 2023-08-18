@@ -1,6 +1,5 @@
-import React from 'react';
+import { Button } from '@mui/material';
 import './MPBlock.scss';
-import Button from '../../../Components/Button/Button.js';
 
 export default function MPBlock() {
   return (
@@ -12,8 +11,12 @@ export default function MPBlock() {
         почнуть свою епічну подорож.”
       </div>
       <div className="mpBlock__btns">
-        <Button text="Календар ігор" />
-        <Button text="Замовити гру" type="goldTransparent" />
+        <Button size="large" sx={{ borderRadius: 44 }} href="/calendar">
+          Календар ігор
+        </Button>
+        <Button size="large" variant="outlined" sx={{ borderRadius: 44 }}>
+          Замовити гру
+        </Button>
       </div>
     </div>
   );
