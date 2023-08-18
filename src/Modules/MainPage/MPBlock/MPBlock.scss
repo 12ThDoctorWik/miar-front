@@ -1,8 +1,9 @@
-@import "../../../UI/Text.scss";
+@import '../../../UI/Text.scss';
 
 .mpBlock {
-  
-  max-width: 40vw;
+  @media (min-width: 900px) {
+    max-width: 40vw;
+  }
 
   z-index: 2;
 
@@ -17,7 +18,7 @@
     margin-bottom: 20px;
   }
 
-  &__text{
+  &__text {
     @include regularText;
     margin-bottom: 20px;
   }
@@ -25,5 +26,9 @@
   &__btns {
     display: flex;
     gap: 30px;
+
+    @media (max-width: 900px) {
+      flex-direction: column;
+    }
   }
 }

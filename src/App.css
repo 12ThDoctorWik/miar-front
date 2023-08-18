@@ -1,9 +1,8 @@
 .App {
-  background-color: black;
 }
 
 .App-header {
-  background-color: #00192C;
+  background-color: #00192c;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -15,4 +14,9 @@
 
 .container {
   padding: 0 50px;
+}
+html {
+  position: relative;
+  min-height: 100%;
+  background-color: black;
 }

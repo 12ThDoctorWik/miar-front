@@ -1,6 +1,8 @@
 .opening {
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
   min-height: 100vh;
-  background-image: url(../../../Assets/Images/MainPage/opening_background.png);
+  background-image: url(../../../Assets/Images/MainPage/opening_background.webp);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -10,11 +12,10 @@
   justify-content: flex-start;
   align-items: center;
 
-  position: relative; 
+  position: relative;
   overflow-x: hidden;
   overflow-y: hidden;
 }
-
 
 .smoke,
 .smoke-bg {
@@ -26,8 +27,6 @@
   z-index: 0;
   background-size: cover;
   overflow-y: hidden;
-
-  
 }
 
 .smoke-bg {

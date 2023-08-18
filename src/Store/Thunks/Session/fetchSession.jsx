@@ -1,14 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { apiCall } from '../../../Services/api';
 
-const fetchSessions = createAsyncThunk('sessions', async payload => {
+const fetchSession = createAsyncThunk('sessions/getById', async id => {
   const response = await apiCall({
-    method: 'POST',
-    url: '/session/sessions',
-    body: payload,
+    method: 'GET',
+    url: `/session/session?sessionId=${id}`,
   });
 
   return JSON.parse(response);
 });
 
-export { fetchSessions };
+export { fetchSession };

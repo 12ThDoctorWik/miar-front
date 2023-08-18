@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SLICE_STATUSES } from '../../Store/Slices/sliceStatus.const';
 import { TOAST_LEVEL, toastSlice } from '../../Store/Slices/ToastSlice';
 
-function PopupAuth() {
+function PopupAuth({ onClose }) {
   const [useLogin, loginError] = useThunk(login);
   const [useFakeLogin, fakeLoginError] = useThunk(fakelogin);
   const { loginStatus } = useSelector(state => state.auth);
@@ -27,18 +27,13 @@ function PopupAuth() {
     }
   }, [loginStatus]);
 
-  function closePopup() {
-    document.getElementById('popupAuth').classList.remove('popupAuth_open');
-    document.getElementById('overlay').style.display = 'none';
-  }
-
   return (
     <div className="popupAuth popup" id="popupAuth">
       <div className="popupAuth__info container">
         <img
           src={cross_white}
           alt="exit"
-          onClick={closePopup}
+          onClick={onClose}
           className="popupAuth__cross"
         />
         <div className="popupAuth__header">
