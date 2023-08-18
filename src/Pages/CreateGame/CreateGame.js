@@ -67,12 +67,15 @@ export default function CreateGame() {
       tags = values.tags.split(', ');
     }
 
+    const bookedUserNames = values.bookedUserNames?.split(', ') || [];
+
     const newGame = {
       ...values,
       startTime: moment.utc(gameDatetime).toISOString(),
       locationType: 0,
       visible: +values.visible,
       tags,
+      bookedUserNames,
       // image
     };
 
@@ -258,6 +261,16 @@ export default function CreateGame() {
                 variant="outlined"
                 sx={{ color: 'white' }}
               />
+
+              <TextField
+                id="bookedUserNames"
+                name="bookedUserNames"
+                label="Гравці (через кому з пробілом)"
+                variant="outlined"
+                sx={{ color: 'white' }}
+              />
+
+              <div></div>
               {/*<Field id="image" name="image" component={'textarea'} placeholder="Опис">*/}
               {/*  { props => (<input type="file"/>*/}
               {/*  )}*/}
@@ -265,15 +278,12 @@ export default function CreateGame() {
 
               {/*<FilePicker></FilePicker>*/}
 
-              <Button variant="contained" type="submit">
+              <Button size="large" type="submit">
                 Створити гру
               </Button>
-              <CustomButton
-                type={'custom_button custom_button_back'}
-                to={'/calendar'}
-                showIcon={false}
-                text={'Назад'}
-              ></CustomButton>
+              <Button size="large" color="secondary" href="/calendar">
+                Назад
+              </Button>
             </div>
           </div>
         </form>

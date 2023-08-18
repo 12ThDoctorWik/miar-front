@@ -1,10 +1,7 @@
-@use "../../UI/colors.scss" as *;
-@import "../../UI/Text.scss";
+@use '../../UI/colors.scss' as *;
+@import '../../UI/Text.scss';
 
 .gamePage {
-  background-color: $background;
-  min-height: 100vh;
-  padding: 100px 170px;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -18,7 +15,7 @@
   }
 
   &__img {
-    width: 100%;  
+    width: 100%;
     object-fit: contain;
     border-radius: 16px;
     border-top-right-radius: 0px;
@@ -47,9 +44,8 @@
   }
 }
 
-
 .gpInfo {
-  font-family: "Inter";
+  font-family: 'Inter';
   display: grid;
   grid-template-columns: 1fr;
 
@@ -72,7 +68,7 @@
     grid-template-rows: 1fr 1fr;
     gap: 4px;
 
-    &_block{
+    &_block {
       background-color: $spLightBG;
       padding: 8px 16px;
       display: grid;
@@ -109,7 +105,7 @@
     }
   }
 
-  &__iconGroup{
+  &__iconGroup {
     display: flex;
     align-self: start;
   }

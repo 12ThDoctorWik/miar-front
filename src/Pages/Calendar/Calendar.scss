@@ -1,13 +1,17 @@
 .calendar {
-  background: rgba(18,19,22,255);
+  background: rgba(18, 19, 22, 255);
 
-  display: grid;
-  grid-template-columns: 15vw auto;
+  @media (min-width: 900px) {
+    display: grid;
+    grid-template-columns: 15vw auto;
+  }
+
   padding-top: 72px;
 
   &__week {
     display: flex;
     flex-direction: column;
-    gap: 90px;
+    column-gap: 90px;
+    min-height: calc(100vh - 72px);
   }
 }

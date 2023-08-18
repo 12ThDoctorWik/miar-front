@@ -1,52 +1,81 @@
-import React, { useEffect } from 'react';
-import './Calendar.scss';
-// import Moment from 'react-moment';
-// import moment from 'moment';
-
+import { useEffect, useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { differenceInDays, parse, add } from 'date-fns';
+import {
+  Grid,
+  Container,
+  Box,
+  CircularProgress,
+  Button,
+  Typography,
+  SwipeableDrawer,
+  IconButton,
+} from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
+import CloseIcon from '@mui/icons-material/Close';
+import { makeStyles } from '@mui/styles';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Filters from '../../Modules/Filters/Filters.js';
-import CalendarDay from '../../Modules/CalendarDay/CalendarDay.js';
+import { CalendarDay } from '../../Modules/CalendarDay/CalendarDay.js';
 import { useThunk } from '../../Hooks/useThunk';
 import { fetchSessions } from '../../Store';
-import { useSelector, useDispatch } from 'react-redux';
-import CustomButton from '../../Components/CustomButton/CustomButton';
 
-export default function Calendar() {
-  const [doFetchSessions, fetchSessionsError] = useThunk(fetchSessions);
+import './Calendar.scss';
+
+const useStyles = makeStyles(() => ({
+  addSessionButton: {
+    position: 'fixed',
+    right: '3.75rem',
+    bottom: '1rem',
+    backgroundColor: 'rgba(242, 222, 161, 1)',
+    padding: '1rem',
+    borderRadius: '50%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    '&:active': {
+      color: 'inherit',
+    },
+  },
+}));
+
+const Calendar = () => {
+  const classes = useStyles();
+  const theme = useTheme();
+  const isMd = useMediaQuery(theme.breakpoints.up('md'));
+  const [drawerIsOpen, setDrawerIsOpen] = useState(false);
+  const [doFetchSessions, _, isLoading] = useThunk(fetchSessions);
   const { sessions } = useSelector(state => state.sessions);
   const { user } = useSelector(state => state.auth);
 
-  // get days dates
-  const myMoment = require('moment');
-  const today = myMoment();
-  const daysInWeek = [];
-  daysInWeek.push(today.format('DD.MM'));
-  for (let i = 1; i <= 6; i++) {
-    const nextDay = today.clone().add(i, 'days');
-    daysInWeek.push(nextDay.format('DD.MM'));
-  }
-
-  // get days names
-  const moment = require('moment');
-  const daysOfWeekNames = moment.weekdays(); // Масив назв англійських днів тижня
-
-  let weekDays = [];
-  const todayIndex = today.day();
-  for (let i = todayIndex; i <= 6; i++) {
-    weekDays.push(daysOfWeekNames[i]);
-  }
-  for (let i = 0; i < todayIndex; i++) {
-    weekDays.push(daysOfWeekNames[i]);
-  }
-  const translationMap = {
-    понеділок: 'Monday',
-    вівторок: 'Tuesday',
-    середа: 'Wednesday',
-    четвер: 'Thursday',
-    'п’ятниця': 'Friday',
-    субота: 'Saturday',
-    неділя: 'Sunday',
-  };
-  weekDays = weekDays.map(dayUkr => translationMap[dayUkr]);
+  const groupedSessions = useMemo(
+    () =>
+      (sessions || []).reduce(
+        (groups, session) => {
+          const sessionDate = parse(
+            session.StartTime,
+            'dd-MM HH:mm',
+            new Date()
+          );
+          const offset = differenceInDays(sessionDate, new Date());
+          if (groups[offset]) {
+            groups[offset].sessions.push({
+              ...session,
+              StartTime: sessionDate,
+            });
+          }
+          return groups;
+        },
+        new Array(7).fill({}).map((_, index) => ({
+          date: add(new Date(), { days: index }),
+          sessions: [],
+        }))
+      ),
+    [sessions]
+  );
 
   useEffect(() => {
     doFetchSessions({
@@ -55,160 +84,76 @@ export default function Calendar() {
     });
   }, [doFetchSessions]);
 
-  let week = {
-    Monday: [],
-    Tuesday: [],
-    Wednesday: [],
-    Thursday: [],
-    Friday: [],
-    Saturday: [],
-    Sunday: [],
-  };
-  let test = [
-    {
-      Id: 3,
-      Name: 'Test Session',
-      Description: 'Dalekwik`s Test session',
-      ImageURL: 'string',
-      StartTime: '16-08 07:42',
-      MaxPlayer: 5,
-      MinLevel: 1,
-      MaxLevel: 5,
-      Visible: 1,
-      PricePerPlayer: 150,
-      LocationType: 1,
-      Location: 'Re:Bro',
-      Tags: ['DnD', 'NewBie'],
-      Day: 5,
-      MasterName: '',
-      Difficult: 0,
-      CurrentPlayers: 0,
-    },
-    {
-      Id: 3,
-      Name: 'Test Session',
-      Description: 'Dalekwik`s Test session',
-      ImageURL: 'string',
-      StartTime: '15-08 07:42',
-      MaxPlayer: 5,
-      MinLevel: 1,
-      MaxLevel: 5,
-      Visible: 1,
-      PricePerPlayer: 150,
-      LocationType: 1,
-      Location: 'Re:Bro',
-      Tags: ['DnD', 'NewBie'],
-      Day: 5,
-      MasterName: '',
-      Difficult: 0,
-      CurrentPlayers: 0,
-    },
-    {
-      Id: 3,
-      Name: 'Test Session',
-      Description: 'Dalekwik`s Test session',
-      ImageURL: 'string',
-      StartTime: '18-08 07:42',
-      MaxPlayer: 5,
-      MinLevel: 1,
-      MaxLevel: 5,
-      Visible: 1,
-      PricePerPlayer: 150,
-      LocationType: 1,
-      Location: 'Re:Bro',
-      Tags: ['DnD', 'NewBie'],
-      Day: 5,
-      MasterName: '',
-      Difficult: 0,
-      CurrentPlayers: 0,
-    },
-  ];
-  function getData() {
-    const format = 'DD-MM HH:mm';
-    sessions.map(el => {
-      const dateMoment = moment(el.StartTime, format);
-      switch (dateMoment.day()) {
-        case 0:
-          sortByDay(el, 'Sunday');
-          break;
-        case 1:
-          sortByDay(el, 'Monday');
-          break;
-        case 2:
-          sortByDay(el, 'Tuesday');
-          break;
-        case 3:
-          sortByDay(el, 'Wednesday');
-          break;
-        case 4:
-          sortByDay(el, 'Thursday');
-          break;
-        case 5:
-          sortByDay(el, 'Friday');
-          break;
-        case 6:
-          sortByDay(el, 'Saturday');
-          break;
-        default:
-          break;
-      }
-    });
-    sortByDay();
-  }
-
-  function sortByDay(element, day) {
-    if (element == undefined || day == undefined) return;
-    week[day].push(element);
-  }
-
-  if (sessions) {
-    getData();
-  }
-
   return (
     <div className="calendar">
-      <Filters />
+      {isMd && <Filters />}
       <div className="calendar__week">
-        <div className="calendar__navigation"></div>
-        <CalendarDay
-          day={weekDays[0]}
-          date={daysInWeek[0]}
-          games={week.Monday}
-        />
-        <CalendarDay
-          day={weekDays[1]}
-          date={daysInWeek[1]}
-          games={week.Tuesday}
-        />
-        <CalendarDay
-          day={weekDays[2]}
-          date={daysInWeek[2]}
-          games={week.Wednesday}
-        />
-        <CalendarDay
-          day={weekDays[3]}
-          date={daysInWeek[3]}
-          games={week.Thursday}
-        />
-        <CalendarDay
-          day={weekDays[4]}
-          date={daysInWeek[4]}
-          games={week.Friday}
-        />
-        <CalendarDay
-          day={weekDays[5]}
-          date={daysInWeek[5]}
-          games={week.Saturday}
-        />
-        <CalendarDay
-          day={weekDays[6]}
-          date={daysInWeek[6]}
-          games={week.Sunday}
-        />
+        {isMd || (
+          <>
+            <Box
+              className="calendar__navigation"
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              p={1}
+            >
+              <Typography color="white">Розклад</Typography>
+              <Button
+                startIcon={<FilterAltOutlinedIcon />}
+                color="secondary"
+                onClick={() => setDrawerIsOpen(true)}
+              >
+                Фільтри
+              </Button>
+            </Box>
+            <SwipeableDrawer
+              anchor="right"
+              open={drawerIsOpen}
+              classes={{ paper: 'drawer' }}
+              disableDiscovery
+              disableSwipeToOpen
+              onOpen={() => setDrawerIsOpen(true)}
+              onClose={() => setDrawerIsOpen(false)}
+            >
+              <IconButton
+                classes={{ root: 'drawer__close' }}
+                onClick={() => setDrawerIsOpen(false)}
+              >
+                <CloseIcon />
+              </IconButton>
+              <Filters />
+            </SwipeableDrawer>
+          </>
+        )}
+        <Container maxWidth="xl">
+          <Box py={2}>
+            <Grid container spacing={2}>
+              {isLoading ? (
+                <Box py={5} width="100%" display="flex" justifyContent="center">
+                  <CircularProgress size={36} />
+                </Box>
+              ) : (
+                groupedSessions.map((group, index) => (
+                  <Grid item xs={12} key={group.date}>
+                    <CalendarDay
+                      date={group.date}
+                      sessions={group.sessions}
+                      isToday={index === 0}
+                    />
+                  </Grid>
+                ))
+              )}
+            </Grid>
+          </Box>
+        </Container>
       </div>
-      {user && (user.role === 'Admin' || user.role === 'DM') ? (
-        <CustomButton type={'_gold_rightCorner'} to={'/game_creator'} />
-      ) : null}
+      {['Admin', 'DM'].includes(user?.role) && (
+        <Link to="/game_creator" className={classes.addSessionButton}>
+          <AddIcon />
+        </Link>
+      )}
     </div>
   );
-}
+};
+
+export default Calendar;
