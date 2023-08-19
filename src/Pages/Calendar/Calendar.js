@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { differenceInDays, parse, add } from 'date-fns';
+import { Link, useSearchParams } from 'react-router-dom';
+import { differenceInCalendarDays, parse, add } from 'date-fns';
 import {
   Grid,
   Container,
@@ -11,6 +11,9 @@ import {
   Typography,
   SwipeableDrawer,
   IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
@@ -22,6 +25,8 @@ import Filters from '../../Modules/Filters/Filters.js';
 import { CalendarDay } from '../../Modules/CalendarDay/CalendarDay.js';
 import { useThunk } from '../../Hooks/useThunk';
 import { fetchSessions } from '../../Store';
+import { GameForm } from '../../Components/GameForm/GameForm';
+import { GameDetails } from '../../Components/GameDetails/GameDetails';
 
 import './Calendar.scss';
 
@@ -43,10 +48,13 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Calendar = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const classes = useStyles();
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'));
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
+  const [gameFormIsOpen, setGameFormIsOpen] = useState(false);
+  const [selectedGameId, setSelectedGameId] = useState(null);
   const [doFetchSessions, _, isLoading] = useThunk(fetchSessions);
   const { sessions } = useSelector(state => state.sessions);
   const { user } = useSelector(state => state.auth);
@@ -60,7 +68,7 @@ const Calendar = () => {
             'dd-MM HH:mm',
             new Date()
           );
-          const offset = differenceInDays(sessionDate, new Date());
+          const offset = differenceInCalendarDays(sessionDate, new Date());
           if (groups[offset]) {
             groups[offset].sessions.push({
               ...session,
@@ -77,12 +85,25 @@ const Calendar = () => {
     [sessions]
   );
 
+  const handleGameDetails = id => {
+    setSelectedGameId(id);
+    setSearchParams(id ? { session: id } : {});
+  };
+
   useEffect(() => {
     doFetchSessions({
       daysBefore: 1, // todo move to const current week -> nextWeek() || prevWeek()
       daysAfter: 7,
     });
   }, [doFetchSessions]);
+
+  useEffect(() => {
+    const session = searchParams.get('session');
+
+    if (session) {
+      setSelectedGameId(session);
+    }
+  }, [searchParams]);
 
   return (
     <div className="calendar">
@@ -139,6 +160,7 @@ const Calendar = () => {
                       date={group.date}
                       sessions={group.sessions}
                       isToday={index === 0}
+                      showGameDetails={handleGameDetails}
                     />
                   </Grid>
                 ))
@@ -147,11 +169,39 @@ const Calendar = () => {
           </Box>
         </Container>
       </div>
-      {['Admin', 'DM'].includes(user?.role) && (
-        <Link to="/game_creator" className={classes.addSessionButton}>
-          <AddIcon />
-        </Link>
+      {!['Admin', 'DM'].includes(user?.role) && (
+        <>
+          <Link
+            onClick={() => setGameFormIsOpen(true)}
+            className={classes.addSessionButton}
+          >
+            <AddIcon />
+          </Link>
+          <Dialog
+            onClose={() => setGameFormIsOpen(false)}
+            open={gameFormIsOpen}
+            maxWidth="md"
+            PaperProps={{ sx: { backgroundColor: 'white' } }}
+          >
+            <DialogTitle>Створення нової партії</DialogTitle>
+            <DialogContent>
+              <GameForm onClose={() => setGameFormIsOpen(false)} />
+            </DialogContent>
+          </Dialog>
+        </>
       )}
+      <Dialog
+        onClose={() => handleGameDetails(null)}
+        open={!!selectedGameId}
+        fullScreen
+      >
+        {selectedGameId && (
+          <GameDetails
+            sessionId={selectedGameId}
+            onClose={() => handleGameDetails(null)}
+          />
+        )}
+      </Dialog>
     </div>
   );
 };

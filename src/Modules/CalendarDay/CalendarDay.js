@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import { GameCard } from '../../Components/GameCard/GameCard.js';
 import './CalendarDay.scss';
 
-export const CalendarDay = ({ date, sessions, isToday }) => {
+export const CalendarDay = ({ date, sessions, isToday, showGameDetails }) => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
@@ -17,7 +17,7 @@ export const CalendarDay = ({ date, sessions, isToday }) => {
         {sessions.length > 0 ? (
           sessions.map(session => (
             <Grid key={session.Id} item xs={12} sm={6} md={4} lg={3} xl={2}>
-              <GameCard session={session} />
+              <GameCard session={session} showGameDetails={showGameDetails} />
             </Grid>
           ))
         ) : (

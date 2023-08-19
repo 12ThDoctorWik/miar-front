@@ -3,10 +3,10 @@ import { format } from 'date-fns';
 import { lock, date, master, location } from '../../Assets/Icons/icons.js';
 import './GameCard.scss';
 
-export const GameCard = ({ session }) => {
+export const GameCard = ({ session, showGameDetails }) => {
   return (
     <>
-      <Link className="gameCard" to={'/game/' + session.Id}>
+      <Link className="gameCard" onClick={() => showGameDetails(session.Id)}>
         <div
           className="front"
           style={{
@@ -79,7 +79,7 @@ export const GameCard = ({ session }) => {
               Тип партії: <span className="back__data">Ofline</span>{' '}
             </div>
           </div>
-          <div className="back__btn">Зареєструватись</div>
+          <div className="back__btn">Детальніше</div>
         </div>
       </Link>
     </>

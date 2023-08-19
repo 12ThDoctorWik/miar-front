@@ -24,8 +24,9 @@ function PopupAuth({ onClose }) {
           TOAST_LEVEL.RED
         )
       );
+      onClose();
     }
-  }, [loginStatus]);
+  }, [loginStatus, onClose, dispatch]);
 
   return (
     <div className="popupAuth popup" id="popupAuth">

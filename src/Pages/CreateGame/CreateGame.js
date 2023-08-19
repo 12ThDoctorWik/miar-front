@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import './CreateGame.scss';
 
 import Button from '@mui/material/Button';
-import CustomButton from '../../Components/CustomButton/CustomButton';
-
 import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -18,7 +16,6 @@ import { useThunk } from '../../Hooks/useThunk';
 import { useDispatch, useSelector } from 'react-redux';
 import { toastSlice, TOAST_LEVEL } from '../../Store/Slices/ToastSlice';
 
-const fields = [];
 const validate = values => {
   const errors = {};
   const checks = [
@@ -79,10 +76,9 @@ export default function CreateGame() {
       // image
     };
 
-    // console.log('newGameObject', newGame);
-    doAddSession(newGame);
+    console.log('newGameObject', newGame);
+    // doAddSession(newGame);
   };
-  // const required = value => (value ? undefined : 'Required')
 
   return (
     <Form

@@ -40,6 +40,13 @@ export const createThemeObject = () => {
           },
         },
       },
+      MuiDialog: {
+        styleOverrides: {
+          paper: {
+            backgroundColor: '#121316',
+          },
+        },
+      },
     },
   });
 
