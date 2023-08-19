@@ -8,6 +8,7 @@ const updateSession = createAsyncThunk(
       method: 'POST',
       url: `/session/edit-session?sessionId=${id}`,
       body: payload,
+      tokenized: true,
     });
     return response;
   }

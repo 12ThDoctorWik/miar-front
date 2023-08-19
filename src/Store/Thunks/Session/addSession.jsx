@@ -6,6 +6,7 @@ const addSession = createAsyncThunk('session/add', async payload => {
     method: 'POST',
     url: '/session/create-session',
     body: payload,
+    tokenized: true,
   });
   return response;
 });
