@@ -160,7 +160,7 @@ const Calendar = () => {
           </Box>
         </Container>
       </div>
-      {['Admin', 'DM'].includes(user?.role) && (
+      {['ADMIN', 'DM'].includes(user?.role.toUpperCase()) && (
         <>
           <Link
             onClick={() => setGameFormIsOpen(true)}
