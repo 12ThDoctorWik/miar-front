@@ -13,7 +13,8 @@ import {
   Box,
   Typography,
 } from '@mui/material';
-import { parse } from 'date-fns';
+import { parse, parseISO } from 'date-fns';
+import { zonedTimeToUtc } from 'date-fns-tz';
 import { useDispatch, useSelector } from 'react-redux';
 import { addSession } from '../../Store';
 import { SLICE_STATUSES } from '../../Store/Slices/sliceStatus.const';
@@ -59,7 +60,9 @@ export const GameForm = ({ session, onClose }) => {
   }) => {
     doAddSession({
       ...data,
-      startTime: parse(`${date} ${time}`, 'yyyy-MM-dd HH:mm', new Date()),
+      startTime: zonedTimeToUtc(
+        parse(`${date} ${time}`, 'yyyy-MM-dd HH:mm', new Date())
+      ),
       minLevel: levels[0],
       maxLevel: levels[1],
       tags: (tags?.split(';') || []).map(value => value.trim()),
