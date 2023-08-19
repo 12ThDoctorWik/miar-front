@@ -31,6 +31,7 @@ export const GameDetails = ({ sessionId, onClose }) => {
   const dispatch = useDispatch();
   const { showGameForm } = useGamesContext();
 
+  console.log('session', session);
   let image = session?.ImageURL;
   if (image === '' || image === 'string') {
     image = 'https://i.redd.it/nwpa93o6r8k31.jpg';
@@ -90,7 +91,7 @@ export const GameDetails = ({ sessionId, onClose }) => {
                 <Grid item xs={12} lg={5} order={{ xs: 2, lg: 1 }}>
                   <CardMedia
                     component="img"
-                    image={session.ImageURL}
+                    image={image}
                     alt="Game thumbnail"
                   />
                 </Grid>
@@ -114,11 +115,15 @@ export const GameDetails = ({ sessionId, onClose }) => {
                               </div>
                               <div className="gpInfo__line">
                                 Клуб:{' '}
-                                <span className="gpInfo__line_data">Club</span>
+                                <span className="gpInfo__line_data">
+                                  {session.ClubName}
+                                </span>
                               </div>
                               <div className="gpInfo__line">
                                 Система:{' '}
-                                <span className="gpInfo__line_data">DND</span>
+                                <span className="gpInfo__line_data">
+                                  {session.System}
+                                </span>
                               </div>
                             </div>
                           </Grid>
