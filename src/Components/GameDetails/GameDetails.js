@@ -225,13 +225,11 @@ export const GameDetails = ({ sessionId, onClose }) => {
                       </Grid>
                       <Grid item xs={12}>
                         <div className="gpInfo__tags">
-                          {session.Tags.map(el => {
-                            return (
-                              <div className="gpInfo__tag" key={el}>
-                                {el}
-                              </div>
-                            );
-                          })}
+                          {session.Tags.map(el => (
+                            <div className="gpInfo__tag" key={el}>
+                              {el}
+                            </div>
+                          ))}
                         </div>
                       </Grid>
                       <Grid item xs={12}>
@@ -249,8 +247,8 @@ export const GameDetails = ({ sessionId, onClose }) => {
                     Зареєстровані гравці
                   </Typography>
                   <Grid container spacing={2} mt={2}>
-                    {session.Characters.map(user => (
-                      <Grid key={user.UserId} item xs={12} md={6} lg={4}>
+                    {session.Characters.map((user, index) => (
+                      <Grid key={index} item xs={12} md={6} lg={4}>
                         <Card
                           sx={{
                             display: 'flex',

@@ -1,12 +1,16 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
 import { format } from 'date-fns';
 import { lock, date, master, location } from '../../Assets/Icons/icons.js';
 import './GameCard.scss';
 
 export const GameCard = ({ session }) => {
+  const navigate = useNavigate();
+
+  const handleGameDetails = () => navigate(`/calendar?session=${session.Id}`);
   return (
     <>
-      <Link className="gameCard" to={`/calendar?session=${session.Id}`}>
+      <div className="gameCard">
         <div
           className="front"
           style={{
@@ -79,9 +83,9 @@ export const GameCard = ({ session }) => {
               Тип партії: <span className="back__data">Ofline</span>{' '}
             </div>
           </div>
-          <div className="back__btn">Детальніше</div>
+          <Button onClick={handleGameDetails}>Детальніше</Button>
         </div>
-      </Link>
+      </div>
     </>
   );
 };
