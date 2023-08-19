@@ -18,6 +18,8 @@ import CreateGame from './Pages/CreateGame/CreateGame.js';
 import { Toast } from './Modules/Toast/Toast';
 import { createThemeObject } from './theme';
 
+import { GamesProvider } from './providers/GamesProvider';
+
 function App() {
   document.title = 'MIAR';
   const theme = createThemeObject();
@@ -26,18 +28,20 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <Router>
-          <Header />
-          <Routes>
-            <Route exact path="/" element={<MainPage />} />
-            <Route exact path="/calendar" element={<Calendar />} />
-            <Route exact path="/game/:id" element={<GamePage />} />
-            <Route exact path="/game_creator" element={<CreateGame />} />
-            <Route path="*" element={<Navigate to={'/auth'} replace />} />
-          </Routes>
-          <Toast />
-        </Router>
-        <Overlay />
+        <GamesProvider>
+          <Router>
+            <Header />
+            <Routes>
+              <Route exact path="/" element={<MainPage />} />
+              <Route exact path="/calendar" element={<Calendar />} />
+              <Route exact path="/game/:id" element={<GamePage />} />
+              <Route exact path="/game_creator" element={<CreateGame />} />
+              <Route path="*" element={<Navigate to={'/auth'} replace />} />
+            </Routes>
+            <Toast />
+          </Router>
+          <Overlay />
+        </GamesProvider>
       </ThemeProvider>
     </div>
   );

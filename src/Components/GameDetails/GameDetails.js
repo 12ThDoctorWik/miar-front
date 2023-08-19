@@ -16,30 +16,37 @@ import {
   IconButton,
 } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import EditIcon from '@mui/icons-material/Edit';
 import './GameDetails.scss';
 import { player, fire, fire_active } from '../../Assets/Icons/icons.js';
 import { TOAST_LEVEL, toastSlice } from '../../Store/Slices/ToastSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useThunk } from '../../Hooks/useThunk';
 import { fetchSession } from '../../Store';
+import { useGamesContext } from '../../providers/GamesProvider';
 
 export const GameDetails = ({ sessionId, onClose }) => {
   const { session } = useSelector(state => state.session);
   const [doFetchSession, _, isLoading] = useThunk(fetchSession);
   const dispatch = useDispatch();
+  const { showGameForm } = useGamesContext();
 
   let image = session?.ImageURL;
   if (image === '' || image === 'string') {
     image = 'https://i.redd.it/nwpa93o6r8k31.jpg';
   }
 
-  const handleClick = () => {
+  const handleRegister = () => {
     dispatch(
       toastSlice.actions.showMessage(
         'Реєстрація на ігри тимчасово недоступна',
         TOAST_LEVEL.YELLOW
       )
     );
+  };
+
+  const handleEdit = () => {
+    showGameForm({ session });
   };
 
   useEffect(() => {
@@ -64,7 +71,21 @@ export const GameDetails = ({ sessionId, onClose }) => {
       {session && (
         <Box py={2}>
           <Stack spacing={2}>
-            <Card sx={{ borderRadius: 4, backgroundColor: '#1e1f22' }}>
+            <Card
+              sx={{
+                borderRadius: 4,
+                backgroundColor: '#1e1f22',
+                position: 'relative',
+              }}
+            >
+              {session.ShowEditButton && (
+                <IconButton
+                  sx={{ position: 'absolute', top: 1, right: 1 }}
+                  onClick={handleEdit}
+                >
+                  <EditIcon sx={{ color: 'white' }} />
+                </IconButton>
+              )}
               <Grid container>
                 <Grid item xs={12} lg={5} order={{ xs: 2, lg: 1 }}>
                   <CardMedia
@@ -232,8 +253,11 @@ export const GameDetails = ({ sessionId, onClose }) => {
                           ))}
                         </div>
                       </Grid>
+
                       <Grid item xs={12}>
-                        <Button onClick={handleClick}>Зареєструватись</Button>
+                        <Button onClick={handleRegister}>
+                          Зареєструватись
+                        </Button>
                       </Grid>
                     </Grid>
                   </Box>

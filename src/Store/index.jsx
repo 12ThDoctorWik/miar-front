@@ -23,3 +23,4 @@ export * from './Thunks/Auth/checkUserLoggedIn';
 export * from './Thunks/Session/fetchSessions';
 export * from './Thunks/Session/fetchSession';
 export * from './Thunks/Session/addSession';
+export * from './Thunks/Session/updateSession';

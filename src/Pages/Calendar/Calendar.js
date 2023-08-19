@@ -12,8 +12,6 @@ import {
   SwipeableDrawer,
   IconButton,
   Dialog,
-  DialogTitle,
-  DialogContent,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
@@ -25,8 +23,8 @@ import Filters from '../../Modules/Filters/Filters.js';
 import { CalendarDay } from '../../Modules/CalendarDay/CalendarDay.js';
 import { useThunk } from '../../Hooks/useThunk';
 import { fetchSessions } from '../../Store';
-import { GameForm } from '../../Components/GameForm/GameForm';
 import { GameDetails } from '../../Components/GameDetails/GameDetails';
+import { useGamesContext } from '../../providers/GamesProvider';
 
 import './Calendar.scss';
 
@@ -58,6 +56,7 @@ const Calendar = () => {
   const [doFetchSessions, _, isLoading] = useThunk(fetchSessions);
   const { sessions } = useSelector(state => state.sessions);
   const { user } = useSelector(state => state.auth);
+  const { showGameForm } = useGamesContext();
 
   const groupedSessions = useMemo(
     () =>
@@ -161,26 +160,12 @@ const Calendar = () => {
         </Container>
       </div>
       {['ADMIN', 'DM'].includes(user?.role.toUpperCase()) && (
-        <>
-          <Link
-            onClick={() => setGameFormIsOpen(true)}
-            className={classes.addSessionButton}
-          >
-            <AddIcon />
-          </Link>
-          <Dialog
-            open={gameFormIsOpen}
-            maxWidth="md"
-            fullScreen={!isMd}
-            disableEscapeKeyDown
-            PaperProps={{ sx: { backgroundColor: 'white' } }}
-          >
-            <DialogTitle>Створення нової партії</DialogTitle>
-            <DialogContent>
-              <GameForm onClose={() => setGameFormIsOpen(false)} />
-            </DialogContent>
-          </Dialog>
-        </>
+        <Link
+          onClick={() => showGameForm()}
+          className={classes.addSessionButton}
+        >
+          <AddIcon />
+        </Link>
       )}
       <Dialog
         onClose={() => setSearchParams({})}
