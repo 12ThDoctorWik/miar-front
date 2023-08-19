@@ -10,8 +10,7 @@ import { SLICE_STATUSES } from '../../Store/Slices/sliceStatus.const';
 import { TOAST_LEVEL, toastSlice } from '../../Store/Slices/ToastSlice';
 
 function PopupAuth({ onClose }) {
-  const [useLogin, loginError] = useThunk(login);
-  const [useFakeLogin, fakeLoginError] = useThunk(fakelogin);
+  const [useLogin] = useThunk(login);
   const { loginStatus } = useSelector(state => state.auth);
 
   const dispatch = useDispatch();

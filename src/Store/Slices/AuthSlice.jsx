@@ -20,6 +20,7 @@ const authSlice = createSlice({
         localStorage.setItem('refreshToken', action.payload.refreshToken);
       }
       state.user = action.payload.user;
+      state.loginStatus = SLICE_STATUSES.SUCCESS;
     });
     builder.addCase(login.rejected, (state, action) => {
       console.warn('login.rejected', action);
