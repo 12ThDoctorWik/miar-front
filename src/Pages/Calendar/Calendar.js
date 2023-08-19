@@ -169,9 +169,10 @@ const Calendar = () => {
             <AddIcon />
           </Link>
           <Dialog
-            onClose={() => setGameFormIsOpen(false)}
             open={gameFormIsOpen}
             maxWidth="md"
+            fullScreen={!isMd}
+            disableEscapeKeyDown
             PaperProps={{ sx: { backgroundColor: 'white' } }}
           >
             <DialogTitle>Створення нової партії</DialogTitle>
