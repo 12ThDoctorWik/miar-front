@@ -1,7 +1,15 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useSearchParams } from 'react-router-dom';
-import { differenceInCalendarDays, parse, add } from 'date-fns';
+import {
+  differenceInCalendarDays,
+  parse,
+  add,
+  addWeeks,
+  subWeeks,
+  formatISO,
+  parseISO,
+} from 'date-fns';
 import {
   Grid,
   Container,
@@ -12,6 +20,7 @@ import {
   SwipeableDrawer,
   IconButton,
   Dialog,
+  Stack,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
@@ -57,9 +66,22 @@ const Calendar = () => {
   const { sessions } = useSelector(state => state.sessions);
   const { user } = useSelector(state => state.auth);
   const { showGameForm } = useGamesContext();
+  const [currentCalendarStart, setCurrentCalendarStart] = useState(
+    formatISO(new Date())
+  );
 
-  const groupedSessions = useMemo(
-    () =>
+  const [groupedSessions, setGroupedSessions] = useState([]);
+
+  useEffect(() => {
+    doFetchSessions({
+      daysBefore: 0,
+      daysAfter: 7,
+      calcFromDate: currentCalendarStart,
+    });
+  }, [currentCalendarStart]);
+
+  useEffect(() => {
+    setGroupedSessions(
       (sessions || []).reduce(
         (groups, session) => {
           const sessionDate = parse(
@@ -67,7 +89,10 @@ const Calendar = () => {
             'dd-MM HH:mm',
             new Date()
           );
-          const offset = differenceInCalendarDays(sessionDate, new Date());
+          const offset = differenceInCalendarDays(
+            sessionDate,
+            parseISO(currentCalendarStart)
+          );
           if (groups[offset]) {
             groups[offset].sessions.push({
               ...session,
@@ -77,25 +102,28 @@ const Calendar = () => {
           return groups;
         },
         new Array(7).fill({}).map((_, index) => ({
-          date: add(new Date(), { days: index }),
+          date: add(parseISO(currentCalendarStart), { days: index }),
           sessions: [],
         }))
-      ),
-    [sessions]
-  );
-
-  useEffect(() => {
-    doFetchSessions({
-      daysBefore: 1, // todo move to const current week -> nextWeek() || prevWeek()
-      daysAfter: 7,
-    });
-  }, [doFetchSessions]);
+      )
+    );
+  }, [sessions]);
 
   useEffect(() => {
     const session = searchParams.get('session');
     setSelectedGameId(session);
   }, [searchParams]);
 
+  const nextWeek = () => {
+    setCurrentCalendarStart(
+      formatISO(addWeeks(parseISO(currentCalendarStart), 1))
+    );
+  };
+  const prevWeek = () => {
+    setCurrentCalendarStart(
+      formatISO(subWeeks(parseISO(currentCalendarStart), 1))
+    );
+  };
   return (
     <div className="calendar">
       {isMd && <Filters />}
@@ -138,6 +166,12 @@ const Calendar = () => {
           </>
         )}
         <Container maxWidth="xl">
+          <Box py={2}>
+            <Stack direction="row" spacing={2}>
+              <Button onClick={prevWeek}>На тиждень назад</Button>
+              <Button onClick={nextWeek}>На тиждень вперед</Button>
+            </Stack>
+          </Box>
           <Box py={2}>
             <Grid container spacing={2}>
               {isLoading ? (
