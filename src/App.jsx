@@ -14,7 +14,6 @@ import MainPage from './Pages/MainPage/MainPage.js';
 import GamePage from './Pages/GamePage/GamePage.js';
 import Calendar from './Pages/Calendar/Calendar.js';
 
-import CreateGame from './Pages/CreateGame/CreateGame.js';
 import { Toast } from './Modules/Toast/Toast';
 import { createThemeObject } from './theme';
 
@@ -35,7 +34,6 @@ function App() {
               <Route exact path="/" element={<MainPage />} />
               <Route exact path="/calendar" element={<Calendar />} />
               <Route exact path="/game/:id" element={<GamePage />} />
-              <Route exact path="/game_creator" element={<CreateGame />} />
               <Route path="*" element={<Navigate to={'/auth'} replace />} />
             </Routes>
             <Toast />
