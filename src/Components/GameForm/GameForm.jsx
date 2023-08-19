@@ -32,11 +32,14 @@ export const GameForm = ({ session, onClose }) => {
   useEffect(() => {
     if (sessionStatus === SLICE_STATUSES.SUCCESS) {
       dispatch(
-        toastSlice.actions.showMessage('Додано нову гру', TOAST_LEVEL.RED)
+        toastSlice.actions.showMessage(
+          session ? 'Гру відредаговано' : 'Додано нову гру',
+          TOAST_LEVEL.RED
+        )
       );
       onClose();
     }
-  }, [sessionStatus, dispatch, onClose]);
+  }, [sessionStatus, dispatch, onClose, session]);
 
   const {
     control,
