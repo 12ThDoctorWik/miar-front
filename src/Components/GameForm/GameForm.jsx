@@ -30,8 +30,9 @@ export const GameForm = ({ session, onClose }) => {
       dispatch(
         toastSlice.actions.showMessage('Додано нову гру', TOAST_LEVEL.RED)
       );
+      onClose();
     }
-  }, [sessionStatus, dispatch]);
+  }, [sessionStatus, dispatch, onClose]);
 
   const {
     control,
@@ -56,7 +57,7 @@ export const GameForm = ({ session, onClose }) => {
     bookedUserNames,
     ...data
   }) => {
-    await doAddSession({
+    doAddSession({
       ...data,
       startTime: parse(`${date} ${time}`, 'yyyy-MM-dd HH:mm', new Date()),
       minLevel: levels[0],
