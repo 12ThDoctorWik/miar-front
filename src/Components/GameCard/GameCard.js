@@ -3,10 +3,10 @@ import { format } from 'date-fns';
 import { lock, date, master, location } from '../../Assets/Icons/icons.js';
 import './GameCard.scss';
 
-export const GameCard = ({ session, showGameDetails }) => {
+export const GameCard = ({ session }) => {
   return (
     <>
-      <Link className="gameCard" onClick={() => showGameDetails(session.Id)}>
+      <Link className="gameCard" to={`/calendar?session=${session.Id}`}>
         <div
           className="front"
           style={{

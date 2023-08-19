@@ -85,11 +85,6 @@ const Calendar = () => {
     [sessions]
   );
 
-  const handleGameDetails = id => {
-    setSelectedGameId(id);
-    setSearchParams(id ? { session: id } : {});
-  };
-
   useEffect(() => {
     doFetchSessions({
       daysBefore: 1, // todo move to const current week -> nextWeek() || prevWeek()
@@ -99,10 +94,7 @@ const Calendar = () => {
 
   useEffect(() => {
     const session = searchParams.get('session');
-
-    if (session) {
-      setSelectedGameId(session);
-    }
+    setSelectedGameId(session);
   }, [searchParams]);
 
   return (
@@ -160,7 +152,6 @@ const Calendar = () => {
                       date={group.date}
                       sessions={group.sessions}
                       isToday={index === 0}
-                      showGameDetails={handleGameDetails}
                     />
                   </Grid>
                 ))
@@ -191,14 +182,14 @@ const Calendar = () => {
         </>
       )}
       <Dialog
-        onClose={() => handleGameDetails(null)}
+        onClose={() => setSearchParams({})}
         open={!!selectedGameId}
         fullScreen
       >
         {selectedGameId && (
           <GameDetails
             sessionId={selectedGameId}
-            onClose={() => handleGameDetails(null)}
+            onClose={() => setSearchParams({})}
           />
         )}
       </Dialog>
