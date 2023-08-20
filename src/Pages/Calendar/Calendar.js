@@ -10,6 +10,7 @@ import {
   formatISO,
   parseISO,
   isToday,
+  format,
 } from 'date-fns';
 import {
   Grid,
@@ -68,7 +69,7 @@ const Calendar = () => {
   const { user } = useSelector(state => state.auth);
   const { showGameForm } = useGamesContext();
   const [currentCalendarStart, setCurrentCalendarStart] = useState(
-    formatISO(new Date())
+    format(new Date(), 'yyyy-MM-dd')
   );
 
   const [groupedSessions, setGroupedSessions] = useState([]);
@@ -121,12 +122,12 @@ const Calendar = () => {
 
   const nextWeek = () => {
     setCurrentCalendarStart(
-      formatISO(addWeeks(parseISO(currentCalendarStart), 1))
+      format(addWeeks(parseISO(currentCalendarStart), 1), 'yyyy-MM-dd')
     );
   };
   const prevWeek = () => {
     setCurrentCalendarStart(
-      formatISO(subWeeks(parseISO(currentCalendarStart), 1))
+      format(subWeeks(parseISO(currentCalendarStart), 1), 'yyyy-MM-dd')
     );
   };
   return (
