@@ -46,13 +46,13 @@ export const GameCard = ({ session }) => {
         <div className="back">
           <div className="back__info">
             <div className="back__text">
-              Клуб: <span className="back__data">Club</span>{' '}
+              Клуб: <span className="back__data">{session.ClubName}</span>{' '}
             </div>
             <div className="back__text">
               Майстер: <span className="back__data">{session.MasterName}</span>{' '}
             </div>
             <div className="back__text">
-              Що: <span className="back__data">DND</span>{' '}
+              Що: <span className="back__data">{session.System}</span>{' '}
             </div>
             <div className="back__text">
               Де: <span className="back__data">{session.Location}</span>{' '}
@@ -80,7 +80,7 @@ export const GameCard = ({ session }) => {
               <span className="back__data">{session.PricePerPlayer} грн</span>
             </div>
             <div className="back__text">
-              Тип партії: <span className="back__data">Ofline</span>{' '}
+              Тип партії: <span className="back__data">Offline</span>{' '}
             </div>
           </div>
           <Button onClick={handleGameDetails}>Детальніше</Button>
