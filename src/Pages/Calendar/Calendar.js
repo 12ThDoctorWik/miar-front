@@ -9,6 +9,7 @@ import {
   subWeeks,
   formatISO,
   parseISO,
+  isToday,
 } from 'date-fns';
 import {
   Grid,
@@ -101,10 +102,14 @@ const Calendar = () => {
           }
           return groups;
         },
-        new Array(7).fill({}).map((_, index) => ({
-          date: add(parseISO(currentCalendarStart), { days: index }),
-          sessions: [],
-        }))
+        new Array(7).fill({}).map((_, index) => {
+          const date = add(parseISO(currentCalendarStart), { days: index });
+          return {
+            date,
+            isToday: isToday(date),
+            sessions: [],
+          };
+        })
       )
     );
   }, [sessions, currentCalendarStart]);
@@ -179,12 +184,12 @@ const Calendar = () => {
                   <CircularProgress size={36} />
                 </Box>
               ) : (
-                groupedSessions.map((group, index) => (
+                groupedSessions.map(group => (
                   <Grid item xs={12} key={group.date}>
                     <CalendarDay
                       date={group.date}
                       sessions={group.sessions}
-                      isToday={index === 0}
+                      isToday={group.isToday}
                     />
                   </Grid>
                 ))
