@@ -26,7 +26,7 @@ import { fetchSession } from '../../Store';
 import { useGamesContext } from '../../providers/GamesProvider';
 
 export const GameDetails = ({ sessionId, onClose }) => {
-  const { session } = useSelector(state => state.session);
+  const { session, user } = useSelector(state => state.session);
   const [doFetchSession, _, isLoading] = useThunk(fetchSession);
   const dispatch = useDispatch();
   const { showGameForm } = useGamesContext();
@@ -50,8 +50,8 @@ export const GameDetails = ({ sessionId, onClose }) => {
   };
 
   useEffect(() => {
-    doFetchSession(sessionId);
-  }, [doFetchSession, sessionId]);
+    doFetchSession({ id: sessionId, tokenized: !!user });
+  }, [doFetchSession, sessionId, user]);
 
   return (
     <Container maxWidth="lg" sx={{ paddingTop: 9 }}>
