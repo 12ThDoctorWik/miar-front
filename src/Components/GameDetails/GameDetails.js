@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { format, parseISO } from 'date-fns';
 import {
   Grid,
@@ -22,29 +22,39 @@ import { player, fire, fire_active } from '../../Assets/Icons/icons.js';
 import { TOAST_LEVEL, toastSlice } from '../../Store/Slices/ToastSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useThunk } from '../../Hooks/useThunk';
-import { fetchSession } from '../../Store';
+import {
+  fetchSession,
+  registerForSession,
+  unRegisterForSession,
+} from '../../Store';
 import { useGamesContext } from '../../providers/GamesProvider';
+import { SLICE_STATUSES } from '../../Store/Slices/sliceStatus.const';
 
 export const GameDetails = ({ sessionId, onClose }) => {
   const { session } = useSelector(state => state.session);
-  const { user } = useSelector(state => state.auth);
+  const { user, loginStatus } = useSelector(state => state.auth);
+  const registerSessionStatus = useSelector(
+    state => state.registerSession.status
+  );
   const [doFetchSession, _, isLoading] = useThunk(fetchSession);
+  const [doRegisterSession] = useThunk(registerForSession);
+  const [doUnRegisterSession] = useThunk(unRegisterForSession);
   const dispatch = useDispatch();
   const { showGameForm } = useGamesContext();
+  const [canUnregister, setCanUnregister] = useState(false);
+  const [canRegister, setCanRegister] = useState(false);
 
-  console.log('session', session);
   let image = session?.ImageURL;
   if (image === '' || image === 'string') {
     image = 'https://i.redd.it/nwpa93o6r8k31.jpg';
   }
 
   const handleRegister = () => {
-    dispatch(
-      toastSlice.actions.showMessage(
-        'Реєстрація на ігри тимчасово недоступна',
-        TOAST_LEVEL.YELLOW
-      )
-    );
+    doRegisterSession(sessionId);
+  };
+
+  const handleUnRegister = () => {
+    doUnRegisterSession(sessionId);
   };
 
   const handleEdit = () => {
@@ -52,8 +62,47 @@ export const GameDetails = ({ sessionId, onClose }) => {
   };
 
   useEffect(() => {
-    doFetchSession({ id: sessionId, tokenized: !!user });
-  }, [doFetchSession, sessionId, user]);
+    console.log(session);
+    // setIsUnregister(session);
+    if (session) {
+      if (session.IsOwnGame) {
+        setCanUnregister(false);
+        setCanRegister(false);
+      } else {
+        if (session.IsRegistered) {
+          setCanUnregister(true);
+          setCanRegister(false);
+        } else {
+          setCanUnregister(false);
+          if (session.RegisterButton) {
+            setCanRegister(true);
+          } else {
+            setCanRegister(false);
+          }
+        }
+      }
+    }
+  }, [session]);
+
+  useEffect(() => {
+    console.log(loginStatus);
+    // todo fix double loading for registered user
+    if (
+      (registerSessionStatus === SLICE_STATUSES.SUCCESS ||
+        registerSessionStatus === null) &&
+      loginStatus === SLICE_STATUSES.SUCCESS
+    ) {
+      doFetchSession({ id: sessionId, tokenized: !!user });
+    }
+    if (registerSessionStatus === SLICE_STATUSES.ERROR) {
+      dispatch(
+        toastSlice.actions.showMessage(
+          'Помилка реєстрації на гру',
+          TOAST_LEVEL.YELLOW
+        )
+      );
+    }
+  }, [registerSessionStatus, doFetchSession, sessionId, user, loginStatus]);
 
   return (
     <Container maxWidth="lg" sx={{ paddingTop: 9 }}>
@@ -259,11 +308,19 @@ export const GameDetails = ({ sessionId, onClose }) => {
                           ))}
                         </div>
                       </Grid>
-
                       <Grid item xs={12}>
-                        <Button onClick={handleRegister}>
-                          Зареєструватись
-                        </Button>
+                        <Stack direction="row" spacing={2}>
+                          {canRegister && (
+                            <Button onClick={handleRegister}>
+                              Зареєструватись
+                            </Button>
+                          )}
+                          {canUnregister && (
+                            <Button onClick={handleUnRegister}>
+                              Зняти реєстрацію
+                            </Button>
+                          )}
+                        </Stack>
                       </Grid>
                     </Grid>
                   </Box>
