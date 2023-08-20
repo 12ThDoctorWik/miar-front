@@ -48,14 +48,14 @@ const authSlice = createSlice({
         localStorage.setItem('refreshToken', action.payload.refreshToken);
       }
       state.user = action.payload.user;
-      state.loginStatus = SLICE_STATUSES.SUCCESS;
+      // state.loginStatus = SLICE_STATUSES.SUCCESS;
     });
     builder.addCase(checkUserLoggedIn.pending, (state, action) => {
-      state.loginStatus = SLICE_STATUSES.LOADING;
+      // state.loginStatus = SLICE_STATUSES.LOADING;
     });
     builder.addCase(checkUserLoggedIn.rejected, (state, action) => {
       state.user = null;
-      state.loginStatus = SLICE_STATUSES.ERROR;
+      // state.loginStatus = SLICE_STATUSES.ERROR;
     });
   },
 });
