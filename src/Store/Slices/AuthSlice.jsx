@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { login } from '../Thunks/Auth/login';
-import { fakelogin } from '../Thunks/Auth/fakelogin';
+// import { fakelogin } from '../Thunks/Auth/fakelogin';
 import { checkUserLoggedIn } from '../Thunks/Auth/checkUserLoggedIn';
 import { SLICE_STATUSES } from './sliceStatus.const';
 
@@ -30,16 +30,16 @@ const authSlice = createSlice({
     builder.addCase(login.pending, (state, action) => {
       state.loginStatus = SLICE_STATUSES.LOADING;
     });
-    builder.addCase(fakelogin.fulfilled, (state, action) => {
-      if (action.payload.Token) {
-        localStorage.setItem('accessToken', action.payload.Token);
-      }
-      if (action.payload.RefreshToken) {
-        localStorage.setItem('refreshToken', action.payload.RefreshToken);
-      }
-      state.user = action.payload.user;
-      state.loginStatus = SLICE_STATUSES.SUCCESS;
-    });
+    // builder.addCase(fakelogin.fulfilled, (state, action) => {
+    //   if (action.payload.Token) {
+    //     localStorage.setItem('accessToken', action.payload.Token);
+    //   }
+    //   if (action.payload.RefreshToken) {
+    //     localStorage.setItem('refreshToken', action.payload.RefreshToken);
+    //   }
+    //   state.user = action.payload.user;
+    //   state.loginStatus = SLICE_STATUSES.SUCCESS;
+    // });
     builder.addCase(checkUserLoggedIn.fulfilled, (state, action) => {
       if (action.payload.accessToken) {
         localStorage.setItem('accessToken', action.payload.accessToken);
@@ -48,14 +48,14 @@ const authSlice = createSlice({
         localStorage.setItem('refreshToken', action.payload.refreshToken);
       }
       state.user = action.payload.user;
-      state.loginStatus = SLICE_STATUSES.SUCCESS;
+      // state.loginStatus = SLICE_STATUSES.SUCCESS;
     });
     builder.addCase(checkUserLoggedIn.pending, (state, action) => {
-      state.loginStatus = SLICE_STATUSES.LOADING;
+      // state.loginStatus = SLICE_STATUSES.LOADING;
     });
     builder.addCase(checkUserLoggedIn.rejected, (state, action) => {
       state.user = null;
-      state.loginStatus = SLICE_STATUSES.ERROR;
+      // state.loginStatus = SLICE_STATUSES.ERROR;
     });
   },
 });

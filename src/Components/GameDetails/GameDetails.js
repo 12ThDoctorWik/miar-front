@@ -83,10 +83,11 @@ export const GameDetails = ({ sessionId, onClose }) => {
   }, [session]);
 
   useEffect(() => {
+    //todo fix double call
     if (
       (registerSessionStatus === SLICE_STATUSES.SUCCESS ||
         registerSessionStatus === null) &&
-      loginStatus === SLICE_STATUSES.SUCCESS
+      (loginStatus === SLICE_STATUSES.SUCCESS || loginStatus === null)
     ) {
       doFetchSession({ id: sessionId, tokenized: !!user });
     }
