@@ -20,7 +20,7 @@ const store = configureStore({
 export { store };
 
 export * from './Thunks/Auth/login';
-export * from './Thunks/Auth/fakelogin';
+// export * from './Thunks/Auth/fakelogin';
 export * from './Thunks/Auth/checkUserLoggedIn';
 export * from './Thunks/Session/fetchSessions';
 export * from './Thunks/Session/fetchSession';
