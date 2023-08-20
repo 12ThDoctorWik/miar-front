@@ -26,7 +26,8 @@ import { fetchSession } from '../../Store';
 import { useGamesContext } from '../../providers/GamesProvider';
 
 export const GameDetails = ({ sessionId, onClose }) => {
-  const { session, user } = useSelector(state => state.session);
+  const { session } = useSelector(state => state.session);
+  const { user } = useSelector(state => state.user);
   const [doFetchSession, _, isLoading] = useThunk(fetchSession);
   const dispatch = useDispatch();
   const { showGameForm } = useGamesContext();
