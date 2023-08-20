@@ -3,6 +3,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { GameCard } from '../../Components/GameCard/GameCard.js';
 import './CalendarDay.scss';
+import SoonGameCard from '../../Components/SoonGameCard/SoonGameCard.js';
 
 export const CalendarDay = ({ date, sessions, isToday }) => {
   return (
@@ -21,9 +22,9 @@ export const CalendarDay = ({ date, sessions, isToday }) => {
             </Grid>
           ))
         ) : (
-          <Grid item xs={12}>
+          <Grid item xs={12} sm={12} md={7} lg={6} xl={5}>
             <Box py={4} px={1} className="calendarDay__warning">
-              Готуємо анонси...
+              <SoonGameCard />
             </Box>
           </Grid>
         )}
