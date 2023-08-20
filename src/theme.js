@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles';
+import { buttonClasses } from '@mui/material';
 
 export const createThemeObject = () => {
   let theme = createTheme({
@@ -23,6 +24,9 @@ export const createThemeObject = () => {
           },
           containedPrimary: {
             color: 'rgba(18, 19, 22, 1)',
+            ['&.' + buttonClasses.disabled]: {
+              backgroundColor: 'rgba(242, 222, 161, 1)',
+            },
           },
           containedSecondary: {
             backgroundColor: 'rgba(255, 255, 255, 0.12)',
