@@ -62,8 +62,6 @@ export const GameDetails = ({ sessionId, onClose }) => {
   };
 
   useEffect(() => {
-    console.log(session);
-    // setIsUnregister(session);
     if (session) {
       if (session.IsOwnGame) {
         setCanUnregister(false);
@@ -85,8 +83,6 @@ export const GameDetails = ({ sessionId, onClose }) => {
   }, [session]);
 
   useEffect(() => {
-    console.log(loginStatus);
-    // todo fix double loading for registered user
     if (
       (registerSessionStatus === SLICE_STATUSES.SUCCESS ||
         registerSessionStatus === null) &&

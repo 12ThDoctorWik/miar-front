@@ -10,7 +10,6 @@ const sessionSlice = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(fetchSession.fulfilled, (state, action) => {
-      // console.log('fetchSession.fulfilled', action);
       state.session = action.payload;
     });
     builder.addCase(fetchSession.rejected, (state, action) => {
