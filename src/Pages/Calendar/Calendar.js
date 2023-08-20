@@ -78,7 +78,7 @@ const Calendar = () => {
       daysAfter: 7,
       calcFromDate: currentCalendarStart,
     });
-  }, [currentCalendarStart]);
+  }, [currentCalendarStart, doFetchSessions]);
 
   useEffect(() => {
     setGroupedSessions(
@@ -107,7 +107,7 @@ const Calendar = () => {
         }))
       )
     );
-  }, [sessions]);
+  }, [sessions, currentCalendarStart]);
 
   useEffect(() => {
     const session = searchParams.get('session');

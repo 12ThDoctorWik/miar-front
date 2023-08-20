@@ -1,4 +1,3 @@
-import { Container } from '@mui/material';
 import './MainPage.scss';
 
 import Opening from './Opening/Opening.js';

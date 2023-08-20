@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import './PopupAuth.scss';
 
 import { telegram, cross_white } from '../../Assets/Icons/icons.js';
-import { login, fakelogin, checkUser } from '../../Store';
+import { login } from '../../Store';
+// import { fakelogin } from '../../Store';
 import { useThunk } from '../../Hooks/useThunk';
 import TelegramLoginButton from '../../Auth/CustomTelegramLogin';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,6 +11,7 @@ import { SLICE_STATUSES } from '../../Store/Slices/sliceStatus.const';
 import { TOAST_LEVEL, toastSlice } from '../../Store/Slices/ToastSlice';
 
 function PopupAuth({ onClose }) {
+  // const [useFakeLogin] = useThunk(fakelogin);
   const [useLogin] = useThunk(login);
   const { loginStatus } = useSelector(state => state.auth);
 
@@ -47,11 +49,11 @@ function PopupAuth({ onClose }) {
             <TelegramLoginButton dataOnauth={useLogin} botName="dndLvivBot" />
           </div>
 
-          {/*<div className="popupAuth__tg" style={{backgroundColor: 'RED'}} onClick={useFakeLogin}>*/}
-          {/*     <div className="popupAuth__tg_container">*/}
-          {/*       <img src={telegram} alt="icon"/>*/}
-          {/*       <span>TEST LOGIN</span>*/}
-          {/*     </div>*/}
+          {/*<div className="popupAuth__tg" onClick={useFakeLogin}>*/}
+          {/*  <div className="popupAuth__tg_container">*/}
+          {/*    <img src={telegram} alt="icon" />*/}
+          {/*    <span>TEST LOGIN</span>*/}
+          {/*  </div>*/}
           {/*</div>*/}
 
           <div className="popupAuth__text">

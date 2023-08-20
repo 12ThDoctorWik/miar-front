@@ -50,8 +50,6 @@ export const GamePage = () => {
     doFetchSession(params.id);
   }, [doFetchSession, params]);
 
-  console.log({ session });
-
   return (
     <Container maxWidth="lg" sx={{ paddingTop: 9 }}>
       {isLoading && (
