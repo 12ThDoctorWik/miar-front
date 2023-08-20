@@ -1,0 +1,32 @@
+.soonGameCard {
+  background-image: url(../../Assets/Images/soonGames_bg.png);
+  height: 180px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  
+  position: relative;
+  border-radius: 4px;
+
+  &__title {
+    background: linear-gradient(90deg, #232426 -1.56%, rgba(35, 36, 38, 0) 100%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 16px;
+
+    display: flex;
+    align-items: flex-end;
+    border-radius: 4px;
+
+    color: white;
+    font-family: "Inter";
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+  }
+}
