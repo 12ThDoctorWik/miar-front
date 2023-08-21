@@ -67,7 +67,7 @@ export const DiceConForm = ({ onClose }) => {
               <Grid item xs={12}>
                 <Typography
                   color="primary"
-                  variant="h5"
+                  variant="h6"
                   textAlign="center"
                   fontStyle="italic"
                 >
@@ -76,7 +76,7 @@ export const DiceConForm = ({ onClose }) => {
                     : 'Введіть арканні символи для доступу в підземелля'}
                 </Typography>
               </Grid>
-              {isRegistered || (
+              {!isRegistered && (
                 <Grid item xs={12}>
                   <TextField
                     id="token"
@@ -99,11 +99,13 @@ export const DiceConForm = ({ onClose }) => {
               )}
             </Grid>
           </CardContent>
-          <CardActions>
-            <Button fullWidth type="submit" disabled={!isValid || isLoading}>
-              Підтвердити
-            </Button>
-          </CardActions>
+          {isRegistered || (
+            <CardActions>
+              <Button fullWidth type="submit" disabled={!isValid || isLoading}>
+                Підтвердити
+              </Button>
+            </CardActions>
+          )}
         </form>
       )}
     </Card>
