@@ -12,7 +12,9 @@ import {
   Typography,
   Box,
   CircularProgress,
+  IconButton,
 } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import { checkDiceConUser, useDiceConToken } from '../../Store';
 import { useThunk } from '../../Hooks/useThunk';
 import { SLICE_STATUSES } from '../../Store/Slices/sliceStatus.const';
@@ -54,7 +56,15 @@ export const DiceConForm = ({ onClose }) => {
   }, [doCheckUser]);
 
   return (
-    <Card sx={{ backgroundColor: 'rgba(30, 31, 34, 1)' }}>
+    <Card sx={{ backgroundColor: 'rgba(30, 31, 34, 1)', position: 'relative' }}>
+      {isRegistered && (
+        <IconButton
+          onClick={onClose}
+          sx={{ position: 'absolute', right: 1, top: 1 }}
+        >
+          <CloseIcon color="primary" />
+        </IconButton>
+      )}
       <CardMedia sx={{ height: 215 }} image={image} />
       {isChecking ? (
         <Box display="flex" justifyContent="center" p={5}>
