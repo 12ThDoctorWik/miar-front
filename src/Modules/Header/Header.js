@@ -134,10 +134,8 @@ export const Header = () => {
             </>
           )}
           <ProfileMenu />
-          <img src={user.avatar} className="header__user-avatar" />
         </div>
       )}
-      <ProfileMenu />
       <Dialog
         onClose={() => setAuthIsOpen(false)}
         open={authIsOpen}
