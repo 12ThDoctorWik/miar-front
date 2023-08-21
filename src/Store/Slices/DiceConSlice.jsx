@@ -8,6 +8,7 @@ const diceConSlice = createSlice({
   initialState: {
     checkUserStatus: null,
     useTokenStatus: null,
+    isRegistered: false,
   },
   extraReducers(builder) {
     builder.addCase(checkDiceConUser.pending, (state, action) => {
@@ -15,6 +16,7 @@ const diceConSlice = createSlice({
     });
     builder.addCase(checkDiceConUser.fulfilled, (state, action) => {
       state.checkUserStatus = SLICE_STATUSES.SUCCESS;
+      state.isRegistered = action.payload.IsRegistered;
     });
     builder.addCase(checkDiceConUser.rejected, (state, action) => {
       state.checkUserStatus = SLICE_STATUSES.ERROR;

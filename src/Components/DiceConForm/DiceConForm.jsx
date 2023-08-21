@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect, useEffect, useRef } from 'react';
+import { useLayoutEffect, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import {
@@ -20,12 +20,10 @@ import { toastSlice, TOAST_LEVEL } from '../../Store/Slices/ToastSlice';
 import image from '../../Assets/Images/DiceCon-register.webp';
 
 export const DiceConForm = ({ onClose }) => {
-  const [isRegistered, setIsRegistered] = useState(false);
   const [doUseToken, _, isLoading] = useThunk(useDiceConToken);
   const [doCheckUser, __, isChecking] = useThunk(checkDiceConUser);
-  const { useTokenStatus } = useSelector(state => state.diceCon);
+  const { useTokenStatus, isRegistered } = useSelector(state => state.diceCon);
   const dispatch = useDispatch();
-  const soundRef = useRef(null);
 
   const {
     formState: { isValid, errors },
@@ -52,12 +50,7 @@ export const DiceConForm = ({ onClose }) => {
   }, [useTokenStatus, dispatch, onClose]);
 
   useLayoutEffect(() => {
-    const checkUser = async () => {
-      const result = await doCheckUser();
-      console.log(result);
-      setIsRegistered(result?.IsRegistered);
-    };
-    checkUser();
+    doCheckUser();
   }, [doCheckUser]);
 
   return (
