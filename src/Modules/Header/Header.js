@@ -117,13 +117,8 @@ export const Header = () => {
           ))}
         </div>
       )}
-      {!user && (
-        <div className="header__login" onClick={handleAuth}>
-          Увійти
-        </div>
-      )}
-      {user && (
-        <>
+      {user ? (
+        <div className="header__user">
           {isMd && (
             <Box display="flex" flexDirection="column">
               <Typography variant="body1" color="inherit">
@@ -135,15 +130,21 @@ export const Header = () => {
             </Box>
           )}
           <ProfileMenu />
+        </div>
+      ) : (
+        <>
+          <div className="header__login" onClick={handleAuth}>
+            Увійти
+          </div>
+          <Dialog
+            onClose={() => setAuthIsOpen(false)}
+            open={authIsOpen}
+            maxWidth="lg"
+          >
+            <PopupAuth onClose={() => setAuthIsOpen(false)} />
+          </Dialog>
         </>
       )}
-      <Dialog
-        onClose={() => setAuthIsOpen(false)}
-        open={authIsOpen}
-        maxWidth="lg"
-      >
-        <PopupAuth onClose={() => setAuthIsOpen(false)} />
-      </Dialog>
     </nav>
   );
 };

@@ -56,8 +56,7 @@
   &__user {
     @include regularText;
     color: rgba(255, 255, 255, 0.5);
-    display: grid;
-    grid-template-columns: 1fr 32px;
+    display: flex;
     column-gap: 0.5rem;
     align-items: center;
     & * {
