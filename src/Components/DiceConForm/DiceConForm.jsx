@@ -55,7 +55,7 @@ export const DiceConForm = ({ onClose }) => {
     const checkUser = async () => {
       const result = await doCheckUser();
       console.log(result);
-      setIsRegistered(result?.isRegistered);
+      setIsRegistered(result?.IsRegistered);
     };
     checkUser();
   }, [doCheckUser]);

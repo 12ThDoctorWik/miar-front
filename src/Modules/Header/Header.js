@@ -7,6 +7,7 @@ import {
   Stack,
   Typography,
   Dialog,
+  Box,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
@@ -122,19 +123,19 @@ export const Header = () => {
         </div>
       )}
       {user && (
-        <div className="header__user">
+        <>
           {isMd && (
-            <>
+            <Box display="flex" flexDirection="column">
               <Typography variant="body1" color="inherit">
-                Привіт, {user.name || 'unknown'}!
+                Привіт, {user?.name || 'unknown'}!
               </Typography>
               <Typography variant="caption" color="inherit">
-                {user.role}
+                {user?.role}
               </Typography>
-            </>
+            </Box>
           )}
           <ProfileMenu />
-        </div>
+        </>
       )}
       <Dialog
         onClose={() => setAuthIsOpen(false)}
