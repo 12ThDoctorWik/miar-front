@@ -35,8 +35,8 @@ export const DiceConForm = ({ onClose }) => {
     mode: 'all',
   });
 
-  const handleDiceConForm = data => {
-    doUseToken(data);
+  const handleDiceConForm = ({ token }) => {
+    doUseToken({ token: token.trim() });
   };
 
   useEffect(() => {

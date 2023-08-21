@@ -33,7 +33,9 @@ export const ProfileMenu = () => {
   return (
     <>
       <IconButton onClick={handleToggleMenu}>
-        <Avatar alt={user?.name} src={user?.avatar} />
+        <Avatar alt={user?.name} src={user?.avatar}>
+          user?.name.charAt(0)
+        </Avatar>
       </IconButton>
 
       <Menu

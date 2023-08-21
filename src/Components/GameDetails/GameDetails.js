@@ -116,7 +116,7 @@ export const GameDetails = ({ sessionId, onClose }) => {
           <CircularProgress size={36} />
         </Box>
       )}
-      {session && (
+      {`${session?.Id}` === sessionId && (
         <Box py={2}>
           <Stack spacing={2}>
             <Card
