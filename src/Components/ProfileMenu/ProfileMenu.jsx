@@ -53,7 +53,7 @@ export const ProfileMenu = () => {
       </Menu>
       <DialogWrapper
         {...bindDialogState(diceConDialogState)}
-        maxWidth={640}
+        maxWidth="640px"
         fullWidth
         fullScreen={!isMd}
       >
