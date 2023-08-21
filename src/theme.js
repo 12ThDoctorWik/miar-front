@@ -47,7 +47,23 @@ export const createThemeObject = () => {
       MuiDialog: {
         styleOverrides: {
           paper: {
-            backgroundColor: '#121316',
+            backgroundColor: 'rgba(30, 31, 34, 1)',
+          },
+        },
+      },
+      MuiMenu: {
+        styleOverrides: {
+          paper: {
+            backgroundColor: 'rgba(30, 31, 34, 1)',
+          },
+        },
+      },
+      MuiMenuItem: {
+        styleOverrides: {
+          root: {
+            '&:hover': {
+              backgroundColor: 'rgba(255, 255, 255, 0.04)',
+            },
           },
         },
       },

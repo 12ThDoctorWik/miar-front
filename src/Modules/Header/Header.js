@@ -12,6 +12,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { ProfileMenu } from '../../Components/ProfileMenu/ProfileMenu';
 import PopupAuth from '../PopupAuth/PopupAuth.js';
 import { useSelector } from 'react-redux';
 import { checkUserLoggedIn } from '../../Store';
@@ -132,9 +133,11 @@ export const Header = () => {
               </Typography>
             </>
           )}
+          <ProfileMenu />
           <img src={user.avatar} className="header__user-avatar" />
         </div>
       )}
+      <ProfileMenu />
       <Dialog
         onClose={() => setAuthIsOpen(false)}
         open={authIsOpen}

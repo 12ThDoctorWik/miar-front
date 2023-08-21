@@ -5,6 +5,7 @@ import { sessionsSlice } from './Slices/SessionsSlice';
 import { sessionSlice } from './Slices/SessionSlice';
 import { toastSlice } from './Slices/ToastSlice';
 import { registerSessionSlice } from './Slices/RegisterSessionSlice';
+import { diceConSlice } from './Slices/DiceConSlice';
 
 const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
     session: sessionSlice.reducer,
     registerSession: registerSessionSlice.reducer,
     toast: toastSlice.reducer,
+    diceCon: diceConSlice.reducer,
   },
   // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(authMiddleware)
 });
@@ -28,3 +30,6 @@ export * from './Thunks/Session/addSession';
 export * from './Thunks/Session/updateSession';
 export * from './Thunks/Session/registerForSession';
 export * from './Thunks/Session/unRegisterForSession';
+
+export * from './Thunks/DiceCon/useToken';
+export * from './Thunks/DiceCon/checkUser';
