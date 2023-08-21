@@ -17,6 +17,7 @@ const diceConSlice = createSlice({
     builder.addCase(checkDiceConUser.fulfilled, (state, action) => {
       state.checkUserStatus = SLICE_STATUSES.SUCCESS;
       state.isRegistered = action.payload.IsRegistered;
+      console.log(action.payload);
     });
     builder.addCase(checkDiceConUser.rejected, (state, action) => {
       state.checkUserStatus = SLICE_STATUSES.ERROR;
