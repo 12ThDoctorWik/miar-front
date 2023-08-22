@@ -204,11 +204,11 @@ export const GameDetails = ({ sessionId, onClose }) => {
                           item
                           xs={12}
                           container
-                          columns={7}
+                          columns={12}
                           spacing={0.25}
                           alignItems="stretch"
                         >
-                          <Grid item xs={7} lg={2}>
+                          <Grid item xs={12} lg={6}>
                             <div className="gpInfo__data_places gpInfo__data_block">
                               <div className="gpInfo__line">
                                 Доступні місця:{' '}
@@ -242,7 +242,7 @@ export const GameDetails = ({ sessionId, onClose }) => {
                               </div>
                             </div>
                           </Grid>
-                          <Grid item xs={7} lg={3}>
+                          {/* <Grid item xs={7} lg={3}>
                             <div className="gpInfo__data_difficulty gpInfo__data_block">
                               <div className="gpInfo__line">
                                 Складність пригоди:{' '}
@@ -274,8 +274,14 @@ export const GameDetails = ({ sessionId, onClose }) => {
                                 )}
                               </div>
                             </div>
-                          </Grid>
-                          <Grid item xs={7} lg={2}>
+                          </Grid> */}
+                          <Grid
+                            item
+                            xs={12}
+                            lg={6}
+                            display="flex"
+                            alignItems="stretch"
+                          >
                             <div className="gpInfo__data_level gpInfo__data_block">
                               <div className="gpInfo__line">
                                 Рівні персонажів:{' '}
