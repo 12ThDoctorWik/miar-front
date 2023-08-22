@@ -4,7 +4,6 @@ import {
   Navigate,
   Route,
   Routes,
-  Redirect,
 } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import setDefaultOptions from 'date-fns/setDefaultOptions';
