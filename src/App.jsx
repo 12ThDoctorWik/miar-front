@@ -4,6 +4,7 @@ import {
   Navigate,
   Route,
   Routes,
+  Redirect,
 } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import setDefaultOptions from 'date-fns/setDefaultOptions';
@@ -31,7 +32,12 @@ function App() {
           <Router>
             <Header />
             <Routes>
-              <Route exact path="/" element={<MainPage />} />
+              {/* <Route exact path="/" element={<MainPage />} /> */}
+              <Route
+                exact
+                path="/"
+                element={<Navigate to={'/calendar'} replace />}
+              />
               <Route exact path="/calendar" element={<Calendar />} />
               <Route exact path="/game/:id" element={<GamePage />} />
               <Route path="*" element={<Navigate to={'/auth'} replace />} />

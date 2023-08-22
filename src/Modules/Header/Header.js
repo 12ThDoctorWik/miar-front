@@ -23,6 +23,7 @@ const NAV_ENTITIES = [
   {
     path: '/',
     label: 'Головна',
+    disabled: true,
   },
   {
     path: '/calendar',
