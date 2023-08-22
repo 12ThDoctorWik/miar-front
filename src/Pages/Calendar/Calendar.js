@@ -132,7 +132,7 @@ const Calendar = () => {
   };
   return (
     <div className="calendar">
-      {isMd && <Filters />}
+      {/* {isMd && <Filters />} */}
       <div className="calendar__week">
         {isMd || (
           <>
@@ -148,6 +148,7 @@ const Calendar = () => {
                 startIcon={<FilterAltOutlinedIcon />}
                 color="secondary"
                 onClick={() => setDrawerIsOpen(true)}
+                disabled
               >
                 Фільтри
               </Button>
