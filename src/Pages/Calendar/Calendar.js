@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useSearchParams } from 'react-router-dom';
 import {
@@ -7,7 +7,6 @@ import {
   add,
   addWeeks,
   subWeeks,
-  formatISO,
   parseISO,
   isToday,
   format,
@@ -21,7 +20,6 @@ import {
   Typography,
   SwipeableDrawer,
   IconButton,
-  Dialog,
   Stack,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
@@ -34,7 +32,6 @@ import Filters from '../../Modules/Filters/Filters.js';
 import { CalendarDay } from '../../Modules/CalendarDay/CalendarDay.js';
 import { useThunk } from '../../Hooks/useThunk';
 import { fetchSessions } from '../../Store';
-import { GameDetails } from '../../Components/GameDetails/GameDetails';
 import { useGamesContext } from '../../providers/GamesProvider';
 
 import './Calendar.scss';
@@ -62,8 +59,6 @@ const Calendar = () => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'));
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
-  const [gameFormIsOpen, setGameFormIsOpen] = useState(false);
-  const [selectedGameId, setSelectedGameId] = useState(null);
   const [doFetchSessions, _, isLoading] = useThunk(fetchSessions);
   const { sessions } = useSelector(state => state.sessions);
   const { user } = useSelector(state => state.auth);
@@ -114,11 +109,6 @@ const Calendar = () => {
       )
     );
   }, [sessions, currentCalendarStart]);
-
-  useEffect(() => {
-    const session = searchParams.get('session');
-    setSelectedGameId(session);
-  }, [searchParams]);
 
   const nextWeek = () => {
     setCurrentCalendarStart(
@@ -208,18 +198,6 @@ const Calendar = () => {
           <AddIcon />
         </Link>
       )}
-      <Dialog
-        onClose={() => setSearchParams({})}
-        open={!!selectedGameId}
-        fullScreen
-      >
-        {selectedGameId && (
-          <GameDetails
-            sessionId={selectedGameId}
-            onClose={() => setSearchParams({})}
-          />
-        )}
-      </Dialog>
     </div>
   );
 };

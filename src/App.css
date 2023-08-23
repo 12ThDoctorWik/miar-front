@@ -20,3 +20,20 @@ html {
   min-height: 100%;
   background-color: black;
 }
+
+.page-transition-enter {
+  opacity: 0;
+}
+.page-transition-exit {
+  opacity: 1;
+}
+.page-transition-enter-active {
+  opacity: 1;
+}
+.page-transition-exit-active {
+  opacity: 0;
+}
+.page-transition-enter-active,
+.page-transition-exit-active {
+  transition: opacity 0.44s;
+}

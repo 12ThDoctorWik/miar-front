@@ -1,13 +1,10 @@
-import { useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { format } from 'date-fns';
 import { lock, date, master, location } from '../../Assets/Icons/icons.js';
 import './GameCard.scss';
 
 export const GameCard = ({ session }) => {
-  const navigate = useNavigate();
-
-  const handleGameDetails = () => navigate(`/calendar?session=${session.Id}`);
   return (
     <>
       <div className="gameCard">
@@ -83,7 +80,9 @@ export const GameCard = ({ session }) => {
               Тип партії: <span className="back__data">Offline</span>{' '}
             </div>
           </div>
-          <Button onClick={handleGameDetails}>Детальніше</Button>
+          <Button component={NavLink} to={`/calendar/${session.Id}`}>
+            Детальніше
+          </Button>
         </div>
       </div>
     </>

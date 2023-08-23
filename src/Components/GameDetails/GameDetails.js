@@ -102,15 +102,7 @@ export const GameDetails = ({ sessionId, onClose }) => {
   }, [registerSessionStatus, doFetchSession, sessionId, user, loginStatus]);
 
   return (
-    <Container maxWidth="lg" sx={{ paddingTop: 9 }}>
-      <DialogTitle
-        sx={{ display: 'flex', alignItems: 'center', gap: 1, padding: 0 }}
-      >
-        <IconButton onClick={onClose}>
-          <ArrowBackIosIcon sx={{ color: '#fff' }} />
-        </IconButton>
-        <Typography color="white">Вибрана ігрова партія</Typography>
-      </DialogTitle>
+    <>
       {isLoading && (
         <Box py={10} width="100%" display="flex" justifyContent="center">
           <CircularProgress size={36} />
@@ -374,6 +366,6 @@ export const GameDetails = ({ sessionId, onClose }) => {
           </Stack>
         </Box>
       )}
-    </Container>
+    </>
   );
 };
