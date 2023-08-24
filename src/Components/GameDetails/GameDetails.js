@@ -114,7 +114,6 @@ export const GameDetails = ({ sessionId, onClose }) => {
             <Card
               sx={{
                 borderRadius: 4,
-                backgroundColor: '#1e1f22',
                 position: 'relative',
               }}
             >
@@ -323,7 +322,7 @@ export const GameDetails = ({ sessionId, onClose }) => {
               </Grid>
             </Card>
             {session.Characters.length > 0 && (
-              <Card sx={{ borderRadius: 4, backgroundColor: '#1e1f22' }}>
+              <Card sx={{ borderRadius: 4 }}>
                 <CardContent>
                   <Typography variant="h5" color="white">
                     Зареєстровані гравці

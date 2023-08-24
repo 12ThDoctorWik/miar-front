@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { useNavigate, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Avatar, IconButton, Menu, MenuItem, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { useAuthStore } from '@features/auth/hooks';
 import { useDialog, bindDialogState } from '../../Hooks/use-dialog';
 import { DialogWrapper } from '../DialogWrapper';
 import { DiceConForm } from '../DiceConForm/DiceConForm';
@@ -12,7 +13,7 @@ export const ProfileMenu = () => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'));
   const { user } = useSelector(state => state.auth);
-  const navigate = useNavigate();
+  const { logout } = useAuthStore();
   const [anchorEl, setAnchorEl] = useState(null);
   const diceConDialogState = useDialog();
 
@@ -21,8 +22,7 @@ export const ProfileMenu = () => {
 
   const handleLogout = () => {
     handleToggleMenu();
-    localStorage.clear();
-    navigate(0);
+    logout();
   };
 
   const handleDiceCon = () => {
@@ -46,13 +46,13 @@ export const ProfileMenu = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        {/* <MenuItem
+        <MenuItem
           component={NavLink}
           to="/account"
           onClick={() => handleToggleMenu()}
         >
           <Typography color="white">Account</Typography>
-        </MenuItem> */}
+        </MenuItem>
         <MenuItem onClick={handleDiceCon}>
           <Typography color="white">DiceCon</Typography>
         </MenuItem>

@@ -7,6 +7,7 @@ import {
   Outlet,
   useLocation,
 } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import { ThemeProvider } from '@mui/material/styles';
 import setDefaultOptions from 'date-fns/setDefaultOptions';
@@ -61,19 +62,29 @@ function App() {
   const theme = createThemeObject();
   setDefaultOptions({ locale: uk });
 
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
+  });
+
   return (
     <div className="App">
-      <ThemeProvider theme={theme}>
-        <GamesProvider>
-          <Router>
-            <MainWrapper>
-              <Root />
-              <Toast />
-            </MainWrapper>
-          </Router>
-          <Overlay />
-        </GamesProvider>
-      </ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>
+          <GamesProvider>
+            <Router>
+              <MainWrapper>
+                <Root />
+                <Toast />
+              </MainWrapper>
+            </Router>
+            <Overlay />
+          </GamesProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
     </div>
   );
 }

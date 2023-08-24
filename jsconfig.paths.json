@@ -9,7 +9,8 @@
       "@components/*": ["src/Components/*"],
       "@modules/*": ["src/Modules/*"],
       "@store/*": ["src/Store/*"],
-      "@hooks/*": ["src/Hooks/*"]
+      "@hooks/*": ["src/Hooks/*"],
+      "@services/*": ["src/Services/*"]
     }
   }
 }

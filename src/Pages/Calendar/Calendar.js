@@ -36,22 +36,24 @@ import { useGamesContext } from '../../providers/GamesProvider';
 
 import './Calendar.scss';
 
-const useStyles = makeStyles(() => ({
-  addSessionButton: {
-    position: 'fixed',
-    right: '3.75rem',
-    bottom: '1rem',
-    backgroundColor: 'rgba(242, 222, 161, 1)',
-    padding: '1rem',
-    borderRadius: '50%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    '&:active': {
-      color: 'inherit',
+const useStyles = makeStyles(() => {
+  return {
+    addSessionButton: {
+      position: 'fixed',
+      right: '3.75rem',
+      bottom: '1rem',
+      backgroundColor: 'rgba(242, 222, 161, 1)',
+      padding: '1rem',
+      borderRadius: '50%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      '&:active': {
+        color: 'inherit',
+      },
     },
-  },
-}));
+  };
+});
 
 const Calendar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
