@@ -51,7 +51,7 @@ export const ProfileMenu = () => {
           to="/account"
           onClick={() => handleToggleMenu()}
         >
-          <Typography color="white">Account</Typography>
+          <Typography color="white">Аккаунт</Typography>
         </MenuItem>
         <MenuItem onClick={handleDiceCon}>
           <Typography color="white">DiceCon</Typography>
