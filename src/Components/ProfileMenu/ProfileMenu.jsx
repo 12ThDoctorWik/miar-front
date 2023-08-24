@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Avatar, IconButton, Menu, MenuItem, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
@@ -46,9 +46,16 @@ export const ProfileMenu = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
+        {/* <MenuItem
+          component={NavLink}
+          to="/account"
+          onClick={() => handleToggleMenu()}
+        >
+          <Typography color="white">Account</Typography>
+        </MenuItem> */}
         <MenuItem onClick={handleDiceCon}>
           <Typography color="white">DiceCon</Typography>
-        </MenuItem>{' '}
+        </MenuItem>
         <MenuItem onClick={handleLogout}>
           <Typography color="red">Вийти</Typography>
         </MenuItem>

@@ -64,7 +64,7 @@ const Calendar = () => {
   const { user } = useSelector(state => state.auth);
   const { showGameForm } = useGamesContext();
   const [currentCalendarStart, setCurrentCalendarStart] = useState(
-    format(new Date(), 'yyyy-MM-dd')
+    format(new Date('2023-09-01'), 'yyyy-MM-dd')
   );
 
   const [groupedSessions, setGroupedSessions] = useState([]);

@@ -35,8 +35,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start --port 3001",
-    "build": "react-scripts build",
+    "start": "react-app-rewired start --port 3001",
+    "build": "react-app-rewired build",
     "prettier": "prettier --config .prettierrc \"./src/**/*.{js,jsx}\" --write"
   },
   "eslintConfig": {
@@ -66,6 +66,8 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "3.0.2",
+    "react-app-rewire-alias": "^1.1.7",
+    "react-app-rewired": "^2.2.1",
     "sass": "^1.64.2"
   }
 }
