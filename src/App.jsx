@@ -11,11 +11,13 @@ import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import { ThemeProvider } from '@mui/material/styles';
 import setDefaultOptions from 'date-fns/setDefaultOptions';
 import { uk } from 'date-fns/locale';
-import Overlay from './Components/Overlay/Overlay.js';
-import Header from './Modules/Header/Header.js';
-import MainPage from './Pages/MainPage/MainPage.js';
-import GamePage from './Pages/GamePage/GamePage.js';
-import Calendar from './Pages/Calendar/Calendar.js';
+import { AuthenticatedRoutes } from '@features/auth/components/AuthenticatedRoutes';
+import Overlay from '@components/Overlay/Overlay.js';
+import MainPage from '@pages/MainPage/MainPage.js';
+import GamePage from '@pages/GamePage/GamePage.js';
+import Calendar from '@pages/Calendar/Calendar.js';
+import Account from '@pages/Account';
+import { MainWrapper } from '@components/layouts/MainWrapper';
 
 import { Toast } from './Modules/Toast/Toast';
 import { createThemeObject } from './theme';
@@ -44,6 +46,9 @@ const Root = () => {
             <Route index element={<Calendar />} />
             <Route path=":id" element={<GamePage />} />
           </Route>
+          <Route exact path="/account" element={<AuthenticatedRoutes />}>
+            <Route index element={<Account />} />
+          </Route>
           <Route path="*" element={<Navigate to={'/auth'} replace />} />
         </Routes>
       </CSSTransition>
@@ -61,9 +66,10 @@ function App() {
       <ThemeProvider theme={theme}>
         <GamesProvider>
           <Router>
-            <Header />
-            <Root />
-            <Toast />
+            <MainWrapper>
+              <Root />
+              <Toast />
+            </MainWrapper>
           </Router>
           <Overlay />
         </GamesProvider>
