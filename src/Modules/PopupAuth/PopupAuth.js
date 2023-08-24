@@ -46,7 +46,10 @@ function PopupAuth({ onClose }) {
 
         <div className="popupAuth__body">
           <div className="popupAuth__tg">
-            <TelegramLoginButton dataOnauth={useLogin} botName="dndLvivBot" />
+            <TelegramLoginButton
+              dataOnauth={useLogin}
+              botName={process.env.REACT_APP_TELEGRAM_BOT_NAME}
+            />
           </div>
 
           {/*<div className="popupAuth__tg" onClick={useFakeLogin}>*/}
