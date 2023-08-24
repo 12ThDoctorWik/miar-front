@@ -23,7 +23,7 @@ export const GamePage = () => {
   }, []);
 
   return (
-    <Container maxWidth="lg" sx={{ paddingTop: 9 }}>
+    <Container maxWidth="lg" sx={{ paddingTop: 2 }}>
       <Stack spacing={1}>
         <Box display="flex" alignItems="center" gap={1}>
           <IconButton component={NavLink} to="/calendar">

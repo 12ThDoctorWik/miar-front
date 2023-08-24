@@ -9,15 +9,15 @@ import {
   Dialog,
   Box,
 } from '@mui/material';
+import { useSelector } from 'react-redux';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { ProfileMenu } from '../../Components/ProfileMenu/ProfileMenu';
-import PopupAuth from '../PopupAuth/PopupAuth.js';
-import { useSelector } from 'react-redux';
-import { checkUserLoggedIn } from '../../Store';
-import { useThunk } from '../../Hooks/useThunk';
+import { ProfileMenu } from '@components/ProfileMenu/ProfileMenu';
+import PopupAuth from '@modules/PopupAuth/PopupAuth.js';
+import { checkUserLoggedIn } from '@store';
+import { useThunk } from '@hooks/useThunk';
 
 const NAV_ENTITIES = [
   {
