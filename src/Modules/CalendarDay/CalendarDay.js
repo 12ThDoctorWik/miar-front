@@ -19,7 +19,7 @@ export const CalendarDay = ({ date, sessions, isToday }) => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <div className="calendarDay__title">
+        <div className="calendarDay__title" style={{ marginBottom: '16px' }}>
           {isToday && 'Сьогодні • '}
           {format(date, 'eeee, d MMMM')}
         </div>
