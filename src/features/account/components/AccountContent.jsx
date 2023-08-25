@@ -1,10 +1,10 @@
 import { useState, useMemo } from 'react';
 import { Card, Tabs, Tab, CardContent } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { useSelector } from 'react-redux';
 import { AccountDetails } from './AccountDetails';
 import { AccountOwnedGames } from './AccountOwnedGames';
 import { AccountPlannedGames } from './AccountPlannedGames';
+import { useAuthContext } from '@providers/AuthProvider';
 
 const useStyles = makeStyles(theme => {
   return {
@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => {
 export const AccountContent = () => {
   const classes = useStyles();
   const [currentTab, setCurrentTab] = useState('details');
-  const { user } = useSelector(state => state.auth);
+  const { currentUser } = useAuthContext();
 
   const tabs = useMemo(
     () => [
@@ -36,7 +36,7 @@ export const AccountContent = () => {
         value: 'planned',
         label: 'Мої заплановані ігри',
       },
-      ...(['ADMIN', 'DM'].includes(user?.role.toUpperCase())
+      ...(['ADMIN', 'DM'].includes(currentUser?.Role.toUpperCase())
         ? [
             {
               value: 'owned',
@@ -45,7 +45,7 @@ export const AccountContent = () => {
           ]
         : []),
     ],
-    [user]
+    [currentUser]
   );
 
   return (

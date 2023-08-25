@@ -1,4 +1,4 @@
-import { useEffect, Fragment, useState } from 'react';
+import { Fragment, useState } from 'react';
 import './Header.scss';
 import { NavLink } from 'react-router-dom';
 import {
@@ -8,16 +8,15 @@ import {
   Typography,
   Dialog,
   Box,
+  Button,
 } from '@mui/material';
-import { useSelector } from 'react-redux';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { ProfileMenu } from '@components/ProfileMenu/ProfileMenu';
 import PopupAuth from '@modules/PopupAuth/PopupAuth.js';
-import { checkUserLoggedIn } from '@store';
-import { useThunk } from '@hooks/useThunk';
+import { useAuthContext } from '@providers/AuthProvider';
 
 const NAV_ENTITIES = [
   {
@@ -51,14 +50,9 @@ export const Header = () => {
   const isMd = useMediaQuery(theme.breakpoints.up('md'));
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
   const [authIsOpen, setAuthIsOpen] = useState(false);
-  const [checkUser, checkUserError] = useThunk(checkUserLoggedIn);
-  const { user } = useSelector(state => state.auth);
+  const { currentUser } = useAuthContext();
 
   const handleAuth = () => setAuthIsOpen(true);
-
-  useEffect(() => {
-    checkUser();
-  }, [checkUser]);
 
   return (
     <nav className="header container">
@@ -118,15 +112,15 @@ export const Header = () => {
           ))}
         </div>
       )}
-      {user ? (
+      {currentUser ? (
         <div className="header__user">
           {isMd && (
             <Box display="flex" flexDirection="column">
               <Typography variant="body1" color="inherit">
-                Привіт, {user?.name || 'unknown'}!
+                Привіт, {currentUser?.Name || 'unknown'}!
               </Typography>
               <Typography variant="caption" color="inherit">
-                {user?.role}
+                {currentUser?.Role}
               </Typography>
             </Box>
           )}
@@ -134,9 +128,9 @@ export const Header = () => {
         </div>
       ) : (
         <>
-          <div className="header__login" onClick={handleAuth}>
+          <Button variant="text" className="header__login" onClick={handleAuth}>
             Увійти
-          </div>
+          </Button>
           <Dialog
             onClose={() => setAuthIsOpen(false)}
             open={authIsOpen}

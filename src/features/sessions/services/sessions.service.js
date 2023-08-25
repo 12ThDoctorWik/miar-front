@@ -1,13 +1,11 @@
-import { apiCall } from '@services/api';
+import axios from '@services/api';
 
 export const SessionsService = {
-  list: async payload => {
-    const response = await apiCall({
-      method: 'POST',
-      url: '/session/sessions',
-      body: payload,
-    });
-
-    return response ? JSON.parse(response) : [];
-  },
+  get: id => axios.get(`/session/session?sessionId=${id}`),
+  list: payload => axios.post('/session/sessions', payload),
+  create: payload => axios.post('/session/create-session', payload),
+  update: (id, payload) =>
+    axios.post(`/session/edit-session?sessionId=${id}`, payload),
+  register: id => axios.post('/session/join-session', { sessionId: id }),
+  unregister: id => axios.get(`/session/leave-session?sessionId=${id}`),
 };

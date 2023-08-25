@@ -1,10 +1,12 @@
-import { useSelector } from 'react-redux';
 import { Box, CircularProgress, Alert } from '@mui/material';
 import { useSessionsStore } from '@features/sessions/hooks';
+import { useAuthContext } from '@providers/AuthProvider';
 
 export const AccountOwnedGames = () => {
-  const { user } = useSelector(state => state.auth);
-  const { sessions, isLoading } = useSessionsStore({ masterId: user.id || 0 });
+  const { currentUser } = useAuthContext();
+  const { sessions, isLoading } = useSessionsStore({
+    masterId: currentUser.Id || 0,
+  });
 
   return isLoading ? (
     <Box py={10} width="100%" display="flex" justifyContent="center">

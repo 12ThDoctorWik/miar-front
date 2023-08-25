@@ -13,11 +13,10 @@ import {
   Box,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { useSelector } from 'react-redux';
 import { useAuthStore } from '@features/auth/hooks';
+import { useAuthContext } from '@providers/AuthProvider';
 
 const useStyles = makeStyles(theme => {
-  console.log(theme);
   return {
     card: {
       backgroundColor: '#FFFFFF05',
@@ -31,7 +30,7 @@ const useStyles = makeStyles(theme => {
 
 export const AccountDetails = () => {
   const classes = useStyles();
-  const { user } = useSelector(state => state.auth);
+  const { currentUser } = useAuthContext();
   const { logout } = useAuthStore();
 
   const handleLogout = () => {
@@ -45,8 +44,8 @@ export const AccountDetails = () => {
           <Box display="flex" className={classes.cardHeader}>
             <CardMedia
               component="img"
-              alt={user.name}
-              src={user.avatar}
+              alt={currentUser.Name}
+              src={currentUser.Avatar}
               sx={{ width: 200, height: 200 }}
             />
             <Box p={5} display="flex" alignItems="center">
@@ -61,12 +60,12 @@ export const AccountDetails = () => {
                 <Typography>
                   <b>Імʼя:</b>
                   &nbsp;
-                  {user.name}
+                  {currentUser.Name}
                 </Typography>{' '}
                 <Typography>
                   <b>Роль:</b>
                   &nbsp;
-                  {user.role}
+                  {currentUser.Role}
                 </Typography>
               </Stack>
             </Box>
@@ -92,7 +91,9 @@ export const AccountDetails = () => {
             <Stack spacing={2} p={2}>
               <FormGroup>
                 <FormControlLabel
-                  control={<Checkbox checked={user.isPrivate} disabled />}
+                  control={
+                    <Checkbox checked={currentUser.IsPrivate} disabled />
+                  }
                   label="Відображати Telegram лише для Майстрів"
                 />
               </FormGroup>
