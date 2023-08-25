@@ -13,12 +13,12 @@ export default function MainPage() {
     <div className="MainPage__wrapper">
       <Opening />
       <TTG />
-      <Start />
+      <ForWho />
+      {/* <Start />
       <Shop />
       <div className="MainPage__title container">Для кого існує цей портал</div>
-      <ForWho />
       <Materials />
-      <Questions />
+      <Questions /> */}
     </div>
   );
 }
