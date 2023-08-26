@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import {
   differenceInCalendarDays,
+  eachDayOfInterval,
   parse,
-  add,
   addWeeks,
   subWeeks,
   parseISO,
   isToday,
   format,
+  isBefore,
 } from 'date-fns';
 import {
   Grid,
@@ -30,96 +30,112 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Filters from '../../Modules/Filters/Filters.js';
 import { CalendarDay } from '../../Modules/CalendarDay/CalendarDay.js';
-import { useThunk } from '../../Hooks/useThunk';
-import { fetchSessions } from '../../Store';
-import { useGamesContext } from '../../providers/GamesProvider';
+import { useGamesContext } from '@providers/GamesProvider';
+import { useAuthContext } from '@providers/AuthProvider';
+import { useSessionsStore } from '@features/sessions/hooks';
+import { useLocalStorage } from '@hooks/use-local-storage';
 
 import './Calendar.scss';
 
-const useStyles = makeStyles(() => ({
-  addSessionButton: {
-    position: 'fixed',
-    right: '3.75rem',
-    bottom: '1rem',
-    backgroundColor: 'rgba(242, 222, 161, 1)',
-    padding: '1rem',
-    borderRadius: '50%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    '&:active': {
-      color: 'inherit',
+const useStyles = makeStyles(() => {
+  return {
+    addSessionButton: {
+      position: 'fixed',
+      right: '3.75rem',
+      bottom: '1rem',
+      backgroundColor: 'rgba(242, 222, 161, 1)',
+      padding: '1rem',
+      borderRadius: '50%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      '&:active': {
+        color: 'inherit',
+      },
     },
-  },
-}));
+  };
+});
 
 const Calendar = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
   const classes = useStyles();
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'));
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
-  const [doFetchSessions, _, isLoading] = useThunk(fetchSessions);
-  const { sessions } = useSelector(state => state.sessions);
-  const { user } = useSelector(state => state.auth);
+  const { currentUser } = useAuthContext();
   const { showGameForm } = useGamesContext();
-  const [currentCalendarStart, setCurrentCalendarStart] = useState(
-    format(new Date('2023-09-01'), 'yyyy-MM-dd')
-  );
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [savedFilters, setSavedFilters] = useLocalStorage('calendar-filters', {
+    from: '2023-09-01',
+    to: '2023-09-07',
+  });
+  const filters = useMemo(() => {
+    const from = searchParams.get('from') || '2023-09-01';
+    const to = searchParams.get('to') || '2023-09-07';
 
-  const [groupedSessions, setGroupedSessions] = useState([]);
+    if (isBefore(parseISO(to), parseISO(from))) return null;
 
-  useEffect(() => {
-    doFetchSessions({
-      daysBefore: 0,
-      daysAfter: 7,
-      calcFromDate: currentCalendarStart,
+    return {
+      from,
+      to,
+    };
+  }, [searchParams]);
+  const { sessions, isLoading } = useSessionsStore({
+    fromDate: filters?.from,
+    toDate: filters?.to,
+    skip: !filters,
+  });
+
+  const groupedSessions = useMemo(() => {
+    const days = eachDayOfInterval({
+      start: parseISO(filters.from),
+      end: parseISO(filters.to),
     });
-  }, [currentCalendarStart, doFetchSessions]);
-
-  useEffect(() => {
-    setGroupedSessions(
-      (sessions || []).reduce(
-        (groups, session) => {
-          const sessionDate = parse(
-            session.StartTime,
-            'dd-MM HH:mm',
-            new Date()
-          );
-          const offset = differenceInCalendarDays(
-            sessionDate,
-            parseISO(currentCalendarStart)
-          );
-          if (groups[offset]) {
-            groups[offset].sessions.push({
-              ...session,
-              StartTime: sessionDate,
-            });
-          }
-          return groups;
-        },
-        new Array(7).fill({}).map((_, index) => {
-          const date = add(parseISO(currentCalendarStart), { days: index });
-          return {
-            date,
-            isToday: isToday(date),
-            sessions: [],
-          };
-        })
-      )
+    return (sessions || []).reduce(
+      (groups, session) => {
+        const sessionDate = parse(session.StartTime, 'dd-MM HH:mm', new Date());
+        const offset = differenceInCalendarDays(
+          sessionDate,
+          parseISO(filters.from)
+        );
+        if (groups[offset]) {
+          groups[offset].sessions.push({
+            ...session,
+            StartTime: sessionDate,
+          });
+        }
+        return groups;
+      },
+      new Array(days.length).fill({}).map((_, index) => ({
+        date: days[index],
+        isToday: isToday(days[index]),
+        sessions: [],
+      }))
     );
-  }, [sessions, currentCalendarStart]);
+  }, [sessions, filters]);
 
   const nextWeek = () => {
-    setCurrentCalendarStart(
-      format(addWeeks(parseISO(currentCalendarStart), 1), 'yyyy-MM-dd')
-    );
+    const data = {
+      from: format(addWeeks(parseISO(filters.from), 1), 'yyyy-MM-dd'),
+      to: format(addWeeks(parseISO(filters.to), 1), 'yyyy-MM-dd'),
+    };
+    setSearchParams(data);
+    setSavedFilters(data);
   };
   const prevWeek = () => {
-    setCurrentCalendarStart(
-      format(subWeeks(parseISO(currentCalendarStart), 1), 'yyyy-MM-dd')
-    );
+    const data = {
+      from: format(subWeeks(parseISO(filters.from), 1), 'yyyy-MM-dd'),
+      to: format(subWeeks(parseISO(filters.to), 1), 'yyyy-MM-dd'),
+    };
+    setSearchParams(data);
+    setSavedFilters(data);
   };
+
+  // useLayoutEffect(() => {
+  //   if (!(searchParams.has('from') && searchParams.has('to'))) {
+  //     setSearchParams(savedFilters);
+  //   }
+  // });
+
   return (
     <div className="calendar">
       {/* {isMd && <Filters />} */}
@@ -190,7 +206,7 @@ const Calendar = () => {
           </Box>
         </Container>
       </div>
-      {['ADMIN', 'DM'].includes(user?.role.toUpperCase()) && (
+      {['ADMIN', 'DM'].includes(currentUser?.Role.toUpperCase()) && (
         <Link
           onClick={() => showGameForm()}
           className={classes.addSessionButton}

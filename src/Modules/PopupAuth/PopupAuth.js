@@ -2,32 +2,24 @@ import React, { useEffect } from 'react';
 import './PopupAuth.scss';
 
 import { telegram, cross_white } from '../../Assets/Icons/icons.js';
-import { login } from '../../Store';
-// import { fakelogin } from '../../Store';
-import { useThunk } from '../../Hooks/useThunk';
 import TelegramLoginButton from '../../Auth/CustomTelegramLogin';
-import { useDispatch, useSelector } from 'react-redux';
-import { SLICE_STATUSES } from '../../Store/Slices/sliceStatus.const';
+import { useDispatch } from 'react-redux';
 import { TOAST_LEVEL, toastSlice } from '../../Store/Slices/ToastSlice';
+import { useAuthContext } from '@providers/AuthProvider';
 
 function PopupAuth({ onClose }) {
-  // const [useFakeLogin] = useThunk(fakelogin);
-  const [useLogin] = useThunk(login);
-  const { loginStatus } = useSelector(state => state.auth);
-
   const dispatch = useDispatch();
+  const { login } = useAuthContext();
 
-  useEffect(() => {
-    if (loginStatus === SLICE_STATUSES.SUCCESS) {
-      dispatch(
-        toastSlice.actions.showMessage(
-          'Вхід виконано. Вдалого пошуку скарбів',
-          TOAST_LEVEL.RED
-        )
-      );
-      onClose();
-    }
-  }, [loginStatus, onClose, dispatch]);
+  const handleLogin = async data => {
+    await login(data);
+    dispatch(
+      toastSlice.actions.showMessage(
+        'Вхід виконано. Вдалого пошуку скарбів',
+        TOAST_LEVEL.RED
+      )
+    );
+  };
 
   return (
     <div className="popupAuth popup" id="popupAuth">
@@ -46,7 +38,10 @@ function PopupAuth({ onClose }) {
 
         <div className="popupAuth__body">
           <div className="popupAuth__tg">
-            <TelegramLoginButton dataOnauth={useLogin} botName="dndLvivBot" />
+            <TelegramLoginButton
+              dataOnauth={handleLogin}
+              botName={process.env.REACT_APP_TELEGRAM_BOT_NAME}
+            />
           </div>
 
           {/*<div className="popupAuth__tg" onClick={useFakeLogin}>*/}

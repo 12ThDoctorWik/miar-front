@@ -17,29 +17,13 @@ import {
 } from '@mui/material';
 import { parse, format, parseISO } from 'date-fns';
 import { zonedTimeToUtc } from 'date-fns-tz';
-import { useDispatch, useSelector } from 'react-redux';
-import { addSession, updateSession } from '../../Store';
-import { SLICE_STATUSES } from '../../Store/Slices/sliceStatus.const';
-import { useThunk } from '../../Hooks/useThunk';
+import { useDispatch } from 'react-redux';
 import { toastSlice, TOAST_LEVEL } from '../../Store/Slices/ToastSlice';
+import { useSessionStore } from '@features/sessions/hooks';
 
 export const GameForm = ({ session, onClose }) => {
-  const [doAddSession] = useThunk(addSession);
-  const [doUpdateSession] = useThunk(updateSession);
-  const { sessionStatus } = useSelector(state => state.sessions);
+  const { create, update, isCreating, isUpdating } = useSessionStore();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (sessionStatus === SLICE_STATUSES.SUCCESS) {
-      dispatch(
-        toastSlice.actions.showMessage(
-          session ? 'Гру відредаговано' : 'Додано нову гру',
-          TOAST_LEVEL.RED
-        )
-      );
-      onClose();
-    }
-  }, [sessionStatus, dispatch, onClose, session]);
 
   const {
     control,
@@ -97,12 +81,19 @@ export const GameForm = ({ session, onClose }) => {
         .filter(value => value)
         .map(value => value.trim()),
     };
-    session
-      ? doUpdateSession({ id: session.Id, payload })
-      : doAddSession(payload);
+    session ? await update({ id: session.Id, payload }) : await create(payload);
+    dispatch(
+      toastSlice.actions.showMessage(
+        session ? 'Гру відредаговано' : 'Додано нову гру',
+        TOAST_LEVEL.GREEN
+      )
+    );
+    onClose();
   };
 
   const handleClose = () => {
+    if (isCreating || isUpdating) return;
+
     if (window.confirm('Ви впевнені що хочете закрити форму?')) {
       onClose();
     }
@@ -464,10 +455,18 @@ export const GameForm = ({ session, onClose }) => {
                   flexDirection: { xs: 'column', lg: 'row' },
                 }}
               >
-                <Button type="button" variant="outlined" onClick={handleClose}>
+                <Button
+                  type="button"
+                  variant="outlined"
+                  disabled={isCreating || isUpdating}
+                  onClick={handleClose}
+                >
                   Назад
                 </Button>
-                <Button type="submit" disabled={!isValid}>
+                <Button
+                  type="submit"
+                  disabled={!isValid || isCreating || isUpdating}
+                >
                   Опублікувати
                 </Button>
               </Box>

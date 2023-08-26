@@ -9,6 +9,7 @@ export const createThemeObject = () => {
       },
     },
     palette: {
+      mode: 'dark',
       primary: {
         main: 'rgba(242, 222, 161, 1)',
       },
@@ -23,9 +24,10 @@ export const createThemeObject = () => {
             borderRadius: 6,
           },
           containedPrimary: {
-            color: 'rgba(18, 19, 22, 1)',
+            color: '#121316',
             ['&.' + buttonClasses.disabled]: {
               backgroundColor: 'rgba(242, 222, 161, 1)',
+              color: '#f0f0f0',
             },
           },
           containedSecondary: {
@@ -64,6 +66,14 @@ export const createThemeObject = () => {
             '&:hover': {
               backgroundColor: 'rgba(255, 255, 255, 0.04)',
             },
+          },
+        },
+      },
+      MuiCard: {
+        styleOverrides: {
+          root: {
+            borderRadius: 16,
+            backgroundColor: '#FFFFFF0D',
           },
         },
       },

@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { format, parseISO } from 'date-fns';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import {
   Grid,
   Box,
@@ -11,34 +13,21 @@ import {
   CardMedia,
   CardContent,
   Link,
-  Container,
-  DialogTitle,
   IconButton,
 } from '@mui/material';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import EditIcon from '@mui/icons-material/Edit';
 import './GameDetails.scss';
 import { player, fire, fire_active } from '../../Assets/Icons/icons.js';
 import { TOAST_LEVEL, toastSlice } from '../../Store/Slices/ToastSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { useThunk } from '../../Hooks/useThunk';
-import {
-  fetchSession,
-  registerForSession,
-  unRegisterForSession,
-} from '../../Store';
+import { useDispatch } from 'react-redux';
 import { useGamesContext } from '../../providers/GamesProvider';
-import { SLICE_STATUSES } from '../../Store/Slices/sliceStatus.const';
+import { useSessionStore } from '@features/sessions/hooks';
 
-export const GameDetails = ({ sessionId, onClose }) => {
-  const { session } = useSelector(state => state.session);
-  const { user, loginStatus } = useSelector(state => state.auth);
-  const registerSessionStatus = useSelector(
-    state => state.registerSession.status
-  );
-  const [doFetchSession, _, isLoading] = useThunk(fetchSession);
-  const [doRegisterSession] = useThunk(registerForSession);
-  const [doUnRegisterSession] = useThunk(unRegisterForSession);
+export const GameDetails = ({ sessionId }) => {
+  const theme = useTheme();
+  const isMd = useMediaQuery(theme.breakpoints.up('md'));
+  const { session, register, unregister, isLoading } =
+    useSessionStore(sessionId);
   const dispatch = useDispatch();
   const { showGameForm } = useGamesContext();
   const [canUnregister, setCanUnregister] = useState(false);
@@ -49,12 +38,24 @@ export const GameDetails = ({ sessionId, onClose }) => {
     image = 'https://i.redd.it/nwpa93o6r8k31.jpg';
   }
 
-  const handleRegister = () => {
-    doRegisterSession(sessionId);
+  const handleRegister = async () => {
+    await register(sessionId);
+    dispatch(
+      toastSlice.actions.showMessage(
+        'Ви зареєстровані на гру',
+        TOAST_LEVEL.GREEN
+      )
+    );
   };
 
-  const handleUnRegister = () => {
-    doUnRegisterSession(sessionId);
+  const handleUnRegister = async () => {
+    await unregister(sessionId);
+    dispatch(
+      toastSlice.actions.showMessage(
+        'Реєстрація на гру знято',
+        TOAST_LEVEL.GREEN
+      )
+    );
   };
 
   const handleEdit = () => {
@@ -82,24 +83,23 @@ export const GameDetails = ({ sessionId, onClose }) => {
     }
   }, [session]);
 
-  useEffect(() => {
-    //todo fix double call
-    if (
-      (registerSessionStatus === SLICE_STATUSES.SUCCESS ||
-        registerSessionStatus === null) &&
-      (loginStatus === SLICE_STATUSES.SUCCESS || loginStatus === null)
-    ) {
-      doFetchSession({ id: sessionId, tokenized: !!user });
-    }
-    if (registerSessionStatus === SLICE_STATUSES.ERROR) {
-      dispatch(
-        toastSlice.actions.showMessage(
-          'Помилка реєстрації на гру',
-          TOAST_LEVEL.YELLOW
-        )
-      );
-    }
-  }, [registerSessionStatus, doFetchSession, sessionId, user, loginStatus]);
+  // useEffect(() => {
+  //   //todo fix double call
+  //   if (
+  //     registerSessionStatus === SLICE_STATUSES.SUCCESS ||
+  //     registerSessionStatus === null
+  //   ) {
+  //     doFetchSession({ id: sessionId, tokenized: !!currentUSer });
+  //   }
+  //   if (registerSessionStatus === SLICE_STATUSES.ERROR) {
+  //     dispatch(
+  //       toastSlice.actions.showMessage(
+  //         'Помилка реєстрації на гру',
+  //         TOAST_LEVEL.YELLOW
+  //       )
+  //     );
+  //   }
+  // }, [registerSessionStatus, doFetchSession, sessionId, currentUSer]);
 
   return (
     <>
@@ -114,7 +114,6 @@ export const GameDetails = ({ sessionId, onClose }) => {
             <Card
               sx={{
                 borderRadius: 4,
-                backgroundColor: '#1e1f22',
                 position: 'relative',
               }}
             >
@@ -132,6 +131,7 @@ export const GameDetails = ({ sessionId, onClose }) => {
                     component="img"
                     image={image}
                     alt="Game thumbnail"
+                    sx={{ maxHeight: isMd ? 480 : 360 }}
                   />
                 </Grid>
                 <Grid item xs={12} lg={7} order={{ xs: 1, lg: 2 }}>
@@ -323,7 +323,7 @@ export const GameDetails = ({ sessionId, onClose }) => {
               </Grid>
             </Card>
             {session.Characters.length > 0 && (
-              <Card sx={{ borderRadius: 4, backgroundColor: '#1e1f22' }}>
+              <Card sx={{ borderRadius: 4 }}>
                 <CardContent>
                   <Typography variant="h5" color="white">
                     Зареєстровані гравці
