@@ -9,6 +9,7 @@ import {
   Chip,
 } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
+import { clsx } from 'clsx';
 import forPlayers from '@assets/Images/landing/forPlayers.webp';
 import forMasters from '@assets/Images/landing/forMasters.webp';
 import forClubs from '@assets/Images/landing/forClubs.webp';
@@ -32,17 +33,17 @@ const useStyles = makeStyles(theme => {
       },
     },
     content: {
-      display: 'grid',
+      display: 'flex',
       gap: '1.5rem',
-      gridTemplateColumns: 'repeat(4, 1fr)',
       alignItems: 'flex-start',
       [theme.breakpoints.down('md')]: {
-        gridTemplateColumns: '1fr',
+        flexDirection: 'column',
       },
     },
     accordion: {
       backgroundColor: '#B1C5FF1F',
       width: '100%',
+      transition: 'max-width 220ms ease-in-out',
       '&, &:first-of-type, &:last-of-type': {
         borderRadius: 50,
       },
@@ -50,15 +51,15 @@ const useStyles = makeStyles(theme => {
         backgroundColor: 'transparent',
       },
       [theme.breakpoints.up('md')]: {
-        gridColumnEnd: 'span 1',
+        maxWidth: '25%',
       },
-      '&$expandedAccordion': {
+      '&$selectedAccordion': {
         [theme.breakpoints.up('md')]: {
-          gridColumnEnd: 'span 2',
+          maxWidth: '50%',
         },
       },
     },
-    expandedAccordion: {},
+    selectedAccordion: {},
     summary: {
       padding: 0,
       '& $expandedSummary, & .MuiAccordionSummary-content': {
@@ -139,7 +140,17 @@ const SECTIONS = [
 
 export const LandingForWhom = () => {
   const classes = useStyles();
-  const [currentSection, setCurrentSecrion] = useState('players');
+  const [expandedSection, setExpandedSecrion] = useState('players');
+  const [selectedSection, setSelectedSection] = useState('players');
+
+  const handleSelect = key => {
+    setExpandedSecrion(null);
+    setTimeout(() => {
+      setSelectedSection(key);
+      setTimeout(() => setExpandedSecrion(key), 220);
+    }, 220);
+  };
+
   return (
     <div className={classes.container}>
       <h5 className={classes.title}>Для кого існує цей портал?</h5>
@@ -148,12 +159,11 @@ export const LandingForWhom = () => {
           <Accordion
             key={section.key}
             disableGutters
-            classes={{
-              root: classes.accordion,
-              expanded: classes.expandedAccordion,
-            }}
-            expanded={currentSection === section.key}
-            onChange={() => setCurrentSecrion(section.key)}
+            className={clsx(classes.accordion, {
+              [classes.selectedAccordion]: selectedSection === section.key,
+            })}
+            expanded={expandedSection === section.key}
+            onChange={() => handleSelect(section.key)}
           >
             <AccordionSummary
               classes={{
