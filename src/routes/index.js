@@ -1,7 +1,8 @@
 import { Navigate, Outlet } from 'react-router-dom';
-// import MainPage from '@pages/MainPage/MainPage.js';
-import GamePage from '@pages/GamePage/GamePage.js';
-import Calendar from '@pages/Calendar/Calendar.js';
+import MainPage from '@pages/MainPage/MainPage';
+import Landing from '@pages/Landing';
+import GamePage from '@pages/GamePage/GamePage';
+import Calendar from '@pages/Calendar/Calendar';
 import Account from '@pages/Account';
 import { MainLayout } from '@components/layouts/MainLayout';
 import { AuthenticatedRoutes } from '@features/auth/components/AuthenticatedRoutes';
@@ -11,14 +12,14 @@ export const routes = [
     path: '/',
     element: <MainLayout />,
     children: [
-      // {
-      //   path: '/',
-      //   element: <MainPage />,
-      // },
       {
         path: '/',
-        element: <Navigate to={'/calendar'} replace />,
+        element: <Landing />,
       },
+      // {
+      //   path: '/',
+      //   element: <Navigate to={'/calendar'} replace />,
+      // },
       {
         path: '/calendar',
         element: <Outlet />,
