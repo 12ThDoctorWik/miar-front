@@ -16,14 +16,14 @@ export const routes = [
       //   path: '/landing',
       //   element: <MainPage />,
       // },
-      {
-        path: '/',
-        element: <Landing />,
-      },
       // {
       //   path: '/',
-      //   element: <Navigate to={'/calendar'} replace />,
+      //   element: <Landing />,
       // },
+      {
+        path: '/',
+        element: <Navigate to={'/calendar'} replace />,
+      },
       {
         path: '/calendar',
         element: <Outlet />,

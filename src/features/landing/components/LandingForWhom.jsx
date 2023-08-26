@@ -5,7 +5,10 @@ import {
   AccordionSummary,
   AccordionDetails,
   Avatar,
+  Box,
+  Chip,
 } from '@mui/material';
+import InfoIcon from '@mui/icons-material/Info';
 import forPlayers from '@assets/Images/landing/forPlayers.webp';
 import forMasters from '@assets/Images/landing/forMasters.webp';
 import forClubs from '@assets/Images/landing/forClubs.webp';
@@ -112,13 +115,25 @@ const SECTIONS = [
     key: 'masters',
     image: forMasters,
     title: 'Для Майстрів',
-    description: <p></p>,
+    description: (
+      <p>
+        Майстер отримує доступ до власного органайзера-календаря з іграми, місце
+        для пошуку гравців та зручній комунікації з ними, чудову систему для
+        перегляду сесій, зберігання даних про героїв, а також доступ до
+        інтерактивних доповнень у вигляді карти чи ведення окремої кампанії
+        (останні два пункти наразі в активній розробці, очікуйте згодом)
+      </p>
+    ),
   },
   {
     key: 'clubs',
     image: forClubs,
     title: 'Для Клубів',
-    description: <p></p>,
+    description: (
+      <Box display="flex" alignItems="center" justifyContent="center">
+        <Chip color="info" icon={<InfoIcon />} label="В розробці" />
+      </Box>
+    ),
   },
 ];
 
