@@ -46,13 +46,13 @@ export const ProfileMenu = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem
+        {/* <MenuItem
           component={NavLink}
           to="/account"
           onClick={() => handleToggleMenu()}
         >
           <Typography color="white">Аккаунт</Typography>
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem onClick={handleDiceCon}>
           <Typography color="white">DiceCon</Typography>
         </MenuItem>
