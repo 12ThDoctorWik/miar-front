@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
     currentUser,
     isLoading,
     loginIsLoading,
-    refreshTokenIsLoading,
+    refreshIsLoading,
     login,
     logout,
   } = useAuthStore({ skip: false });
@@ -16,18 +16,11 @@ export const AuthProvider = ({ children }) => {
   const value = useMemo(
     () => ({
       currentUser,
-      isLoading: isLoading || loginIsLoading || refreshTokenIsLoading,
+      isLoading: isLoading || loginIsLoading || refreshIsLoading,
       login,
       logout,
     }),
-    [
-      currentUser,
-      isLoading,
-      loginIsLoading,
-      refreshTokenIsLoading,
-      login,
-      logout,
-    ]
+    [currentUser, isLoading, loginIsLoading, refreshIsLoading, login, logout]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

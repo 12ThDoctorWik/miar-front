@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { format, parseISO } from 'date-fns';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import {
   Grid,
   Box,
@@ -22,6 +24,8 @@ import { useGamesContext } from '../../providers/GamesProvider';
 import { useSessionStore } from '@features/sessions/hooks';
 
 export const GameDetails = ({ sessionId }) => {
+  const theme = useTheme();
+  const isMd = useMediaQuery(theme.breakpoints.up('md'));
   const { session, register, unregister, isLoading } =
     useSessionStore(sessionId);
   const dispatch = useDispatch();
@@ -127,6 +131,7 @@ export const GameDetails = ({ sessionId }) => {
                     component="img"
                     image={image}
                     alt="Game thumbnail"
+                    sx={{ maxHeight: isMd ? 480 : 360 }}
                   />
                 </Grid>
                 <Grid item xs={12} lg={7} order={{ xs: 1, lg: 2 }}>

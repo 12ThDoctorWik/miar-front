@@ -1,37 +1,28 @@
-import { useState, useEffect } from 'react';
-
-const getStorageValue = (key, defaultValue) =>
-  JSON.parse(localStorage.getItem(key)) ?? defaultValue;
-
-const stringifyKey = value => {
-  if (Array.isArray(value)) {
-    return value.join('&');
-  }
-
-  if (typeof value === 'object' && value !== null) {
-    return Object.keys(value)
-      .map(key => `${key}=${value[key]}`)
-      .join('&');
-  }
-
-  return value;
-};
+import { useState } from 'react';
 
 export const useLocalStorage = (key, defaultValue) => {
-  const stringifiedKey = stringifyKey(key);
-  const [value, setValue] = useState(() =>
-    getStorageValue(stringifiedKey, defaultValue)
-  );
-
-  const clearValue = () => setValue(defaultValue);
-
-  useEffect(() => {
-    if (JSON.stringify(value) === JSON.stringify(defaultValue)) {
-      localStorage.removeItem(stringifiedKey);
-    } else {
-      localStorage.setItem(stringifiedKey, JSON.stringify(value));
+  const [localStorageValue, setLocalStorageValue] = useState(() => {
+    const value = localStorage.getItem(key);
+    try {
+      return value ? JSON.parse(value) : defaultValue;
+    } catch (error) {
+      return value;
     }
-  }, [stringifiedKey, value, defaultValue]);
+  });
 
-  return [value, setValue, clearValue];
+  const setLocalStorageStateValue = valueOrFn => {
+    let newValue;
+    if (typeof valueOrFn === 'function') {
+      const fn = valueOrFn;
+      newValue = fn(localStorageValue);
+    } else {
+      newValue = valueOrFn;
+    }
+    localStorage.setItem(
+      key,
+      typeof newValue === 'string' ? newValue : JSON.stringify(newValue)
+    );
+    setLocalStorageValue(newValue);
+  };
+  return [localStorageValue, setLocalStorageStateValue];
 };

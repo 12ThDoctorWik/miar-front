@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import {
   differenceInCalendarDays,
@@ -33,7 +33,7 @@ import { CalendarDay } from '../../Modules/CalendarDay/CalendarDay.js';
 import { useGamesContext } from '@providers/GamesProvider';
 import { useAuthContext } from '@providers/AuthProvider';
 import { useSessionsStore } from '@features/sessions/hooks';
-import { useLocalStorage } from '@hooks/use-local-storage.js';
+import { useLocalStorage } from '@hooks/use-local-storage';
 
 import './Calendar.scss';
 
@@ -84,8 +84,6 @@ const Calendar = () => {
     toDate: filters?.to,
     skip: !filters,
   });
-
-  useEffect(() => console.log({ searchParams }), [searchParams]);
 
   const groupedSessions = useMemo(() => {
     const days = eachDayOfInterval({
