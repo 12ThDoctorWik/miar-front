@@ -20,7 +20,7 @@ import { useAuthContext } from '@providers/AuthProvider';
 
 const NAV_ENTITIES = [
   {
-    path: '/',
+    path: '/landing',
     label: 'Головна',
     disabled: false,
   },

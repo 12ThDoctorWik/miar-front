@@ -13,6 +13,10 @@ export const routes = [
     element: <MainLayout />,
     children: [
       {
+        path: '/landing',
+        element: <MainPage />,
+      },
+      {
         path: '/',
         element: <Landing />,
       },

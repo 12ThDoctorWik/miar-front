@@ -1,5 +1,6 @@
 import { makeStyles } from '@mui/styles';
 import info from '@assets/Images/landing/info-bg.webp';
+import { LandingForWhom } from './LandingForWhom';
 
 const useStyles = makeStyles(theme => {
   return {
@@ -7,6 +8,7 @@ const useStyles = makeStyles(theme => {
       boxSizing: 'border-box',
       width: '100%',
       minHeight: '100vh',
+      padding: theme.spacing(9),
       overflow: 'hidden',
       background: `url(${info}) center center/cover no-repeat`,
       backgroundSize: 'cover',
@@ -33,11 +35,18 @@ const useStyles = makeStyles(theme => {
         zIndex: 1,
         background: 'linear-gradient(0deg, #121316 0%, transparent 100%)',
       },
+      [theme.breakpoints.down('md')]: {
+        padding: theme.spacing(9, 2),
+      },
     },
   };
 });
 
 export const LandingInfo = () => {
   const classes = useStyles();
-  return <div className={classes.info}></div>;
+  return (
+    <div className={classes.info}>
+      <LandingForWhom />
+    </div>
+  );
 };
