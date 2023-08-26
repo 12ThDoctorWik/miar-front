@@ -23,6 +23,10 @@ const useStyles = makeStyles(theme => {
       lineHeight: '3rem',
       letterSpacing: '-0.019em',
       color: '#FFFFFFDE',
+      [theme.breakpoints.down('md')]: {
+        fontSize: '1.25rem',
+        lineHeight: '1.875rem',
+      },
     },
     content: {
       display: 'grid',
@@ -108,13 +112,13 @@ const SECTIONS = [
     key: 'masters',
     image: forMasters,
     title: 'Для Майстрів',
-    description: <p>TODO</p>,
+    description: <p></p>,
   },
   {
     key: 'clubs',
     image: forClubs,
     title: 'Для Клубів',
-    description: <p>TODO</p>,
+    description: <p></p>,
   },
 ];
 
