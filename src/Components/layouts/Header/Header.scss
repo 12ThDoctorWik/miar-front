@@ -28,6 +28,7 @@
     padding-bottom: 20px;
     @include decorativeText;
     color: $gold;
+    text-decoration: none;
 
     @media (max-width: 900px) {
       font-size: 22px;

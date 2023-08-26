@@ -1,7 +1,7 @@
 import './App.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import setDefaultOptions from 'date-fns/setDefaultOptions';
 import { uk } from 'date-fns/locale';
 import Overlay from '@components/Overlay/Overlay.js';
@@ -32,16 +32,18 @@ function App() {
     <div className="App">
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
-          <AuthProvider>
-            <GamesProvider>
-              <RouterProvider
-                router={router}
-                fallbackElement={<p>Loading...</p>}
-              />
-              <Toast />
-              <Overlay />
-            </GamesProvider>
-          </AuthProvider>
+          <StyledEngineProvider injectFirst>
+            <AuthProvider>
+              <GamesProvider>
+                <RouterProvider
+                  router={router}
+                  fallbackElement={<p>Loading...</p>}
+                />
+                <Toast />
+                <Overlay />
+              </GamesProvider>
+            </AuthProvider>
+          </StyledEngineProvider>
         </ThemeProvider>
       </QueryClientProvider>
     </div>

@@ -10,7 +10,8 @@
       "@modules/*": ["src/Modules/*"],
       "@store/*": ["src/Store/*"],
       "@hooks/*": ["src/Hooks/*"],
-      "@services/*": ["src/Services/*"]
+      "@services/*": ["src/Services/*"],
+      "@assets/*": ["src/Assets/*"]
     }
   }
 }

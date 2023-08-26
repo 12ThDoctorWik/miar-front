@@ -11,7 +11,7 @@ export const MainLayout = () => {
     routes.find(route => route.path === location.pathname) ?? {};
 
   return (
-    <Box pt={9} minHeight="100vh">
+    <Box pt={location.pathname === '/' ? 0 : 9} minHeight="100vh">
       <Header />
       {/* <SwitchTransition>
         <CSSTransition

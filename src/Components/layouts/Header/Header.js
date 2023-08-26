@@ -96,7 +96,9 @@ export const Header = () => {
           </SwipeableDrawer>
         </>
       )}
-      <div className="header__logo">MIAR</div>
+      <NavLink className="header__logo" to="/">
+        MIAR
+      </NavLink>
       {isMd && (
         <div className="header__nav">
           {NAV_ENTITIES.map((entity, index) => (
