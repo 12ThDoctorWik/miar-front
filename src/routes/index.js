@@ -12,10 +12,10 @@ export const routes = [
     path: '/',
     element: <MainLayout />,
     children: [
-      {
-        path: '/landing',
-        element: <MainPage />,
-      },
+      // {
+      //   path: '/landing',
+      //   element: <MainPage />,
+      // },
       {
         path: '/',
         element: <Landing />,

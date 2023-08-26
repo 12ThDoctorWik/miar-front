@@ -8,7 +8,7 @@ export const SmoothScroll = ({ children }) => {
 
   const handleScroll = () => {
     gsap.to(viewport.current, {
-      duration: 2,
+      duration: 1,
       y: -window.pageYOffset,
       ease: Power4.easeOut,
     });
