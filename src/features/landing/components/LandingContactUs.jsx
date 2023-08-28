@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => {
     wrapper: {
       boxSizing: 'border-box',
       width: '100%',
-      padding: theme.spacing(9, 9, 18, 9),
+      padding: theme.spacing(18, 9),
       overflow: 'hidden',
       background: `url(${bg}) center center/cover no-repeat`,
       backgroundSize: 'cover',
