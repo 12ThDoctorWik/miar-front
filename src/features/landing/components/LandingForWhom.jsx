@@ -26,6 +26,7 @@ const useStyles = makeStyles(theme => {
       fontWeight: 600,
       lineHeight: '3rem',
       letterSpacing: '-0.019em',
+      margin: theme.spacing(2, 0),
       color: '#FFFFFFDE',
       [theme.breakpoints.down('md')]: {
         fontSize: '1.25rem',
@@ -41,6 +42,7 @@ const useStyles = makeStyles(theme => {
       },
     },
     accordion: {
+      backdropFilter: 'blur(4px)',
       backgroundColor: '#B1C5FF1F',
       width: '100%',
       transition: 'max-width 220ms ease-in-out',

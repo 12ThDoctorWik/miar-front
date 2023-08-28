@@ -125,7 +125,7 @@ export const LandingBanner = () => {
           персонажі почнуть свою грандіозну подорож.”
         </p>
         <div className={classes.actions}>
-          <Button size="medium" href="/calendar">
+          <Button size="medium" href="/calendar" endIcon={`⛺️️`}>
             Знайти пригоду
           </Button>
           {/* <Button size="large" variant="outlined">
