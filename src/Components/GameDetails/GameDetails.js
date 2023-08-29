@@ -16,6 +16,7 @@ import {
   IconButton,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import { Avatar } from '@components/common/Avatar';
 import './GameDetails.scss';
 import { player, fire, fire_active } from '../../Assets/Icons/icons.js';
 import { TOAST_LEVEL, toastSlice } from '../../Store/Slices/ToastSlice';
@@ -338,12 +339,14 @@ export const GameDetails = ({ sessionId }) => {
                             borderRadius: 2,
                           }}
                         >
-                          <CardMedia
-                            component="img"
-                            image={user.UserAvatar}
-                            alt="User thumbnail"
-                            sx={{ width: 100, height: 100 }}
-                          ></CardMedia>
+                          <CardMedia>
+                            <Avatar
+                              src={user.UserAvatar}
+                              alt="User thumbnail"
+                              variant="square"
+                              sx={{ width: 100, height: 100 }}
+                            />
+                          </CardMedia>
                           <CardContent
                             sx={{ display: 'flex', alignItems: 'center' }}
                           >

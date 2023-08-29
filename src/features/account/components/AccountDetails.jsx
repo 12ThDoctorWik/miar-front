@@ -12,6 +12,7 @@ import {
   Link,
   Box,
 } from '@mui/material';
+import { Avatar } from '@components/common/Avatar';
 import { makeStyles } from '@mui/styles';
 import { useAuthStore } from '@features/auth/hooks';
 import { useAuthContext } from '@providers/AuthProvider';
@@ -42,12 +43,14 @@ export const AccountDetails = () => {
       <Grid item xs={12} lg={7}>
         <Card classes={{ root: classes.card }}>
           <Box display="flex" className={classes.cardHeader}>
-            <CardMedia
-              component="img"
-              alt={currentUser.Name}
-              src={currentUser.Avatar}
-              sx={{ width: 200, height: 200 }}
-            />
+            <CardMedia>
+              <Avatar
+                alt={currentUser.Name}
+                src={currentUser.Avatar}
+                variant="square"
+                sx={{ width: 200, height: 200 }}
+              />
+            </CardMedia>
             <Box p={5} display="flex" alignItems="center">
               <Stack>
                 <Typography>

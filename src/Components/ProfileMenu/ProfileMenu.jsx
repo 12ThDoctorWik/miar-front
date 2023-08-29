@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { Avatar, IconButton, Menu, MenuItem, Typography } from '@mui/material';
+import { IconButton, Menu, MenuItem, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useAuthStore } from '@features/auth/hooks';
@@ -8,6 +7,7 @@ import { useDialog, bindDialogState } from '../../Hooks/use-dialog';
 import { DialogWrapper } from '../DialogWrapper';
 import { DiceConForm } from '../DiceConForm/DiceConForm';
 import { useAuthContext } from '@providers/AuthProvider';
+import { Avatar } from '@components/common/Avatar';
 
 export const ProfileMenu = () => {
   const theme = useTheme();
@@ -33,9 +33,7 @@ export const ProfileMenu = () => {
   return (
     <>
       <IconButton onClick={handleToggleMenu}>
-        <Avatar alt={currentUser?.Name} src={currentUser?.Avatar}>
-          currentUser?.Name.charAt(0)
-        </Avatar>
+        <Avatar alt={currentUser?.Name} src={currentUser?.Avatar} />
       </IconButton>
 
       <Menu
