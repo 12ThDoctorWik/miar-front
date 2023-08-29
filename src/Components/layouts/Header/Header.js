@@ -9,6 +9,7 @@ import {
   Dialog,
   Box,
   Button,
+  CircularProgress,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
@@ -114,7 +115,9 @@ export const Header = () => {
           ))}
         </div>
       )}
-      {!isLoading && (
+      {isLoading ? (
+        <CircularProgress size={24} />
+      ) : (
         <>
           {currentUser ? (
             <div className="header__user">
