@@ -65,12 +65,12 @@ const Calendar = () => {
   const { showGameForm } = useGamesContext();
   const [searchParams, setSearchParams] = useSearchParams();
   const [savedFilters, setSavedFilters] = useLocalStorage('calendar-filters', {
-    from: '2023-09-01',
-    to: '2023-09-07',
+    from: '2023-09-02',
+    to: '2023-09-08',
   });
   const filters = useMemo(() => {
-    const from = searchParams.get('from') || '2023-09-01';
-    const to = searchParams.get('to') || '2023-09-07';
+    const from = searchParams.get('from') || '2023-09-02';
+    const to = searchParams.get('to') || '2023-09-08';
 
     if (isBefore(parseISO(to), parseISO(from))) return null;
 
