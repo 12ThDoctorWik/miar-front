@@ -77,7 +77,10 @@ export const GameCard = ({ session }) => {
               <span className="back__data">{session.PricePerPlayer} грн</span>
             </div>
             <div className="back__text">
-              Тип партії: <span className="back__data">Offline</span>{' '}
+              Тип партії:{' '}
+              <span className="back__data">
+                {session.LocationType ? 'Online' : 'Offline'}
+              </span>{' '}
             </div>
           </div>
           <Button component={NavLink} to={`/calendar/${session.Id}`}>

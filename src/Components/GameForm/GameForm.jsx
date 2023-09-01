@@ -35,7 +35,7 @@ export const GameForm = ({ session, onClose }) => {
       name: session?.Name,
       image: session?.ImageURL,
       visible: session?.Visible || 1,
-      locationType: `${session?.LocationType ?? 1}`,
+      locationType: `${session?.LocationType ?? 0}`,
       club: session?.ClubName,
       city: session?.City,
       masterName: session?.MasterName,
@@ -169,12 +169,12 @@ export const GameForm = ({ session, onClose }) => {
                   render={({ field }) => (
                     <RadioGroup row {...field}>
                       <FormControlLabel
-                        value={1}
+                        value={0}
                         control={<Radio />}
                         label="Офлайн"
                       />
                       <FormControlLabel
-                        value={0}
+                        value={1}
                         control={<Radio />}
                         label="Онлайн"
                       />
