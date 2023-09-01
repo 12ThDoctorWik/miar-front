@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import {
   Grid,
@@ -36,7 +35,7 @@ export const GameForm = ({ session, onClose }) => {
       name: session?.Name,
       image: session?.ImageURL,
       visible: session?.Visible || 1,
-      locationType: session?.LocationType || 1,
+      locationType: `${session?.LocationType ?? 1}`,
       club: session?.ClubName,
       city: session?.City,
       masterName: session?.MasterName,
@@ -65,6 +64,7 @@ export const GameForm = ({ session, onClose }) => {
     levels,
     tags,
     bookedUserNames,
+    locationType,
     ...data
   }) => {
     const payload = {
@@ -80,6 +80,7 @@ export const GameForm = ({ session, onClose }) => {
       bookedUserNames: (bookedUserNames?.split(';') || [])
         .filter(value => value)
         .map(value => value.trim()),
+      locationType: Number(locationType),
     };
     session ? await update({ id: session.Id, payload }) : await create(payload);
     dispatch(
