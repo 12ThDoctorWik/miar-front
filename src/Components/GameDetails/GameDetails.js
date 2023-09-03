@@ -220,18 +220,19 @@ export const GameDetails = ({ sessionId }) => {
                     />
                   );
                 })} */}
-                                {[
-                                  ...Array(
-                                    session.MaxPlayer - session.CurrentPlayers
-                                  ),
-                                ].map((e, index) => (
-                                  <img
-                                    key={index}
-                                    src={player}
-                                    alt="active"
-                                    className="gpInfo__icon"
-                                  />
-                                ))}
+                                {session.MaxPlayer >= session.CurrentPlayers &&
+                                  [
+                                    ...Array(
+                                      session.MaxPlayer - session.CurrentPlayers
+                                    ),
+                                  ].map((e, index) => (
+                                    <img
+                                      key={index}
+                                      src={player}
+                                      alt="active"
+                                      className="gpInfo__icon"
+                                    />
+                                  ))}
                               </div>
                             </div>
                           </Grid>

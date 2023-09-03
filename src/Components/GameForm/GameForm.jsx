@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller, useWatch } from 'react-hook-form';
 import {
   Grid,
   InputLabel,
@@ -58,6 +57,8 @@ export const GameForm = ({ session, onClose }) => {
     },
     shouldUnregister: true,
   });
+
+  const maxPlayers = useWatch({ control, name: 'maxPlayer' });
 
   const handleGameForm = async ({
     date,
@@ -328,6 +329,7 @@ export const GameForm = ({ session, onClose }) => {
                     value: 255, // TODO: define max number of players,
                     message: 'Кількість гравців не може бути вища за 255',
                   },
+                  deps: 'bookedUserNames',
                 })}
                 error={!!errors.maxPlayer}
                 helperText={errors.maxPlayer?.message}
@@ -437,7 +439,11 @@ export const GameForm = ({ session, onClose }) => {
                 id="bookedUserNames"
                 fullWidth
                 name="bookedUserNames"
-                {...register('bookedUserNames')}
+                {...register('bookedUserNames', {
+                  validate: value =>
+                    (value.split(';') || []).length <= maxPlayers ||
+                    `Максимальна кількість гравців: ${maxPlayers}`,
+                })}
                 error={!!errors.bookedUserNames}
                 helperText={errors.bookedUserNames?.message}
               />
