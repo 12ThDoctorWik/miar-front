@@ -1,18 +1,21 @@
 import { makeStyles } from '@mui/styles';
 import info from '@assets/Images/landing/info-bg.webp';
 import { LandingForWhom } from './LandingForWhom';
+import { LandingHowToStart } from './LandingHowToStart';
 
 const useStyles = makeStyles(theme => {
   return {
-    info: {
+    wrapper: {
       boxSizing: 'border-box',
       width: '100%',
-      minHeight: '100vh',
-      padding: theme.spacing(9),
+      padding: theme.spacing(18, 9),
       overflow: 'hidden',
       background: `url(${info}) center center/cover no-repeat`,
       backgroundSize: 'cover',
       position: 'relative',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: theme.spacing(18),
       '&::before': {
         content: "''",
         display: 'block',
@@ -36,6 +39,7 @@ const useStyles = makeStyles(theme => {
         background: 'linear-gradient(0deg, #121316 0%, transparent 100%)',
       },
       [theme.breakpoints.down('md')]: {
+        gap: theme.spacing(6),
         padding: theme.spacing(9, 2),
       },
     },
@@ -45,8 +49,9 @@ const useStyles = makeStyles(theme => {
 export const LandingInfo = () => {
   const classes = useStyles();
   return (
-    <div className={classes.info}>
+    <div className={classes.wrapper}>
       <LandingForWhom />
+      <LandingHowToStart />
     </div>
   );
 };
