@@ -1,21 +1,13 @@
 import { useState } from 'react';
 import { IconButton, Menu, MenuItem, Typography } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import { useAuthStore } from '@features/auth/hooks';
-import { useDialog, bindDialogState } from '../../Hooks/use-dialog';
-import { DialogWrapper } from '../DialogWrapper';
-import { DiceConForm } from '../DiceConForm/DiceConForm';
 import { useAuthContext } from '@providers/AuthProvider';
 import { Avatar } from '@components/common/Avatar';
 
 export const ProfileMenu = () => {
-  const theme = useTheme();
-  const isMd = useMediaQuery(theme.breakpoints.up('md'));
   const { currentUser } = useAuthContext();
   const { logout } = useAuthStore();
   const [anchorEl, setAnchorEl] = useState(null);
-  const diceConDialogState = useDialog();
 
   const handleToggleMenu = event =>
     setAnchorEl(event ? event.currentTarget : null);
@@ -23,11 +15,6 @@ export const ProfileMenu = () => {
   const handleLogout = () => {
     handleToggleMenu();
     logout();
-  };
-
-  const handleDiceCon = () => {
-    handleToggleMenu();
-    diceConDialogState.open();
   };
 
   return (
@@ -51,26 +38,10 @@ export const ProfileMenu = () => {
         >
           <Typography color="white">Аккаунт</Typography>
         </MenuItem> */}
-        <MenuItem onClick={handleDiceCon}>
-          <Typography color="white">DiceCon</Typography>
-        </MenuItem>
         <MenuItem onClick={handleLogout}>
           <Typography color="red">Вийти</Typography>
         </MenuItem>
       </Menu>
-      <DialogWrapper
-        {...bindDialogState(diceConDialogState)}
-        PaperProps={{
-          sx: {
-            width: '100%',
-            maxWidth: '640px',
-          },
-        }}
-        fullWidth
-        fullScreen={!isMd}
-      >
-        <DiceConForm />
-      </DialogWrapper>
     </>
   );
 };
