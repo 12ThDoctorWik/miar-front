@@ -4,6 +4,7 @@ import { makeStyles } from '@mui/styles';
 import { AccountDetails } from './AccountDetails';
 import { AccountOwnedGames } from './AccountOwnedGames';
 import { AccountPlannedGames } from './AccountPlannedGames';
+import { AccountCharacters } from './AccountCharacters';
 import { useAuthContext } from '@providers/AuthProvider';
 
 const useStyles = makeStyles(theme => {
@@ -44,6 +45,10 @@ export const AccountContent = () => {
             },
           ]
         : []),
+      {
+        value: 'characters',
+        label: 'Персонажі',
+      },
     ],
     [currentUser]
   );
@@ -71,6 +76,7 @@ export const AccountContent = () => {
             details: <AccountDetails />,
             planned: <AccountPlannedGames />,
             owned: <AccountOwnedGames />,
+            characters: <AccountCharacters />,
           }[currentTab]
         }
       </CardContent>
