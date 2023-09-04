@@ -8,7 +8,7 @@ export const useAuthStore = ({ skip } = { skip: true }) => {
   const [refreshToken, setRefreshToken] = useLocalStorage('refreshToken');
   const queryClient = useQueryClient();
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, fetchStatus } = useQuery({
     queryKey: QUERY_KEYS.CURRENT_USER,
     queryFn: () => service.get(),
     enabled: !skip && !!accessToken,
@@ -43,7 +43,7 @@ export const useAuthStore = ({ skip } = { skip: true }) => {
     window.location.reload();
   };
   return {
-    isLoading,
+    isLoading: isLoading && fetchStatus !== 'idle',
     loginIsLoading,
     refreshIsLoading,
     currentUser: data,

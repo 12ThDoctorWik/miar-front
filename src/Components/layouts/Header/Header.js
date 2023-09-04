@@ -9,6 +9,7 @@ import {
   Dialog,
   Box,
   Button,
+  CircularProgress,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
@@ -50,7 +51,7 @@ export const Header = () => {
   const isMd = useMediaQuery(theme.breakpoints.up('md'));
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
   const [authIsOpen, setAuthIsOpen] = useState(false);
-  const { currentUser } = useAuthContext();
+  const { currentUser, isLoading } = useAuthContext();
 
   const handleAuth = () => setAuthIsOpen(true);
 
@@ -114,32 +115,51 @@ export const Header = () => {
           ))}
         </div>
       )}
-      {currentUser ? (
-        <div className="header__user">
-          {isMd && (
-            <Box display="flex" flexDirection="column">
-              <Typography variant="body1" color="inherit">
-                Привіт, {currentUser?.Name || 'unknown'}!
-              </Typography>
-              <Typography variant="caption" color="inherit">
-                {currentUser?.Role}
-              </Typography>
-            </Box>
-          )}
-          <ProfileMenu />
-        </div>
+      {isLoading ? (
+        <CircularProgress size={24} />
       ) : (
         <>
-          <Button variant="text" className="header__login" onClick={handleAuth}>
-            Увійти
-          </Button>
-          <Dialog
-            onClose={() => setAuthIsOpen(false)}
-            open={authIsOpen}
-            maxWidth="lg"
-          >
-            <PopupAuth onClose={() => setAuthIsOpen(false)} />
-          </Dialog>
+          {currentUser ? (
+            <div className="header__user">
+              {isMd && (
+                <Box display="flex" flexDirection="column">
+                  <Box display="flex" alignItems="baseline">
+                    Привіт,&nbsp;
+                    <Typography
+                      variant="body1"
+                      color="inherit"
+                      noWrap
+                      maxWidth={80}
+                    >
+                      {currentUser?.Name.trim() || 'unknown'}
+                    </Typography>
+                    !
+                  </Box>
+                  <Typography variant="caption" color="inherit">
+                    {currentUser?.Role}
+                  </Typography>
+                </Box>
+              )}
+              <ProfileMenu />
+            </div>
+          ) : (
+            <>
+              <Button
+                variant="text"
+                className="header__login"
+                onClick={handleAuth}
+              >
+                Увійти
+              </Button>
+              <Dialog
+                onClose={() => setAuthIsOpen(false)}
+                open={authIsOpen}
+                maxWidth="lg"
+              >
+                <PopupAuth onClose={() => setAuthIsOpen(false)} />
+              </Dialog>
+            </>
+          )}
         </>
       )}
     </nav>
