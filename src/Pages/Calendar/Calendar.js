@@ -6,6 +6,7 @@ import {
   parse,
   addWeeks,
   subWeeks,
+  addDays,
   parseISO,
   isToday,
   format,
@@ -64,13 +65,14 @@ const Calendar = () => {
   const { currentUser } = useAuthContext();
   const { showGameForm } = useGamesContext();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [savedFilters, setSavedFilters] = useLocalStorage('calendar-filters', {
-    from: '2023-09-03',
-    to: '2023-09-09',
-  });
+  const [savedFilters, setSavedFilters] = useLocalStorage(
+    'calendar-filters',
+    {}
+  );
   const filters = useMemo(() => {
-    const from = searchParams.get('from') || '2023-09-03';
-    const to = searchParams.get('to') || '2023-09-09';
+    const from = searchParams.get('from') || format(new Date(), 'yyyy-MM-dd');
+    const to =
+      searchParams.get('to') || format(addDays(new Date(), 6), 'yyyy-MM-dd');
 
     if (isBefore(parseISO(to), parseISO(from))) return null;
 

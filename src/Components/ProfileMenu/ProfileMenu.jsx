@@ -8,6 +8,7 @@ import { DialogWrapper } from '../DialogWrapper';
 import { DiceConForm } from '../DiceConForm/DiceConForm';
 import { useAuthContext } from '@providers/AuthProvider';
 import { Avatar } from '@components/common/Avatar';
+import { NavLink } from 'react-router-dom';
 
 export const ProfileMenu = () => {
   const theme = useTheme();
@@ -50,10 +51,10 @@ export const ProfileMenu = () => {
           onClick={() => handleToggleMenu()}
         >
           <Typography color="white">Аккаунт</Typography>
-        </MenuItem> */}
+        </MenuItem>
         <MenuItem onClick={handleDiceCon}>
           <Typography color="white">DiceCon</Typography>
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem onClick={handleLogout}>
           <Typography color="red">Вийти</Typography>
         </MenuItem>
