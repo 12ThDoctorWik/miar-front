@@ -26,9 +26,12 @@ export const useSessionStore = id => {
   });
 
   const { mutateAsync: register, isLoading: isRegistering } = useMutation({
-    mutationFn: id => service.register(id),
-    onSuccess: (_, id) => {
-      queryClient.invalidateQueries([...QUERY_KEYS.SESSION, { id: `${id}` }]);
+    mutationFn: params => service.register(params),
+    onSuccess: (_, { sessionId }) => {
+      queryClient.invalidateQueries([
+        ...QUERY_KEYS.SESSION,
+        { id: `${sessionId}` },
+      ]);
     },
   });
 

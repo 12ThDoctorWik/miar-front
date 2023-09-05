@@ -1,9 +1,12 @@
 import { Box, CircularProgress, Typography, Grid } from '@mui/material';
+import { format } from 'date-fns';
 import { useUserSessionsStore } from '@features/sessions/hooks';
-import { GameCard } from '@components/GameCard/GameCard.js';
+import { GameCard } from '@components/GameCard/GameCard';
 
 export const AccountPlannedGames = () => {
-  const { userSessions, isLoading } = useUserSessionsStore({ type: 'future' });
+  const { userSessions, isLoading } = useUserSessionsStore({
+    from: format(new Date(), 'yyyy-MM-dd'),
+  });
 
   return isLoading ? (
     <Box py={10} width="100%" display="flex" justifyContent="center">

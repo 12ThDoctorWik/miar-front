@@ -1,24 +1,39 @@
-import { Box, Typography, Grid } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import { CharacterCard } from './CaracterCard';
+import { makeStyles } from '@mui/styles';
 
-export const CharacterList = ({ characters }) => {
+const useStyles = makeStyles(theme => {
+  return {
+    addButton: {
+      height: 140,
+      width: '100%',
+      border: '1px dashed #B1C5FFDE',
+      backgroundColor: '#B1C5FF1F',
+      color: '#B1C5FFDE',
+      '&:hover': {
+        backgroundColor: '#B1C5FF3D',
+      },
+    },
+  };
+});
+
+export const CharacterList = ({ characters, onAdd }) => {
+  const classes = useStyles();
+
   return (
-    <>
-      {characters?.length === 0 ? (
-        <Box display="flex" justifyContent="center">
-          <Typography variant="caption">
-            Ви ще не створили жодного персонажа.
-          </Typography>
-        </Box>
-      ) : (
-        <Grid container spacing={2}>
-          {characters.map(character => (
-            <Grid key={character.Id} item xs={12} sm={6} md={4}>
-              <CharacterCard session={character} />
-            </Grid>
-          ))}
+    <Grid container spacing={2}>
+      {!!onAdd && (
+        <Grid item xs={12} md={6}>
+          <Button classes={{ root: classes.addButton }} onClick={onAdd}>
+            Створити нового персонажа
+          </Button>
         </Grid>
       )}
-    </>
+      {characters.map(character => (
+        <Grid key={character.Id} item xs={12} md={6}>
+          <CharacterCard character={character} />
+        </Grid>
+      ))}
+    </Grid>
   );
 };

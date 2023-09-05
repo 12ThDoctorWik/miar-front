@@ -27,7 +27,7 @@ export const createThemeObject = () => {
             color: '#121316',
             ['&.' + buttonClasses.disabled]: {
               backgroundColor: 'rgba(242, 222, 161, 1)',
-              color: '#f0f0f0',
+              color: '#fff',
             },
           },
           containedSecondary: {
@@ -50,6 +50,14 @@ export const createThemeObject = () => {
         styleOverrides: {
           paper: {
             backgroundColor: 'rgba(30, 31, 34, 1)',
+            width: '100%',
+          },
+        },
+      },
+      MuiDialogActions: {
+        styleOverrides: {
+          root: {
+            padding: '16px 24px',
           },
         },
       },

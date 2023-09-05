@@ -2,20 +2,47 @@ import {
   Card,
   CardMedia,
   CardContent,
-  List,
-  ListItem,
-  ListItemText,
-  Link,
+  Typography,
+  Box,
+  Chip,
 } from '@mui/material';
 import { Avatar } from '@components/common/Avatar';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles(theme => {
+  return {
+    name: {
+      fontSize: '1rem',
+      fontWeight: 600,
+      lineHeight: '21px',
+    },
+    content: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      padding: theme.spacing(2),
+      '&:last-child': {
+        paddingBottom: theme.spacing(2),
+      },
+    },
+    chip: {
+      backgroundColor: '#FFFFFF24',
+      borderRadius: '4px',
+    },
+    chipLabel: {
+      padding: theme.spacing(0.5, 1.5),
+    },
+  };
+});
 
 export const CharacterCard = ({ character }) => {
+  const classes = useStyles();
   return (
     <Card
       sx={{
         display: 'flex',
         backgroundColor: '#FFFFFF17',
-        borderRadius: 2,
+        borderRadius: 1,
       }}
     >
       <CardMedia>
@@ -23,45 +50,22 @@ export const CharacterCard = ({ character }) => {
           src={character.AvatarLink}
           alt="Character avatar"
           variant="square"
-          sx={{ width: 100, height: 100 }}
+          sx={{ width: 140, height: 140 }}
         />
       </CardMedia>
-      <CardContent sx={{ display: 'flex', alignItems: 'center' }}>
-        <List>
-          <ListItem>
-            <ListItemText primary="Імʼя:" secondary={character.CharacterName} />
-          </ListItem>
-          <ListItem>
-            <ListItemText
-              primary="Передісторія:"
-              secondary={character.CharacterBackstory}
+      <CardContent classes={{ root: classes.content }}>
+        <Typography variant="h6" className={classes.name}>
+          {character.Name}
+        </Typography>
+        <Box>
+          {character.ClassDataModels.map(({ Level, className }, index) => (
+            <Chip
+              key={index}
+              label={`${className} ${Level}`}
+              classes={{ root: classes.chip, label: classes.chipLabel }}
             />
-          </ListItem>
-          <ListItem>
-            <ListItemText
-              primary="Посилання на DnD Beyond:"
-              secondary={
-                <Link
-                  color="#B1C5FF"
-                  target="_blank"
-                  underline="none"
-                  href={character.BeyondLink}
-                >
-                  {character.BeyondLink}
-                </Link>
-              }
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemText primary="Раса:" secondary={character.Race} />
-          </ListItem>
-          <ListItem>
-            <ListItemText
-              primary="Підоснова:"
-              secondary={character.Background}
-            />
-          </ListItem>
-        </List>
+          ))}
+        </Box>
       </CardContent>
     </Card>
   );

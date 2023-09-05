@@ -23,6 +23,9 @@ import { TOAST_LEVEL, toastSlice } from '../../Store/Slices/ToastSlice';
 import { useDispatch } from 'react-redux';
 import { useGamesContext } from '../../providers/GamesProvider';
 import { useSessionStore } from '@features/sessions/hooks';
+import { DialogWrapper } from '@components/DialogWrapper';
+import { useDialog, bindDialogState } from '@hooks/use-dialog';
+import { RegistrationConfirmationModal } from '@features/sessions/components/RegistrationConfirmationModal';
 
 export const GameDetails = ({ sessionId }) => {
   const theme = useTheme();
@@ -33,20 +36,25 @@ export const GameDetails = ({ sessionId }) => {
   const { showGameForm } = useGamesContext();
   const [canUnregister, setCanUnregister] = useState(false);
   const [canRegister, setCanRegister] = useState(false);
+  const registerConfirmationDialogState = useDialog();
 
   let image = session?.ImageURL;
   if (image === '' || image === 'string') {
     image = 'https://i.redd.it/nwpa93o6r8k31.jpg';
   }
 
-  const handleRegister = async () => {
-    await register(sessionId);
-    dispatch(
-      toastSlice.actions.showMessage(
-        'Ви зареєстровані на гру',
-        TOAST_LEVEL.GREEN
-      )
-    );
+  const handleRegister = () => {
+    registerConfirmationDialogState.open({
+      onConfirm: async ({ characterId }) => {
+        await register({ sessionId, characterId });
+        dispatch(
+          toastSlice.actions.showMessage(
+            'Ви зареєстровані на гру',
+            TOAST_LEVEL.GREEN
+          )
+        );
+      },
+    });
   };
 
   const handleUnRegister = async () => {
@@ -308,9 +316,21 @@ export const GameDetails = ({ sessionId }) => {
                       <Grid item xs={12}>
                         <Stack direction="row" spacing={2}>
                           {canRegister && (
-                            <Button onClick={handleRegister}>
-                              Зареєструватись
-                            </Button>
+                            <>
+                              <Button onClick={handleRegister}>
+                                Зареєструватись
+                              </Button>
+                              <DialogWrapper
+                                {...bindDialogState(
+                                  registerConfirmationDialogState
+                                )}
+                                maxWidth="xs"
+                                fullScreen={!isMd}
+                                disableEscapeKeyDown
+                              >
+                                <RegistrationConfirmationModal />
+                              </DialogWrapper>
+                            </>
                           )}
                           {canUnregister && (
                             <Button onClick={handleUnRegister}>

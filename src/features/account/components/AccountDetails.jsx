@@ -25,6 +25,9 @@ const useStyles = makeStyles(theme => {
     },
     cardHeader: {
       backgroundColor: '#FFFFFF05',
+      [theme.breakpoints.down('md')]: {
+        flexDirection: 'column',
+      },
     },
   };
 });
@@ -48,7 +51,10 @@ export const AccountDetails = () => {
                 alt={currentUser.Name}
                 src={currentUser.Avatar}
                 variant="square"
-                sx={{ width: 200, height: 200 }}
+                sx={{
+                  width: { xs: '100%', md: 200 },
+                  height: { xs: 320, md: 200 },
+                }}
               />
             </CardMedia>
             <Box p={5} display="flex" alignItems="center">

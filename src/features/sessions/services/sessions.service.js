@@ -6,6 +6,6 @@ export const SessionsService = {
   create: payload => axios.post('/session/create-session', payload),
   update: (id, payload) =>
     axios.post(`/session/edit-session?sessionId=${id}`, payload),
-  register: id => axios.post('/session/join-session', { sessionId: id }),
+  register: payload => axios.post('/session/join-session', payload),
   unregister: id => axios.get(`/session/leave-session?sessionId=${id}`),
 };
