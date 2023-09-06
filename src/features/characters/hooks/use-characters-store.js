@@ -27,10 +27,13 @@ export const useCharactersStore = ({ skip, ...params } = {}) => {
     isLoading,
     isRefetching,
     characters,
-    characterOptions: (data || []).map(({ Name, Id, ...rest }) => ({
-      label: Name,
-      value: Id,
-      data: rest,
-    })),
+    characterOptions: (data || []).map(
+      ({ Name, Id, IsAvailable, ...rest }) => ({
+        label: Name,
+        value: Id,
+        data: rest,
+        isDisabled: !IsAvailable,
+      })
+    ),
   };
 };

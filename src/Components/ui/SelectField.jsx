@@ -38,11 +38,17 @@ const useStyles = makeStyles({
     backgroundColor: 'rgba(30, 31, 34, 1)',
     color: '#fff',
   },
-  option: {},
+  option: {
+    cursor: 'pointer',
+  },
   optionFocused: {
     backgroundColor: 'rgba(255, 255, 255, .05)',
   },
   optionSelected: {},
+  optionDisabled: {
+    color: '#ffffff80',
+    cursor: 'not-allowed',
+  },
   singleValue: {
     color: 'currentcolor',
   },
@@ -110,10 +116,11 @@ export const SelectField = ({
               input: () => classes.input,
               menu: () => classes.menu,
               singleValue: () => classes.singleValue,
-              option: ({ isFocused, isSelected }) =>
+              option: ({ isFocused, isSelected, isDisabled }) =>
                 clsx(classes.option, {
                   [classes.optionFocused]: isFocused,
                   [classes.optionSelected]: isSelected,
+                  [classes.optionDisabled]: isDisabled,
                 }),
             }}
             classNamePrefix="select"

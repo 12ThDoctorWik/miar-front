@@ -14,8 +14,12 @@ import {
 import { SelectField } from '@components/ui/SelectField';
 import { useCharactersStore } from '@features/characters/hooks';
 
-export const RegistrationConfirmationModal = ({ onConfirm, onClose }) => {
-  const { characterOptions, isLoading } = useCharactersStore();
+export const RegistrationConfirmationModal = ({
+  sessionId,
+  onConfirm,
+  onClose,
+}) => {
+  const { characterOptions, isLoading } = useCharactersStore({ sessionId });
 
   const {
     control,
@@ -25,6 +29,8 @@ export const RegistrationConfirmationModal = ({ onConfirm, onClose }) => {
     mode: 'all',
     shouldUnregister: true,
   });
+
+  console.log(characterOptions);
 
   const handleForm = async ({ characterId }) => {
     onConfirm({ characterId });

@@ -45,6 +45,7 @@ export const GameDetails = ({ sessionId }) => {
 
   const handleRegister = () => {
     registerConfirmationDialogState.open({
+      sessionId,
       onConfirm: async ({ characterId }) => {
         await register({ sessionId, characterId });
         dispatch(
@@ -73,7 +74,7 @@ export const GameDetails = ({ sessionId }) => {
 
   useEffect(() => {
     if (session) {
-      if (session.IsOwnGame) {
+      if (!session.IsOwnGame) {
         setCanUnregister(false);
         setCanRegister(false);
       } else {
