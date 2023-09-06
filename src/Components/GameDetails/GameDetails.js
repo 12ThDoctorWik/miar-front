@@ -74,7 +74,7 @@ export const GameDetails = ({ sessionId }) => {
 
   useEffect(() => {
     if (session) {
-      if (!session.IsOwnGame) {
+      if (session.IsOwnGame) {
         setCanUnregister(false);
         setCanRegister(false);
       } else {
