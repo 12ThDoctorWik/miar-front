@@ -2,7 +2,7 @@ import axios from '@services/api';
 
 export const SessionsService = {
   get: id => axios.get(`/session/session?sessionId=${id}`),
-  list: payload => axios.post('/session/sessions', payload),
+  list: params => axios.get('/session/sessions', { params }),
   create: payload => axios.post('/session/create-session', payload),
   update: (id, payload) =>
     axios.post(`/session/edit-session?sessionId=${id}`, payload),

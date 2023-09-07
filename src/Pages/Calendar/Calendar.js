@@ -3,7 +3,6 @@ import { Link, useSearchParams } from 'react-router-dom';
 import {
   differenceInCalendarDays,
   eachDayOfInterval,
-  parse,
   addWeeks,
   subWeeks,
   addDays,
@@ -94,16 +93,12 @@ const Calendar = () => {
     });
     return (sessions || []).reduce(
       (groups, session) => {
-        const sessionDate = parse(session.StartTime, 'dd-MM HH:mm', new Date());
         const offset = differenceInCalendarDays(
-          sessionDate,
+          session.StartTime,
           parseISO(filters.from)
         );
         if (groups[offset]) {
-          groups[offset].sessions.push({
-            ...session,
-            StartTime: sessionDate,
-          });
+          groups[offset].sessions.push(session);
         }
         return groups;
       },

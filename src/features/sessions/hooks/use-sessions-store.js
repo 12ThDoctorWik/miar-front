@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { parse } from 'date-fns';
 import { SessionsService as service } from '../services';
 import { QUERY_KEYS } from '../constants';
 
@@ -12,6 +13,9 @@ export const useSessionsStore = ({ skip, ...params }) => {
   return {
     isLoading,
     isRefetching,
-    sessions: data || [],
+    sessions: (data || []).map(session => ({
+      ...session,
+      StartTime: parse(session.StartTime, 'dd-MM HH:mm', new Date()),
+    })),
   };
 };

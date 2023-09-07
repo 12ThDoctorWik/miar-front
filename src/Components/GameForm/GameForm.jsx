@@ -14,14 +14,18 @@ import {
   DialogTitle,
   DialogContent,
 } from '@mui/material';
+import { SelectField } from '@components/ui/SelectField';
 import { parse, format, parseISO } from 'date-fns';
 import { zonedTimeToUtc } from 'date-fns-tz';
 import { useDispatch } from 'react-redux';
 import { toastSlice, TOAST_LEVEL } from '../../Store/Slices/ToastSlice';
 import { useSessionStore } from '@features/sessions/hooks';
+import { useGameSystemsStore } from '@features/game-systems/hooks';
 
 export const GameForm = ({ session, onClose }) => {
   const { create, update, isCreating, isUpdating } = useSessionStore();
+  const { gameSystemOptions, isLoading: loadingGameSystems } =
+    useGameSystemsStore();
   const dispatch = useDispatch();
 
   const {
@@ -40,7 +44,7 @@ export const GameForm = ({ session, onClose }) => {
       city: session?.City,
       masterName: session?.MasterName,
       location: session?.Location,
-      system: session?.System,
+      systemId: session?.SystemId,
       date: session
         ? format(parseISO(session.StartTime), 'yyyy-MM-dd')
         : undefined,
@@ -253,21 +257,14 @@ export const GameForm = ({ session, onClose }) => {
               />
             </Grid>
             <Grid item xs={12} lg={6}>
-              <InputLabel shrink={false} htmlFor={'system'}>
-                Ігрова система
-              </InputLabel>
-              <TextField
-                id="system"
-                fullWidth
-                name="system"
-                {...register('system', {
-                  required: {
-                    value: true,
-                    message: 'Ігрова система є обовʼязковим полем',
-                  },
-                })}
-                error={!!errors.system}
-                helperText={errors.system?.message}
+              <SelectField
+                label="Ігрова система"
+                control={control}
+                rules={{ required: true }}
+                id="systemId"
+                name="systemId"
+                options={gameSystemOptions}
+                isLoading={loadingGameSystems}
               />
             </Grid>
             <Grid item xs={6} lg={3}>

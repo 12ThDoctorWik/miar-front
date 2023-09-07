@@ -1,11 +1,14 @@
 import { Box, CircularProgress, Typography, Grid } from '@mui/material';
 import { format } from 'date-fns';
-import { useUserSessionsStore } from '@features/sessions/hooks';
+import { useSessionsStore } from '@features/sessions/hooks';
+import { useAuthStore } from '@features/auth/hooks';
 import { GameCard } from '@components/GameCard/GameCard';
 
 export const AccountPlannedGames = () => {
-  const { userSessions, isLoading } = useUserSessionsStore({
-    from: format(new Date(), 'yyyy-MM-dd'),
+  const { currentUser } = useAuthStore();
+  const { sessions, isLoading } = useSessionsStore({
+    fromDate: format(new Date(), 'yyyy-MM-dd'),
+    playerId: currentUser.PlayerId,
   });
 
   return isLoading ? (
@@ -14,7 +17,7 @@ export const AccountPlannedGames = () => {
     </Box>
   ) : (
     <>
-      {userSessions?.length === 0 ? (
+      {sessions?.length === 0 ? (
         <Box display="flex" justifyContent="center">
           <Typography variant="caption">
             Ви ще не зареєстровані на жодну гру.
@@ -22,8 +25,8 @@ export const AccountPlannedGames = () => {
         </Box>
       ) : (
         <Grid container spacing={2}>
-          {userSessions.map(session => (
-            <Grid key={session.Id} item xs={12} sm={6} md={4} lg={3} xl={2}>
+          {sessions.map(session => (
+            <Grid key={session.Id} item xs={12} sm={6} md={4} lg={3}>
               <GameCard session={session} />
             </Grid>
           ))}
