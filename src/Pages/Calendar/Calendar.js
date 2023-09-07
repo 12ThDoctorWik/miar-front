@@ -201,6 +201,12 @@ const Calendar = () => {
               )}
             </Grid>
           </Box>
+          <Box py={2}>
+            <Stack direction="row" spacing={2}>
+              <Button onClick={prevWeek}>На тиждень назад</Button>
+              <Button onClick={nextWeek}>На тиждень вперед</Button>
+            </Stack>
+          </Box>
         </Container>
       </div>
       {['ADMIN', 'DM'].includes(currentUser?.Role.toUpperCase()) && (
