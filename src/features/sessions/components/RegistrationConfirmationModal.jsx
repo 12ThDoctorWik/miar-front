@@ -7,10 +7,10 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  CircularProgress,
   Grid,
   Link,
 } from '@mui/material';
+import { LoadingIndicator } from '@components/ui/LoadingIndicator';
 import { SelectField } from '@components/ui/SelectField';
 import { useCharactersStore } from '@features/characters/hooks';
 
@@ -30,8 +30,6 @@ export const RegistrationConfirmationModal = ({
     shouldUnregister: true,
   });
 
-  console.log(characterOptions);
-
   const handleForm = async ({ characterId }) => {
     onConfirm({ characterId });
     onClose();
@@ -44,7 +42,7 @@ export const RegistrationConfirmationModal = ({
         <form onSubmit={handleSubmit(handleForm)}>
           {isLoading ? (
             <Box display="flex" justifyContent="center" p={5}>
-              <CircularProgress size={36} />
+              <LoadingIndicator />
             </Box>
           ) : (
             <Grid container spacing={2}>

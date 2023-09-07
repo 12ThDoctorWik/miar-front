@@ -1,4 +1,5 @@
-import { Box, CircularProgress, Typography, Grid } from '@mui/material';
+import { Box, Typography, Grid } from '@mui/material';
+import { LoadingIndicator } from '@components/ui/LoadingIndicator';
 import { useSessionsStore } from '@features/sessions/hooks';
 import { useAuthStore } from '@features/auth/hooks';
 import { GameCard } from '@components/GameCard/GameCard';
@@ -11,7 +12,7 @@ export const AccountOwnedGames = () => {
 
   return isLoading ? (
     <Box py={10} width="100%" display="flex" justifyContent="center">
-      <CircularProgress size={36} />
+      <LoadingIndicator />
     </Box>
   ) : (
     <>

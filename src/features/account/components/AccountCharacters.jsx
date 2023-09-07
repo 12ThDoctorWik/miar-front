@@ -1,4 +1,4 @@
-import { Box, CircularProgress } from '@mui/material';
+import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { CharacterList } from '@features/characters/components/CaracterList';
@@ -6,6 +6,7 @@ import { useCharactersStore } from '@features/characters/hooks';
 import { useDialog, bindDialogState } from '@hooks/use-dialog';
 import { DialogWrapper } from '@components/DialogWrapper';
 import { CaracterFormModal } from '@features/characters/components/CaracterFormModal';
+import { LoadingIndicator } from '@components/ui/LoadingIndicator';
 
 export const AccountCharacters = () => {
   const theme = useTheme();
@@ -17,7 +18,7 @@ export const AccountCharacters = () => {
 
   return isLoading ? (
     <Box py={10} width="100%" display="flex" justifyContent="center">
-      <CircularProgress size={36} />
+      <LoadingIndicator />
     </Box>
   ) : (
     <>

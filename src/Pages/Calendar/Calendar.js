@@ -15,7 +15,6 @@ import {
   Grid,
   Container,
   Box,
-  CircularProgress,
   Button,
   Typography,
   SwipeableDrawer,
@@ -34,6 +33,7 @@ import { useGamesContext } from '@providers/GamesProvider';
 import { useAuthContext } from '@providers/AuthProvider';
 import { useSessionsStore } from '@features/sessions/hooks';
 import { useLocalStorage } from '@hooks/use-local-storage';
+import { LoadingIndicator } from '@components/ui/LoadingIndicator';
 
 import './Calendar.scss';
 
@@ -186,7 +186,7 @@ const Calendar = () => {
             <Grid container spacing={2}>
               {isLoading ? (
                 <Box py={5} width="100%" display="flex" justifyContent="center">
-                  <CircularProgress size={36} />
+                  <LoadingIndicator />
                 </Box>
               ) : (
                 groupedSessions.map(group => (

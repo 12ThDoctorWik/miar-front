@@ -5,7 +5,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import {
   Grid,
   Box,
-  CircularProgress,
   Stack,
   Typography,
   Button,
@@ -26,6 +25,7 @@ import { useSessionStore } from '@features/sessions/hooks';
 import { DialogWrapper } from '@components/DialogWrapper';
 import { useDialog, bindDialogState } from '@hooks/use-dialog';
 import { RegistrationConfirmationModal } from '@features/sessions/components/RegistrationConfirmationModal';
+import { LoadingIndicator } from '@components/ui/LoadingIndicator';
 
 export const GameDetails = ({ sessionId }) => {
   const theme = useTheme();
@@ -115,7 +115,7 @@ export const GameDetails = ({ sessionId }) => {
     <>
       {isLoading && (
         <Box py={10} width="100%" display="flex" justifyContent="center">
-          <CircularProgress size={36} />
+          <LoadingIndicator />
         </Box>
       )}
       {`${session?.Id}` === sessionId && (
