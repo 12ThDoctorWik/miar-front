@@ -49,7 +49,7 @@ export const GameCard = ({ session }) => {
               Майстер: <span className="back__data">{session.MasterName}</span>{' '}
             </div>
             <div className="back__text">
-              Що: <span className="back__data">{session.System}</span>{' '}
+              Що: <span className="back__data">{session.System?.Name}</span>{' '}
             </div>
             <div className="back__text">
               Де: <span className="back__data">{session.Location}</span>{' '}

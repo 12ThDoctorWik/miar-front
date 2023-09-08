@@ -18,8 +18,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import { checkDiceConUser, useDiceConToken } from '../../Store';
 import { useThunk } from '../../Hooks/useThunk';
 import { SLICE_STATUSES } from '../../Store/Slices/sliceStatus.const';
-import { toastSlice, TOAST_LEVEL } from '../../Store/Slices/ToastSlice';
 import image from '../../Assets/Images/DiceCon-register.webp';
+import { enqueueSnackbar } from 'notistack';
 
 export const DiceConForm = ({ onClose }) => {
   const [doUseToken, _, isLoading] = useThunk(useDiceConToken);
@@ -41,12 +41,9 @@ export const DiceConForm = ({ onClose }) => {
 
   useEffect(() => {
     if (useTokenStatus === SLICE_STATUSES.SUCCESS) {
-      dispatch(
-        toastSlice.actions.showMessage(
-          'Арканні символи зчитано, вхід в підземелля відкрито!',
-          TOAST_LEVEL.GREEN
-        )
-      );
+      enqueueSnackbar('Арканні символи зчитано, вхід в підземелля відкрито!', {
+        variant: 'success',
+      });
       onClose();
     }
   }, [useTokenStatus, dispatch, onClose]);

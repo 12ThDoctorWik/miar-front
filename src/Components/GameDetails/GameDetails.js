@@ -18,21 +18,19 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Avatar } from '@components/common/Avatar';
 import './GameDetails.scss';
 import { player, fire, fire_active } from '../../Assets/Icons/icons.js';
-import { TOAST_LEVEL, toastSlice } from '../../Store/Slices/ToastSlice';
-import { useDispatch } from 'react-redux';
 import { useGamesContext } from '../../providers/GamesProvider';
 import { useSessionStore } from '@features/sessions/hooks';
 import { DialogWrapper } from '@components/DialogWrapper';
 import { useDialog, bindDialogState } from '@hooks/use-dialog';
 import { RegistrationConfirmationModal } from '@features/sessions/components/RegistrationConfirmationModal';
 import { LoadingIndicator } from '@components/ui/LoadingIndicator';
+import { enqueueSnackbar } from 'notistack';
 
 export const GameDetails = ({ sessionId }) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'));
   const { session, register, unregister, isLoading } =
     useSessionStore(sessionId);
-  const dispatch = useDispatch();
   const { showGameForm } = useGamesContext();
   const [canUnregister, setCanUnregister] = useState(false);
   const [canRegister, setCanRegister] = useState(false);
@@ -48,30 +46,21 @@ export const GameDetails = ({ sessionId }) => {
       sessionId,
       onConfirm: async ({ characterId }) => {
         await register({ sessionId, characterId });
-        dispatch(
-          toastSlice.actions.showMessage(
-            'Ви зареєстровані на гру',
-            TOAST_LEVEL.GREEN
-          )
-        );
+        enqueueSnackbar('Ви зареєстровані на гру', { variant: 'success' });
       },
     });
   };
 
   const handleUnRegister = async () => {
     await unregister(sessionId);
-    dispatch(
-      toastSlice.actions.showMessage(
-        'Реєстрація на гру знято',
-        TOAST_LEVEL.GREEN
-      )
-    );
+    enqueueSnackbar('Реєстрація на гру знято', { variant: 'success' });
   };
 
   const handleEdit = () => {
     showGameForm({ session });
   };
 
+  // TODO: replace by memoized const
   useEffect(() => {
     if (session) {
       if (session.IsOwnGame) {
@@ -92,24 +81,6 @@ export const GameDetails = ({ sessionId }) => {
       }
     }
   }, [session]);
-
-  // useEffect(() => {
-  //   //todo fix double call
-  //   if (
-  //     registerSessionStatus === SLICE_STATUSES.SUCCESS ||
-  //     registerSessionStatus === null
-  //   ) {
-  //     doFetchSession({ id: sessionId, tokenized: !!currentUSer });
-  //   }
-  //   if (registerSessionStatus === SLICE_STATUSES.ERROR) {
-  //     dispatch(
-  //       toastSlice.actions.showMessage(
-  //         'Помилка реєстрації на гру',
-  //         TOAST_LEVEL.YELLOW
-  //       )
-  //     );
-  //   }
-  // }, [registerSessionStatus, doFetchSession, sessionId, currentUSer]);
 
   return (
     <>
@@ -171,7 +142,7 @@ export const GameDetails = ({ sessionId }) => {
                               <div className="gpInfo__line">
                                 Система:{' '}
                                 <span className="gpInfo__line_data">
-                                  {session.System}
+                                  {session.System?.Name}
                                 </span>
                               </div>
                             </div>

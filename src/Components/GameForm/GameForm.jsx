@@ -17,16 +17,14 @@ import {
 import { SelectField } from '@components/ui/SelectField';
 import { parse, format, parseISO } from 'date-fns';
 import { zonedTimeToUtc } from 'date-fns-tz';
-import { useDispatch } from 'react-redux';
-import { toastSlice, TOAST_LEVEL } from '../../Store/Slices/ToastSlice';
 import { useSessionStore } from '@features/sessions/hooks';
 import { useGameSystemsStore } from '@features/game-systems/hooks';
+import { enqueueSnackbar } from 'notistack';
 
 export const GameForm = ({ session, onClose }) => {
   const { create, update, isCreating, isUpdating } = useSessionStore();
   const { gameSystemOptions, isLoading: loadingGameSystems } =
     useGameSystemsStore();
-  const dispatch = useDispatch();
 
   const {
     control,
@@ -44,7 +42,7 @@ export const GameForm = ({ session, onClose }) => {
       city: session?.City,
       masterName: session?.MasterName,
       location: session?.Location,
-      systemId: session?.SystemId,
+      systemId: session?.System?.Id,
       date: session
         ? format(parseISO(session.StartTime), 'yyyy-MM-dd')
         : undefined,
@@ -89,12 +87,9 @@ export const GameForm = ({ session, onClose }) => {
       locationType: Number(locationType),
     };
     session ? await update({ id: session.Id, payload }) : await create(payload);
-    dispatch(
-      toastSlice.actions.showMessage(
-        session ? 'Гру відредаговано' : 'Додано нову гру',
-        TOAST_LEVEL.GREEN
-      )
-    );
+    enqueueSnackbar(session ? 'Гру відредаговано' : 'Додано нову гру', {
+      variant: 'success',
+    });
     onClose();
   };
 

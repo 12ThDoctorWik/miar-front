@@ -1,24 +1,19 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './PopupAuth.scss';
 
 import { telegram, cross_white } from '../../Assets/Icons/icons.js';
 import TelegramLoginButton from '../../Auth/CustomTelegramLogin';
-import { useDispatch } from 'react-redux';
-import { TOAST_LEVEL, toastSlice } from '../../Store/Slices/ToastSlice';
 import { useAuthContext } from '@providers/AuthProvider';
+import { enqueueSnackbar } from 'notistack';
 
 function PopupAuth({ onClose }) {
-  const dispatch = useDispatch();
   const { login } = useAuthContext();
 
   const handleLogin = async data => {
     await login(data);
-    dispatch(
-      toastSlice.actions.showMessage(
-        'Вхід виконано. Вдалого пошуку скарбів',
-        TOAST_LEVEL.RED
-      )
-    );
+    enqueueSnackbar('Вхід виконано. Вдалого пошуку скарбів', {
+      variant: 'success',
+    });
   };
 
   return (
