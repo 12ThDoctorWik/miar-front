@@ -18,7 +18,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Avatar } from '@components/common/Avatar';
 import './GameDetails.scss';
 import { player, fire, fire_active } from '../../Assets/Icons/icons.js';
-import { useGamesContext } from '../../providers/GamesProvider';
+import { useSessionsContext } from '@features/sessions/providers/SessionsProvider';
 import { useSessionStore } from '@features/sessions/hooks';
 import { DialogWrapper } from '@components/DialogWrapper';
 import { useDialog, bindDialogState } from '@hooks/use-dialog';
@@ -31,7 +31,7 @@ export const GameDetails = ({ sessionId }) => {
   const isMd = useMediaQuery(theme.breakpoints.up('md'));
   const { session, register, unregister, isLoading } =
     useSessionStore(sessionId);
-  const { showGameForm } = useGamesContext();
+  const { showSessionForm } = useSessionsContext();
   const [canUnregister, setCanUnregister] = useState(false);
   const [canRegister, setCanRegister] = useState(false);
   const registerConfirmationDialogState = useDialog();
@@ -57,7 +57,7 @@ export const GameDetails = ({ sessionId }) => {
   };
 
   const handleEdit = () => {
-    showGameForm({ session });
+    showSessionForm({ session });
   };
 
   // TODO: replace by memoized const

@@ -5,7 +5,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { useLocalStorage } from '@hooks/use-local-storage';
 import { GameDetails } from '../../Components/GameDetails/GameDetails';
 
-export const GamePage = () => {
+export const Session = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [savedFilters] = useLocalStorage('calendar-filters', {});
@@ -30,7 +30,7 @@ export const GamePage = () => {
     return () => {
       document.removeEventListener('keydown', keyDownHandler);
     };
-  }, []);
+  }, [calendarPath, navigate]);
 
   return (
     <Container maxWidth="lg" sx={{ paddingTop: 2 }}>
@@ -47,4 +47,4 @@ export const GamePage = () => {
   );
 };
 
-export default GamePage;
+export default Session;

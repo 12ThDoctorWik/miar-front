@@ -40,7 +40,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-app-rewired start --port 3001",
+    "start": "PORT=3001 react-app-rewired start",
     "build": "react-app-rewired build",
     "prettier": "prettier --config .prettierrc \"./src/**/*.{js,jsx}\" --write"
   },

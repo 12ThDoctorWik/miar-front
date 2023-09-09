@@ -8,7 +8,7 @@ import { SnackbarProvider } from 'notistack';
 import Overlay from '@components/Overlay/Overlay.js';
 import { createThemeObject } from './theme';
 
-import { GamesProvider } from '@providers/GamesProvider';
+import { SessionsProvider } from '@features/sessions/providers/SessionsProvider';
 import { AuthProvider } from '@providers/AuthProvider';
 import { routes } from '@/routes';
 
@@ -36,13 +36,13 @@ function App() {
               anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
             >
               <AuthProvider>
-                <GamesProvider>
+                <SessionsProvider>
                   <RouterProvider
                     router={router}
                     fallbackElement={<p>Loading...</p>}
                   />
                   <Overlay />
-                </GamesProvider>
+                </SessionsProvider>
               </AuthProvider>
             </SnackbarProvider>
           </StyledEngineProvider>

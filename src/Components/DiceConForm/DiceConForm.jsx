@@ -21,6 +21,7 @@ import { SLICE_STATUSES } from '../../Store/Slices/sliceStatus.const';
 import image from '../../Assets/Images/DiceCon-register.webp';
 import { enqueueSnackbar } from 'notistack';
 
+// DEPRECATED
 export const DiceConForm = ({ onClose }) => {
   const [doUseToken, _, isLoading] = useThunk(useDiceConToken);
   const [doCheckUser, __, isChecking] = useThunk(checkDiceConUser);

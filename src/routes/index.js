@@ -1,10 +1,10 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import Landing from '@pages/Landing';
-import GamePage from '@pages/GamePage/GamePage';
-import Calendar from '@pages/Calendar/Calendar';
-import Account from '@pages/Account';
 import { MainLayout } from '@components/layouts/MainLayout';
 import { AuthenticatedRoutes } from '@features/auth/components/AuthenticatedRoutes';
+import Landing from '@pages/Landing';
+import Sessions from '@pages/calendar/Sessions';
+import Session from '@pages/calendar/Session';
+import Account from '@pages/Account';
 
 export const routes = [
   {
@@ -21,12 +21,12 @@ export const routes = [
         children: [
           {
             path: '',
-            element: <Calendar />,
+            element: <Sessions />,
             handle: { scrollMode: 'pathname' },
           },
           {
             path: ':id',
-            element: <GamePage />,
+            element: <Session />,
           },
         ],
       },
