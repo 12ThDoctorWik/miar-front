@@ -1,0 +1,177 @@
+@use '../../UI/colors.scss' as *;
+@import '../../UI/Text.scss';
+
+.front,
+.back {
+  border-radius: 6px;
+  background-position: center;
+  background-size: cover;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transition: ease-in-out 600ms;
+}
+
+.front {
+  background-size: cover;
+  background-position: center;
+
+  transform-style: preserve-3d;
+  transition: ease-in-out 600ms;
+
+  overflow: hidden;
+
+  &:before {
+    position: absolute;
+    display: block;
+    content: '';
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.25;
+    z-index: -1;
+  }
+
+  .gameCard:hover & {
+    transform: rotateY(180deg);
+  }
+}
+
+.back {
+  background: rgba(30, 31, 34, 255);
+  transform: rotateY(-180deg);
+  padding: 16px;
+  padding-top: 25px;
+  box-sizing: border-box;
+  color: white;
+
+  font-family: 'Inter';
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 25px;
+  letter-spacing: -0.019em;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  // align-items: flex-start;
+
+  .gameCard:hover & {
+    transform: rotateY(0deg);
+  }
+
+  .gameCard:nth-child(even) & {
+    transform: rotateY(180deg);
+
+    .button {
+      background: linear-gradient(135deg, adjust-hue(red, -20deg), red);
+
+      &:before {
+        box-shadow: 0 0 10px 10px rgba(red, 0.25);
+        background-color: rgba(red, 0.25);
+      }
+    }
+  }
+
+  .gameCard:nth-child(even):hover & {
+    transform: rotateY(0deg);
+  }
+
+  &__info {
+    // background-color: red;
+    align-self: flex-start;
+  }
+
+  &__text {
+    margin-bottom: 5px;
+  }
+
+  &__data {
+    color: rgba(255, 255, 255, 0.6);
+    margin-left: 5px;
+  }
+
+  &__btn {
+    text-align: center;
+    background-color: $gold;
+    color: black;
+    width: 93%;
+    padding: 8px;
+    border-radius: 4px;
+  }
+}
+
+.gameCard {
+  display: block;
+  max-width: 261px;
+  height: 360px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+
+  border-radius: 8px;
+  perspective: 1000px;
+
+  @media (max-width: 600px) {
+    margin: 0 auto;
+  }
+
+  &__overlay {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    padding: 10px 10px;
+    border-radius: 8px;
+    background: linear-gradient(0deg, #232426 0%, rgba(35, 36, 38, 0) 100%);
+  }
+
+  &__title {
+    @include regularText;
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 25px;
+    letter-spacing: -0.019em;
+    text-align: left;
+
+    margin-bottom: 10px;
+  }
+
+  &__data {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  &__line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 25px;
+    letter-spacing: -0.019em;
+  }
+
+  &__marks {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+  }
+
+  &__mark {
+    width: 100%;
+  }
+}

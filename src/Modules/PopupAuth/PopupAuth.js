@@ -1,7 +1,7 @@
 import React from 'react';
 import './PopupAuth.scss';
 
-import { telegram, cross_white } from '../../Assets/Icons/icons.js';
+import { telegram, cross_white } from '@assets/Icons/icons.js';
 import TelegramLoginButton from '../../Auth/CustomTelegramLogin';
 import { useAuthContext } from '@providers/AuthProvider';
 import { enqueueSnackbar } from 'notistack';

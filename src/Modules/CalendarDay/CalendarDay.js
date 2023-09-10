@@ -1,8 +1,8 @@
 import { format } from 'date-fns';
 import { Grid, Box, Divider } from '@mui/material';
-import { GameCard } from '../../Components/GameCard/GameCard.js';
+import { GameCard } from '@components/GameCard/GameCard.js';
 import './CalendarDay.scss';
-import SoonGameCard from '../../Components/SoonGameCard/SoonGameCard.js';
+import SoonGameCard from '@components/SoonGameCard/SoonGameCard.js';
 
 export const CalendarDay = ({ date, sessions, isToday }) => {
   return (

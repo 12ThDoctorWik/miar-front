@@ -6,11 +6,11 @@
       "@pages/*": ["src/pages/*"],
       "@features/*": ["src/features/*"],
       "@providers/*": ["src/providers/*"],
-      "@components/*": ["src/Components/*"],
+      "@components/*": ["src/components/*"],
       "@modules/*": ["src/Modules/*"],
       "@hooks/*": ["src/hooks/*"],
       "@services/*": ["src/services/*"],
-      "@assets/*": ["src/Assets/*"],
+      "@assets/*": ["src/assets/*"],
       "@constants/*": ["src/constants/*"]
     }
   }

@@ -11,7 +11,7 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { styled } from '@mui/material/styles';
 
-import CustomizedCheckbox from '../../Components/Filters/Checkbox.js';
+import CustomizedCheckbox from '@components/Filters/Checkbox.js';
 
 export default function Filters() {
   const [isChecked, setIsChecked] = useState(false);

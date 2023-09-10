@@ -1,0 +1,128 @@
+@use '@/UI/colors.scss' as *;
+@import '@/UI/Text.scss';
+
+.header {
+  background-color: rgba(18, 19, 22, 0.5);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: auto;
+
+  z-index: 10;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+  &.container {
+    @media (max-width: 900px) {
+      padding: 0 0.5rem;
+    }
+  }
+
+  &__logo {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    @include decorativeText;
+    color: $gold;
+    text-decoration: none;
+
+    @media (max-width: 900px) {
+      font-size: 22px;
+    }
+  }
+
+  &__nav {
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-self: flex-end;
+    gap: 60px;
+
+    @include regularText;
+
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  &__login {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    @include regularText;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  &__user {
+    @include regularText;
+    color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    column-gap: 0.5rem;
+    align-items: center;
+    & * {
+      line-height: 1;
+      text-align: right;
+    }
+    &-avatar {
+      border-radius: 50%;
+      height: 32px;
+      width: 32px;
+      grid-row-start: 1;
+      grid-row-end: 3;
+      grid-column-start: 2;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__link {
+    all: unset;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &.active {
+      position: relative;
+      color: $gold;
+      &::before {
+        content: '';
+        position: absolute;
+
+        bottom: 0;
+        right: 0;
+        left: 0;
+        height: 4px;
+
+        background-color: $gold;
+      }
+    }
+  }
+
+  .MenuIcon {
+    color: $gold;
+  }
+}
+
+.drawer {
+  &__content {
+    box-sizing: border-box;
+    background-color: $darkBlue;
+    width: 100vw;
+    min-height: 100vh;
+    padding-top: 4rem;
+    @include regularText;
+    color: rgba(255, 255, 255, 0.5);
+  }
+  &__close {
+    position: fixed !important; // TODO: check class priorities
+    top: 1rem;
+    right: 1rem;
+    & > * {
+      color: $gold;
+    }
+  }
+}
