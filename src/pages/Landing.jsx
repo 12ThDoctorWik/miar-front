@@ -14,7 +14,6 @@ const Landing = () => {
   return (
     <>
       <Helmet>
-        <meta charSet="utf-8" />
         <title>{title}</title>
         <meta name="description" content={description} />
         {/* TODO: додати keywords (хто шарить які) */}
