@@ -17,7 +17,8 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles(theme => ({
   currentRange: {
-    display: 'inline-block',
+    display: 'flex',
+    alignItems: 'center',
     backgroundColor: '#FFFFFF0D',
     borderRadius: 4,
     padding: theme.spacing(1, 2),
@@ -27,6 +28,10 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 400,
     lineHeight: 1.5,
     letterSpacing: '-0.019em',
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+      justifyContent: 'center',
+    },
   },
   navButton: {
     border: '1px solid #B1C5FF1F',
@@ -98,37 +103,42 @@ export const SessionListToolbar = ({ count, isLoading }) => {
           </span>
         )}
       </Grid>
-      <Grid item xs={12} md={6} display="flex" justifyContent="flex-end">
-        <Stack direction="row" spacing={1}>
-          <IconButton
-            onClick={prevPeriod}
-            disabled={!(timeRange.from && timeRange.to)}
-            className={classes.navButton}
-          >
-            <ChevronLeftIcon />
-          </IconButton>
-          {timeRange.from && timeRange.to && (
-            <Box className={classes.currentRange}>
-              {format(
-                timeRange.from,
-                isSameMonth(timeRange.from, timeRange.to)
-                  ? 'd'
-                  : isSameYear(timeRange.from, timeRange.to)
-                  ? 'd MMMM'
-                  : 'd MMMM, yyyy'
-              )}
-              &nbsp;&ndash;&nbsp;
-              {format(timeRange.to, 'd MMMM, yyyy')}
-            </Box>
-          )}
-          <IconButton
-            onClick={nextPeriod}
-            disabled={!(timeRange.from && timeRange.to)}
-            className={classes.navButton}
-          >
-            <ChevronRightIcon />
-          </IconButton>
-        </Stack>
+      <Grid
+        item
+        xs={12}
+        md={6}
+        display="flex"
+        gap={1}
+        sx={{ justifyContent: { md: 'flex-end' } }}
+      >
+        <IconButton
+          onClick={prevPeriod}
+          disabled={!(timeRange.from && timeRange.to)}
+          className={classes.navButton}
+        >
+          <ChevronLeftIcon />
+        </IconButton>
+        {timeRange.from && timeRange.to && (
+          <Box className={classes.currentRange}>
+            {format(
+              timeRange.from,
+              isSameMonth(timeRange.from, timeRange.to)
+                ? 'd'
+                : isSameYear(timeRange.from, timeRange.to)
+                ? 'd MMMM'
+                : 'd MMMM, yyyy'
+            )}
+            &nbsp;&ndash;&nbsp;
+            {format(timeRange.to, 'd MMMM, yyyy')}
+          </Box>
+        )}
+        <IconButton
+          onClick={nextPeriod}
+          disabled={!(timeRange.from && timeRange.to)}
+          className={classes.navButton}
+        >
+          <ChevronRightIcon />
+        </IconButton>
       </Grid>
     </Grid>
   );
