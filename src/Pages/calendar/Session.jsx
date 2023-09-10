@@ -1,28 +1,22 @@
-import { useEffect, useMemo } from 'react';
-import { useParams, NavLink, useNavigate } from 'react-router-dom';
+import { useEffect, useCallback } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Stack, Box, IconButton, Typography } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { useLocalStorage } from '@hooks/use-local-storage';
 import { GameDetails } from '../../Components/GameDetails/GameDetails';
 
 export const Session = () => {
   const params = useParams();
   const navigate = useNavigate();
-  const [savedFilters] = useLocalStorage('calendar-filters', {});
 
-  const calendarPath = useMemo(() => {
-    const { from, to } = savedFilters;
-    if (from && to) {
-      return `/calendar?from=${from}&to=${to}`;
-    }
-    return '/calendar';
-  }, [savedFilters]);
+  const goBack = useCallback(() => {
+    navigate(-1) || navigate('/calendar');
+  }, [navigate]);
 
   useEffect(() => {
     const keyDownHandler = event => {
       if (event.key === 'Escape') {
         event.preventDefault();
-        navigate(calendarPath);
+        goBack();
       }
     };
 
@@ -30,13 +24,13 @@ export const Session = () => {
     return () => {
       document.removeEventListener('keydown', keyDownHandler);
     };
-  }, [calendarPath, navigate]);
+  }, [goBack]);
 
   return (
     <Container maxWidth="lg" sx={{ paddingTop: 2 }}>
       <Stack spacing={1}>
         <Box display="flex" alignItems="center" gap={1}>
-          <IconButton component={NavLink} to={calendarPath}>
+          <IconButton onClick={goBack}>
             <ArrowBackIosIcon sx={{ color: '#fff' }} />
           </IconButton>
           <Typography color="white">Вибрана ігрова партія</Typography>

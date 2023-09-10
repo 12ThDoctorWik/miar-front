@@ -1,5 +1,5 @@
 import { useState, useEffect, useLayoutEffect } from 'react';
-import { addDays, parseISO, format } from 'date-fns';
+import { addDays, parseISO, format, isSameDay } from 'date-fns';
 import {
   Container,
   Box,
@@ -19,6 +19,7 @@ import { useSessionsContext } from '@features/sessions/providers/SessionsProvide
 import { useAuthContext } from '@providers/AuthProvider';
 import { SessionList } from '@features/sessions/components/SessionList';
 import { useCustomSearchParams } from '@hooks/use-custom-search-params';
+import { useSearchParams } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => {
   return {
@@ -63,27 +64,17 @@ const Sessions = () => {
   const isMd = useMediaQuery(theme.breakpoints.up('md'));
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
   const { currentUser } = useAuthContext();
-  const { showSessionForm, timeRange, setTimeRange } = useSessionsContext();
-  const [searchParams, setSearchParams] = useCustomSearchParams({});
+  const { showSessionForm, setTimeRange } = useSessionsContext();
+  const [searchParams] = useSearchParams();
 
-  // TODO: set time range to search params & localStorage
-  // useEffect(() => {
-  //   localStorage.setItem('calendar-filters', JSON.stringify(searchParams));
-  // }, [searchParams]);
-
-  // useEffect(() => {
-  //   setSearchParams({
-  //     from: format(timeRange.from, 'yyyy-MM-dd'),
-  //     to: format(timeRange.to, 'yyyy-MM-dd'),
-  //   });
-  // }, [timeRange, setSearchParams]);
-
-  useEffect(() => {
+  useLayoutEffect(() => {
+    const from = searchParams.get('from');
+    const to = searchParams.get('to');
     setTimeRange({
-      from: searchParams.from ? parseISO(searchParams.from) : new Date(),
-      to: searchParams.to ? parseISO(searchParams.to) : addDays(new Date(), 6),
+      from: from ? parseISO(from) : new Date(),
+      to: to ? parseISO(to) : addDays(new Date(), 6),
     });
-  }, []);
+  }, [searchParams, setTimeRange]);
 
   return (
     <div className={classes.wrapper}>

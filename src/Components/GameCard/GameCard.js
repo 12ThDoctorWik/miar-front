@@ -83,7 +83,12 @@ export const GameCard = ({ session }) => {
               </span>{' '}
             </div>
           </div>
-          <Button component={NavLink} to={`/calendar/${session.Id}`}>
+          <Button
+            component={NavLink}
+            to={{
+              pathname: `/calendar/${session.Id}`,
+            }}
+          >
             Детальніше
           </Button>
         </div>
