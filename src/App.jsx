@@ -10,6 +10,7 @@ import { createThemeObject } from './theme';
 
 import { SessionsProvider } from '@features/sessions/providers/SessionsProvider';
 import { AuthProvider } from '@providers/AuthProvider';
+import { HelmetProvider } from 'react-helmet-async';
 import { routes } from '@/routes';
 
 const router = createBrowserRouter(routes);
@@ -31,21 +32,23 @@ function App() {
     <div className="App">
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
-          <StyledEngineProvider injectFirst>
-            <SnackbarProvider
-              anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-            >
-              <AuthProvider>
-                <SessionsProvider>
-                  <RouterProvider
-                    router={router}
-                    fallbackElement={<p>Loading...</p>}
-                  />
-                  <Overlay />
-                </SessionsProvider>
-              </AuthProvider>
-            </SnackbarProvider>
-          </StyledEngineProvider>
+          <HelmetProvider>
+            <StyledEngineProvider injectFirst>
+              <SnackbarProvider
+                anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+              >
+                <AuthProvider>
+                  <SessionsProvider>
+                    <RouterProvider
+                      router={router}
+                      fallbackElement={<p>Loading...</p>}
+                    />
+                    <Overlay />
+                  </SessionsProvider>
+                </AuthProvider>
+              </SnackbarProvider>
+            </StyledEngineProvider>
+          </HelmetProvider>
         </ThemeProvider>
       </QueryClientProvider>
     </div>

@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { LandingBanner } from '@features/landing/components/LandingBanner';
 import { LandingAboutTRPG } from '@features/landing/components/LandingAboutTRPG';
 import { LandingInfo } from '@features/landing/components/LandingInfo';
