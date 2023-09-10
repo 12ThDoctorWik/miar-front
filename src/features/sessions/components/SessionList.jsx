@@ -44,7 +44,7 @@ export const SessionList = () => {
     <Box py={2}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <SessionListToolbar />
+          <SessionListToolbar count={sessions.length} isLoading={isLoading} />
         </Grid>
         {isLoading ? (
           <Grid item xs={12}>
