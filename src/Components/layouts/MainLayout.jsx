@@ -3,6 +3,7 @@ import { useOutlet, useLocation, ScrollRestoration } from 'react-router-dom';
 //import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import { routes } from '@/routes';
 import { Header } from './Header/Header';
+import { Footer } from './Footer';
 
 export const MainLayout = () => {
   const location = useLocation();
@@ -30,6 +31,7 @@ export const MainLayout = () => {
           }}
         />
       </main>
+      <Footer />
       {/* )}
         </CSSTransition>
       </SwitchTransition> */}
