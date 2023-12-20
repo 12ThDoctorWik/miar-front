@@ -94,7 +94,11 @@ const Calendar = () => {
     });
     return (sessions || []).reduce(
       (groups, session) => {
-        const sessionDate = parse(session.StartTime, 'dd-MM-yyyy HH:mm', new Date());
+        const sessionDate = parse(
+          session.StartTime,
+          'dd-MM-yyyy HH:mm',
+          new Date()
+        );
         const offset = differenceInCalendarDays(
           sessionDate,
           parseISO(filters.from)
